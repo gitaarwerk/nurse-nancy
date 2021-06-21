@@ -2,14 +2,13 @@
 ## X-Min-Interface: 90005
 ## Version: @project-version@
 ## Title: Nurse Nancy
-## SavedVariablesPerCharacter: NurseNancyVars
 ## Author: Darkrider - Talnivarr (EU)
 ## Notes: Tell when you are rezzing an ally, with a funny quote. Command: /nn
-## X-Category: Boss encounters, Raid, Chat, Healer, RP, Fun
 ## DefaultState: enabled
 ## LoadOnDemand: 0
+## SavedVariablesPerCharacter: NurseNancyVars
+## X-Category: Boss encounters, Raid, Chat, Healer, RP, Fun
 ## X-Credits: Sueyen - Talnivarr
-
 ## X-License: All Rights Reserved
 ## X-Date: @project-date-iso@
 ## X-Website: https://www.curseforge.com/wow/addons/nurse-nancy
