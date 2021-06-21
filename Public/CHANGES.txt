@@ -1,0 +1,10 @@
+tag ec745d63d806c8246769938a13009b193525fb60 1.0.1
+Author:	Gitaarwerk <>
+Date:	Tue Jun 23 09:02:19 2020 +0200
+
+commit 6083bab28419d3530d32e3a6ba5939f0cfca1575
+Author: Gitaarwerk <>
+Date:   Tue Jun 23 09:01:55 2020 +0200
+
+    Remove line print of loaded addon
+

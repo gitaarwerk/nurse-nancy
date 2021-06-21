@@ -1,0 +1,16 @@
+package-as: NurseNancy
+
+enable-nolib-creation: no
+
+move-folders:
+  NurseNancy/public: NurseNancy
+
+ignore: # Files and directories beginning with a dot (such as .git) are automatically ignored, as is the pgkmeta file itself.
+  - LICENSE
+  - README.md
+  - curseForgeText.txt
+  - pkgmeta.yaml
+  - .gitignore
+
+license-output: LICENSE.txt
+
