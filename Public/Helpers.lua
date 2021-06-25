@@ -80,7 +80,7 @@ end
 
 
 function getCharacterinfo(target)
-    local genderTable = { "neuter or unknown", "male", "female" };
+    local genderTable = { "neutral or unknown", "male", "female" };
     local playerClass, englishClass, classIndex = UnitClass(target);
     local name, upName, level = UnitName(target)
     local unitLevel = UnitLevel(target)
@@ -92,7 +92,11 @@ end
 
 
 function NurseNancy.Helpers.GetTargetInformation(uid)
-    return getCharacterinfo(uid)
+    local genderTable = { "neutral or unknown", "male", "female" };
+    local targetClass, engClass, targetRace, engRace, gender, targetName, server = GetPlayerInfoByGUID(uid)
+    local targetGender = genderTable[UnitSex(uid)]
+
+    return targetName, targetGender, targetClass, targetRace
 end
 
 

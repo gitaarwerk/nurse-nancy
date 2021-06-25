@@ -1,18 +1,11 @@
-## Interface: 90005
-## X-Min-Interface: 90005
-## Version: @project-version@
+## Interface: 90500
 ## Title: Nurse Nancy
-## Author: Darkrider - Talnivarr (EU)
-## Notes: Tell when you are rezzing an ally, with a funny quote. Command: /nn
-## DefaultState: enabled
-## LoadOnDemand: 0
+## Version: 0.0.2
 ## SavedVariablesPerCharacter: NurseNancyVars
-## X-Category: Boss encounters, Raid, Chat, Healer, RP, Fun
-## X-Credits: Sueyen - Talnivarr
+## Author: Darkrider - Talnivarr (EU), Sueyen - Talnivarr
+## Notes: Ress thing
+## X-Category: Boss encounters, Raid, Chat, Healer
 ## X-License: All Rights Reserved
-## X-Date: @project-date-iso@
-## X-Website: https://www.curseforge.com/wow/addons/nurse-nancy
-## X-Curse-Project-ID: 495342
 
 Init.lua
 Main.xml

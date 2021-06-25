@@ -45,8 +45,8 @@ function NurseNancy.Ressurection.speakSelfRess(spellId)
 end
 
 function NurseNancy.Ressurection.speakSingleRess(targetGUID, spellId)
-    local playerName, playerGender, playerClass, playerRace, playerLevel  = Ressurection.Helpers.GetPlayerInformation()
-    local targetName, targetGender, targetClass, targetRace, targetLevel  = Ressurection.Helpers.GetTargetInformation()
+    local playerName, playerGender, playerClass, playerRace, playerLevel = NurseNancy.Helpers.GetPlayerInformation()
+    local targetName, targetGender, targetClass, targetRace = NurseNancy.Helpers.GetTargetInformation(targetGUID)
     
     local playerGuyGirl = NurseNancy.Helpers.GetGuyGirl(playerGender)
     local playerManWoman = NurseNancy.Helpers.GetManWoman(playerGender)
@@ -67,7 +67,7 @@ function NurseNancy.Ressurection.speakSingleRess(targetGUID, spellId)
         "Now rezzing ${targetNAme}. Your reputation with [Floor] has been increased by 100.",
         "Wake up! Wake up!, ${targetName}.",
         "Rezzing: ${targetName}, get back to work!",
-        "Sorry to break your dream, ${targetNAme}, but the princess ain't in another castle!",
+        "Sorry to break your dream, ${targetName}, but the princess ain't in another castle!",
         "You know, ${targetName}, the floor doesn't contain any floor heating, so get up and work it, baby!",
         "This ${targetName} is always resting,... Get back in your body and do your job, ${targetClass}!",
         "${targetName} has failed at living. Please deposit 50g to try again.",
@@ -121,15 +121,14 @@ function NurseNancy.Ressurection.speakSingleRess(targetGUID, spellId)
             targetGender = targetGender, 
             targetClass = targetClass, 
             targetRace = targetRace, 
-            targetLevel = targetLevel,
             oppositeSex = oppositeSex,
         }
     )
 end
 
 function NurseNancy.Ressurection.speakCombatRess(targetGUID, spellId)
-    local playerName, playerGender, playerClass, playerRace, playerLevel  = Ressurection.Helpers.GetPlayerInformation()
-    local targetName, targetGender, targetClass, targetRace, targetLevel  = Ressurection.Helpers.GetTargetInformation()
+    local playerName, playerGender, playerClass, playerRace, playerLevel = NurseNancy.Helpers.GetPlayerInformation()
+    local targetName, targetGender, targetClass, targetRace = NurseNancy.Helpers.GetTargetInformation(targetGUID)
     local zoneName = GetRealZoneText()
 
     local playerGuyGirl = NurseNancy.Helpers.GetGuyGirl(playerGender)
@@ -224,7 +223,6 @@ function NurseNancy.Ressurection.speakCombatRess(targetGUID, spellId)
             targetGender = targetGender, 
             targetClass = targetClass, 
             targetRace = targetRace, 
-            targetLevel = targetLevel,
             oppositeSex = oppositeSex,
             zoneName = zoneName
         }
@@ -282,31 +280,38 @@ function NurseNancy.Ressurection.Run()
     NurseNancy.Ressurection.Frame = CreateFrame("Frame")
     NurseNancy.Ressurection.Frame:RegisterEvent("UNIT_SPELLCAST_SENT")
     NurseNancy.Ressurection.Frame:RegisterEvent("UNIT_SPELLCAST_START")
+    NurseNancy.Ressurection.Frame:RegisterEvent("UNIT_SPELLCAST_CHANNEL_START")
+    NurseNancy.Ressurection.Frame:RegisterEvent("UNIT_SPELLCAST_CHANNEL_STOP")    
+    NurseNancy.Ressurection.Frame:RegisterEvent("UNIT_SPELLCAST_START")
 
     NurseNancy.Ressurection.Frame:SetScript("OnEvent", function (self, event, ...)
+        
     groupChannel = IsInRaid() and "RAID" or IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and "INSTANCE_CHAT" or "PARTY"
     isInParty = UnitInParty("player")
 
     
-    if (not(NurseNancyVars.isOn == true and isInParty == true)) then 
-        return
-    end
+    -- if (not(NurseNancyVars.isOn == true and isInParty == true)) then 
+    --     return
+    -- end
     
         -- do single ress
         if (event == "UNIT_SPELLCAST_SENT") then 
-            local targetType, target, spellGUID, spellId = ...
+            local castOrigin, target, spellGUID, spellId = ...
+
+            if (not(castOrigin == "player")) then
+                return 
+            end
             
             local unitIdentificator = UnitGUID(target)
-            local selfIdentifier = UnitGUID("player")
             local isInRaid = UnitInRaid(target)
             local isInParty = UnitInParty(target)
-
 
             local isCombatRess = NurseNancy.SpellIds.isCombatRess(spellID)
             local isSingleRess = NurseNancy.SpellIds.isSingleRess(spellId)
             local isSelfRess = NurseNancy.SpellIds.isSelfRess(spellId)
 
-            if ((isInRaid or isInParty) and not(unitIdentificator == selfIdentifier)) then 
+            
+            if (isInRaid or isInParty) then 
                 if (isSingleRess) then
                     line = NurseNancy.Ressurection.speakSingleRess(unitIdentificator, spellId)
                     SendChatMessage(line, groupChannel, nil, index)
@@ -324,7 +329,11 @@ function NurseNancy.Ressurection.Run()
         
         -- do mass ress
         if (event == "UNIT_SPELLCAST_START") then 
-            local unitTarget, castGUID, spellID = ...
+            local castOrigin, castGUID, spellID = ...
+
+            if (not(castOrigin == "player")) then
+                return 
+            end
             
             local isMassRess = NurseNancy.SpellIds.isMassRess(spellID)
             if (isMassRess == true) then
