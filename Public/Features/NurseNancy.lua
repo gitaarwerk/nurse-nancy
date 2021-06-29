@@ -106,6 +106,29 @@ function NurseNancy.Ressurection.speakSingleRess(targetGUID, spellId)
         table.insert(singleRessLines, "hey ${targetName} stop growing roots there! I need you to RAWR!")
     end
 
+    
+    -- engineering's kit
+    if (spellId == 8342 or spellId == 22999 or spellId == 54732) then
+        table.insert(combatRessLines, "CLEAR!")
+        table.insert(combatRessLines, "${targetName}, you might feel a slight jolt...")
+        table.insert(combatRessLines, "I'd pray for a miracle, but then ${targetName} wouldn't need these things.")
+        table.insert(combatRessLines, "${targetName}'s dead...what's the worst that could happen?")
+        table.insert(combatRessLines, "Don't worry, ${targetName}, I'm an Undermine, Inc. Certified Cable Jumper!")
+        table.insert(combatRessLines, "I saw this on House once. Piece of cake!")
+        table.insert(combatRessLines, "Have you hugged your engineer today?")
+        table.insert(combatRessLines, "I can rebuild ${targetName}, but there'll be a...slight chance of explosion.")
+        table.insert(combatRessLines, "One order of fried ${targetName}, comin' right up!")
+        table.insert(combatRessLines, "When the Light goes out, call in an engineer!")
+        table.insert(combatRessLines, "Let's see...orange to nipple, black to ground...or was it the other way around?")
+        table.insert(combatRessLines, "Zappy, zappy, ending ${targetName}'s nappy!")
+        table.insert(combatRessLines, "Huh...never noticed this warning label. 'ARCHSURGEON'S WARNING: High dosages of electricity are hazardous to one's health. Use only if patient is already dead.' Well, ${targetName} certainly fits the bill.")
+        table.insert(combatRessLines, "Finally, no more need to ask for ${targetName}'s permission to start experimentation!")
+        table.insert(combatRessLines, "The clamps on these cables leave some nasty bruises, but I don't think ${targetName} would prefer the alternative")
+        table.insert(combatRessLines, "Don't worry, ${targetName}, this is for SCIENCE!")
+        table.insert(combatRessLines, "Five gold says ${targetName} enjoys these clamps.")
+        table.insert(combatRessLines, "${targetName} has encountered a fatal error. Rebooting...")
+    end 
+
         
     local prefix = NurseNancyVars.usePrefix == true and "[Ressing ${targetName}]: " or ""
     pickedLine = singleRessLines[fastrandom(1, #singleRessLines)]
@@ -131,10 +154,12 @@ end
 function NurseNancy.Ressurection.speakCombatRess(targetGUID, spellId)
     local playerName, playerGender, playerClass, playerRace, playerLevel = NurseNancy.Helpers.GetPlayerInformation()
     local targetName, targetGender, targetClass, targetRace = NurseNancy.Helpers.GetTargetInformation(targetGUID)
-    local zoneName = GetRealZoneText()
-
+    
     local playerGuyGirl = NurseNancy.Helpers.GetGuyGirl(playerGender)
     local playerManWoman = NurseNancy.Helpers.GetManWoman(playerGender)
+
+    local prefix
+    local combatRessLines
 
     local playerSex = "girls"
 
@@ -142,18 +167,25 @@ function NurseNancy.Ressurection.speakCombatRess(targetGUID, spellId)
         oppositeSex = "guys"
     end
     
-    local combatRessLines = {
-        "Combat ress on ${targetName}.",
-        "${targetName}, always deciding to enjoy the floor while fighting. Come on, ${playerManWoman}, accept the ress!",
-        "${targetName}, stand up and walk!",
-        "In Soviet ${zoneName}, life chooses ${targetName}",
-        "${targetName}, please report to the land of the living. Your urgent assistance is required.",
-    }
-        
-    if (playerGender == "female") then 
-        table.insert(combatRessLines, "Arise my Champ... oh, I mean, you. Yes ${targetName}, there.")
-    end 
+    local zoneName = GetRealZoneText()
+    -- Standard combat ress prefix for all but Warlock
+    if (spellId == 20484 or spellId == 61999 or spellId == 159931 or spellId == 348477 or spellId == 345130) then
+        prefix = NurseNancyVars.usePrefix == true and "[Combat ressing ${targetName}]: " or ""
 
+        combatRessLines = {
+            "Combat ress on ${targetName}.",
+            "${targetName}, always deciding to enjoy the floor while fighting. Come on, ${playerManWoman}, accept the ress!",
+            "${targetName}, stand up and walk!",
+            "In Soviet ${zoneName}, life chooses ${targetName}",
+            "${targetName}, please report to the land of the living. Your urgent assistance is required.",
+            "Up up and ....awayyyyyyy!",
+        }
+
+        if (playerGender == "female") then 
+            table.insert(combatRessLines, "Arise my Champ... oh, I mean, you. Yes ${targetName}, there.")
+        end 
+    end
+        
     if (playerClass == "Death Knight") then
         table.insert(combatRessLines, "Raising hell in ${zoneName},...err, I mean raising ${targetName}")
         table.insert(combatRessLines, "Bringing the torment of undeath to ${targetName}: slower, weaker, and only slightly less dead.")
@@ -171,6 +203,7 @@ function NurseNancy.Ressurection.speakCombatRess(targetGUID, spellId)
     end
 
     if (playerClass == "Warlock") then
+        prefix = NurseNancyVars.usePrefix == true and "[Soulstone on ${targetName}]: " or ""
         table.insert(combatRessLines, "Do not worry, ${targetName}, this soulstone - shouldn't - hurt a bit...")
         table.insert(combatRessLines, "According to my Failometer, ${targetName} has a high chance of dying in the next fifteen minutes.")
         table.insert(combatRessLines, "I'm just gonna borrow your sould for a bit, ${targetName}, I promise I'll give it back... when you're dead.")
@@ -187,30 +220,7 @@ function NurseNancy.Ressurection.speakCombatRess(targetGUID, spellId)
         table.insert(combatRessLines, "FYI, ${targetName}, using a soulstone removes any chance of getting into heaven.")
     end
 
-    -- engineering's kit
-    if (spellId == 8342 or spellId == 22999 or spellId == 54732) then
-        table.insert(combatRessLines, "CLEAR!")
-        table.insert(combatRessLines, "${targetName}, you might feel a slight jolt...")
-        table.insert(combatRessLines, "I'd pray for a miracle, but then ${targetName} wouldn't need these things.")
-        table.insert(combatRessLines, "${targetName}'s dead...what's the worst that could happen?")
-        table.insert(combatRessLines, "Don't worry, ${targetName}, I'm an Undermine, Inc. Certified Cable Jumper!")
-        table.insert(combatRessLines, "I saw this on House once. Piece of cake!")
-        table.insert(combatRessLines, "Have you hugged your engineer today?")
-        table.insert(combatRessLines, "I can rebuild ${targetName}, but there'll be a...slight chance of explosion.")
-        table.insert(combatRessLines, "One order of fried ${targetName}, comin' right up!")
-        table.insert(combatRessLines, "When the Light goes out, call in an engineer!")
-        table.insert(combatRessLines, "Let's see...orange to nipple, black to ground...or was it the other way around?")
-        table.insert(combatRessLines, "Zappy, zappy, ending ${targetName}'s nappy!")
-        table.insert(combatRessLines, "Huh...never noticed this warning label. 'ARCHSURGEON'S WARNING: High dosages of electricity are hazardous to one's health. Use only if patient is already dead.' Well, ${targetName} certainly fits the bill.")
-        table.insert(combatRessLines, "Finally, no more need to ask for ${targetName}'s permission to start experimentation!")
-        table.insert(combatRessLines, "The clamps on these cables leave some nasty bruises, but I don't think ${targetName} would prefer the alternative")
-        table.insert(combatRessLines, "Don't worry, ${targetName}, this is for SCIENCE!")
-        table.insert(combatRessLines, "Five gold says ${targetName} enjoys these clamps.")
-        table.insert(combatRessLines, "${targetName} has encountered a fatal error. Rebooting...")
-    end 
-
         
-    local prefix = NurseNancyVars.usePrefix == true and "[Ressing ${targetName}]: " or ""
     pickedLine = combatRessLines[fastrandom(1, #combatRessLines)]
 
     return NurseNancy.Helpers.parseText(
@@ -310,17 +320,16 @@ function NurseNancy.Ressurection.Run()
             local isInRaid = UnitInRaid(target)
             local isInParty = UnitInParty(target)
 
-            local isCombatRess = NurseNancy.SpellIds.isCombatRess(spellID)
+            local isCombatRess = NurseNancy.SpellIds.isCombatRess(spellId)
             local isSingleRess = NurseNancy.SpellIds.isSingleRess(spellId)
             local isSelfRess = NurseNancy.SpellIds.isSelfRess(spellId)
 
-            
             if (isInRaid or isInParty) then 
                 if (isSingleRess) then
                     line = NurseNancy.Ressurection.speakSingleRess(unitIdentificator, spellId)
                     SendChatMessage(line, groupChannel, nil, index)
                 elseif (isCombatRess) then
-                    line = NurseNancy.Ressurection.speakCombatRess(targetGUID, spellId)
+                    line = NurseNancy.Ressurection.speakCombatRess(unitIdentificator, spellId)
                     SendChatMessage(line, groupChannel, nil, index)
                 elseif (isSelfRess) then
                     line = NurseNancy.Ressurection.isSelfRess(unitIdentificator, spellId)

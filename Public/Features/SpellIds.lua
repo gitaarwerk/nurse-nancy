@@ -26,8 +26,10 @@ function NurseNancy.SpellIds.isCombatRess(spellId)
         61999, -- Death knight's Raise ally
         159931, -- Hunter's Gift of Chi-ji
         20707, -- Warlock's soul stone
+        348477, -- Engineer's Disposable Spectrophasic Reanimator (older version)
+        345130, -- Engineer's Disposable Spectrophasic Reanimator
     }
-
+    
     if NurseNancy.Helpers.tableContainsValue(combatRessSpells, spellId) then
         return true
     end
