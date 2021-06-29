@@ -64,7 +64,7 @@ function NurseNancy.Ressurection.speakSingleRess(targetGUID, spellId)
         "And ${targetName} said: 'it was just a flesh wound'.", 
         "Damnit, ${targetName}, I'm a ${playerClass} not a doctor.",
         "It just happens that ${targetName} here is only MOSTLY dead.",
-        "Now rezzing ${targetNAme}. Your reputation with [Floor] has been increased by 100.",
+        "Now rezzing ${targetName}. Your reputation with [Floor] has been increased by 100.",
         "Wake up! Wake up!, ${targetName}.",
         "Rezzing: ${targetName}, get back to work!",
         "Sorry to break your dream, ${targetName}, but the princess ain't in another castle!",
@@ -75,7 +75,7 @@ function NurseNancy.Ressurection.speakSingleRess(targetGUID, spellId)
         "Currently interrupting %T's love affair with the floor in 3....2....1.",
         "Here lies ${targetName}, my autumn flower. A lot less attractive now that you're all corpsified and gross.",
         "By the feeling, ${targetName} is still warm, but as I am being watched right now, i’ll just ress you instead,… of other things i wanted to do",
-        "${targetNAme} brought to life by Spirit Travels, Inc. Have you considered our Frequent Death program?",
+        "${targetName} brought to life by Spirit Travels, Inc. Have you considered our Frequent Death program?",
         "It was just an ordinary gas cloud, ${targetName} said.",
         "${targetName}, by clicking 'Accept', you, the resurrectee, hereby consign your soul to the resurrecter, i.e., me.",
         "Giving ${targetName} a shot at another 10% durability loss, please stand by.",
@@ -157,7 +157,7 @@ function NurseNancy.Ressurection.speakCombatRess(targetGUID, spellId)
         table.insert(combatRessLines, "Bringing the torment of undeath to ${targetName}: slower, weaker, and only slightly less dead.")
         table.insert(combatRessLines, "Raising ${targetName} into unlife for the glory of the Lich Ki--whoops.")
         table.insert(combatRessLines, "Here, ${targetName}, have a taste of what working for the Lich King is like.")
-        table.insert(combatRessLines, "Animating ${targetNAme}'s body, shotguns at the ready!")
+        table.insert(combatRessLines, "Animating ${targetName}'s body, shotguns at the ready!")
         table.insert(combatRessLines, "Don't worry, ${targetName}, you'll be all dead again soon.")
         table.insert(combatRessLines, "Look, ${targetName} I'm a soulless abomination, not a miracle worker!")
         table.insert(combatRessLines, "${targetName}, if any of your limbs fall off after this, it's completely your fault and has nothing to do with the influence of the Lich King.")
@@ -286,13 +286,13 @@ function NurseNancy.Ressurection.Run()
 
     NurseNancy.Ressurection.Frame:SetScript("OnEvent", function (self, event, ...)
         
-    groupChannel = IsInRaid() and "RAID" or IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and "INSTANCE_CHAT" or "PARTY"
-    isInParty = UnitInParty("player")
+        groupChannel = IsInRaid() and "RAID" or IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and "INSTANCE_CHAT" or "PARTY"
+        isInParty = UnitInParty("player")
 
-    
-    -- if (not(NurseNancyVars.isOn == true and isInParty == true)) then 
-    --     return
-    -- end
+        
+        if (not(NurseNancyVars.isOn == true and isInParty == true)) then 
+            return
+        end
     
         -- do single ress
         if (event == "UNIT_SPELLCAST_SENT") then 
