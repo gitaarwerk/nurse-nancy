@@ -1,10 +1,10 @@
-## Interface: 90005
+## Interface: 90100
 ## Title: Nurse Nancy
-## Version: 1.0.0
+## Version: @project-version@
 ## Author: Darkrider - Talnivarr (EU),
 ## Notes: Tells in party, instance or raid who you are ressing
 
-## X-Min-Interface: 90005
+## X-Min-Interface: 90100
 ## X-Curse-Project-ID: 495342
 ## X-Category: Boss encounters, Raid, Chat, Healer
 ## X-License: All Rights Reserved
