@@ -90,6 +90,7 @@ function NurseNancy.Ressurection.speakSingleRess(targetGUID, spellId)
         "Renewing ${targetName}'s lease on life, just a moment.",
         "Reports of ${targetName}'s death have been greatly exaggerated.",
         "${targetName}'s death *probably* wasn't my fault.",
+        "I'm done with ${targetName} pretending to be dead. Come back and start cleaning the mess you've made!",
     }
 
     if (playerClass == "Shaman") then
@@ -106,10 +107,11 @@ function NurseNancy.Ressurection.speakSingleRess(targetGUID, spellId)
     end
 
         
+    local prefix = NurseNancyVars.usePrefix == true and "[Ressing ${targetName}]: " or ""
     pickedLine = singleRessLines[fastrandom(1, #singleRessLines)]
 
     return NurseNancy.Helpers.parseText(
-        pickedLine, {
+        prefix .. pickedLine, {
             playerName = playerName,
             playerGender = playerGender,
             playerClass = playerClass,
@@ -208,10 +210,11 @@ function NurseNancy.Ressurection.speakCombatRess(targetGUID, spellId)
     end 
 
         
+    local prefix = NurseNancyVars.usePrefix == true and "[Ressing ${targetName}]: " or ""
     pickedLine = combatRessLines[fastrandom(1, #combatRessLines)]
 
     return NurseNancy.Helpers.parseText(
-        pickedLine, {
+        prefix .. pickedLine, {
             playerName = playerName,
             playerGender = playerGender,
             playerClass = playerClass,
@@ -244,8 +247,8 @@ function NurseNancy.Ressurection.speakMassRess()
     local pickedLine
   
     local massRessLines = {
-        "Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo... that's the best ambulance impression I can do",
-        "What is ${playerName} gonna do now, buddy? oh, well, I guess I should start getting you all up",
+        "Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo... that's the best ambulance impression I can do.",
+        "What is ${playerName} gonna do now, buddy? oh, well, I guess I should start getting you all up.",
         "I have a morbid interest in all of your bodies…., but I want to tell y’all my problems too,.. hmm, what to do....fine, ill ress,.. again!",
         "Roses are red, your corpses are blue, I’m incredible bored, by all of you.",
         "Unfortunatly, you are all not revered with ${playerRace} ${playerGender} ${playerClass}s to be rezzed. Lucky for you, I just stole 5g from all. Ressing now...",
@@ -254,10 +257,11 @@ function NurseNancy.Ressurection.speakMassRess()
         "You get a repair bill! And YOU get a repair bill! And YOU get a repair bill!",
     }
 
+    local prefix = NurseNancyVars.usePrefix == true and "[Mass ressing]: " or ""
     pickedLine = massRessLines[fastrandom(1, #massRessLines)]
 
     return NurseNancy.Helpers.parseText(
-        pickedLine, {
+        prefix .. pickedLine, {
             playerName = playerName,
             playerGender = playerGender,
             playerClass = playerClass,

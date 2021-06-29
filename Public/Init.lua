@@ -11,6 +11,7 @@ function NurseNancy.Init.InitVars()
                 NurseNancyVars = {}
                 NurseNancyVars.channel = "SAY"
                 NurseNancyVars.isOn = true
+                NurseNancyVars.usePrefix = true
             end
         end
     end)
@@ -25,6 +26,10 @@ function NurseNancy.Init.Commands(msg)
         NurseNancyVars.isOn = false
     elseif cmd == "on" then
         NurseNancyVars.isOn = true
+    elseif cmd == "prefix" then
+        NurseNancyVars.usePrefix = true
+    elseif cmd == "noprefix" then
+        NurseNancyVars.usePrefix = false
     else
         -- If not handled above, display some sort of help message
         print("Nurse Nancy will announce who you are ressing, soulstoning, etc.");
@@ -32,6 +37,9 @@ function NurseNancy.Init.Commands(msg)
         print(" ");
         print("To put the addon on or off, use:");
         print("Commands: /nn on or /nn off");
+        print(" ");
+        print("To put the prefix on or off, use:");
+        print("Commands: /nn prefix or /nn noprefix");
     end
 end
 
