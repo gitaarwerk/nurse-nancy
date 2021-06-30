@@ -264,6 +264,9 @@ function NurseNancy.Ressurection.speakMassRess()
         "Unfortunatly, you are all not revered with ${playerRace} ${playerGender} ${playerClass}s to be rezzed. Lucky for you, I just stole 5g from all. Ressing now...",
         "They say the Cataclysm changed everything, but apparently not,...I'm still scraping your corpse off the pavement.",
         "Up-up-up-up-up! Everyone UP!",
+        "I’ve always ressed, and I’m going to continue to ress. And that’s the way it is.",
+        "Ressing was never the big motivation for me, except as a way to keep score. The real excitement is playing the game. ",
+        "We will bring back our DPS. We will bring back our Healers. And we will bring back our Tanks.",
         "You get a repair bill! And YOU get a repair bill! And YOU get a repair bill!",
     }
 
