@@ -43,10 +43,10 @@ function NurseNancy.Init.Commands(msg)
     end
 end
 
-SlashCmdList["COMMANDS"] = NurseNancy.Init.Commands
+SlashCmdList["NNANCY"] = NurseNancy.Init.Commands;
 
-SLASH_COMMANDS1	= "/nursenancy"
-SLASH_COMMANDS2	= "/nn"
+SLASH_NNANCY1	= "/nn"
+SLASH_NNANCY2	= "/nursenancy"
 
 print("NurseNancy loaded. To check options; type: /nn or /nursenancy")
 
