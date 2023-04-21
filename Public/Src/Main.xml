@@ -2,7 +2,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd"
 >
-    <Script file="Helpers.lua"/>
-    <Script file="Features/SpellIds.lua"/>
-    <Script file="Features/NurseNancy.lua"/>
+    <Script file="Src/Interface.lua"/>
+    <Script file="Src/SpellIds.lua"/>
+    <Script file="Src/Helpers.lua"/>
+    <Script file="Src/NurseNancy/NurseNancy.lua"/>
 </Ui>

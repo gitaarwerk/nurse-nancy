@@ -5,6 +5,19 @@
         "UnitRace",
         "UnitLevel",
         "UnitClass",
-        "GetPlayerInfoByGUID"
+        "GetPlayerInfoByGUID",
+        "fastrandom",
+        "debugPrint",
+        "SendChatMessage",
+        "UnitInParty",
+        "IsInRaid",
+        "IsInGroup",
+        "LE_PARTY_CATEGORY_INSTANCE",
+        "CreateFrame",
+        "NurseNancy_ConfigScreen",
+        "UIDropDownMenu_AddButton",
+        "UIDropDownMenu_SetText",
+        "UIDropDownMenu_SetSelectedValue",
+        "NurseNancy_Frame"
     ]
 }

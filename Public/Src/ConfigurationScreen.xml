@@ -1,0 +1,261 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd"
+>
+<Frame name="NurseNancy_ConfigScreen" toplevel="true" frameStrata="DIALOG" movable="true" enableMouse="true" hidden="false" parent="UIParent" clampedToScreen="true">
+    <Scripts>
+        <OnLoad>
+            self:RegisterForDrag("LeftButton")
+            self:RegisterEvent("ADDON_LOADED")
+
+            local function eventHandler(NurseNancy_ConfigScreen, event, arg1, ...)
+                if (event == "ADDON_LOADED" and arg1 == "NurseNancy") then
+                    print("\124cffffcee2Nurse Nancy is loaded. To check options; type: " .. NurseNancyMessageColor ..  "/eyelf \124ror" .. NurseNancyMessageColor .. " /NurseNancy\124r.")
+                    local date = GetAddOnMetadata("NurseNancy", "X-ResetVarsDate") 
+
+                    -- reset out of date addons
+                    if (NurseNancyVars and NurseNancyVars.lastResetDate ~= date) then 
+                        print(NurseNancyMessageColor .. 'Config had to be reset because of new functionality.')
+                        NurseNancyVars = nil
+                    end
+
+                    if (NurseNancyVars == nil) then 
+                        NurseNancyVars = {};
+                        NurseNancyVars.debugMode = false;
+                        NurseNancyVars.lastResetDate = date;
+                        NurseNancyVars.channel = "SAY";
+                        NurseNancyVars.nurseNancyIsOn = true;
+                        NurseNancyVars.usePrefix = true;
+                        
+                        -- NurseNancyVars.nurseNancy_selfRess_channel = 0;
+                        -- NurseNancyVars.nurseNancy_combatRess_channel = 0;
+                        -- NurseNancyVars.nurseNancy_massRess_channel = 0;
+                        -- NurseNancyVars.nurseNancy_singleRess_channel = 0;
+                        self:Show()
+                    end
+
+                    NurseNancy_ConfigScreen_NurseNancy:SetChecked(NurseNancyVars.nurseNancyIsOn);
+                    -- UIDropDownMenu_SetText(BombsGoBurrDropdown, NurseNancyVars.bombsGoBurr_channel_name)
+                end
+            end
+            self:SetScript("OnEvent", eventHandler);
+        </OnLoad>
+        <OnDragStart>
+            self:StartMoving()
+        </OnDragStart>
+        <OnDragStop>
+            self:StopMovingOrSizing()
+          </OnDragStop>
+    </Scripts>
+
+    <Size>
+        <AbsDimension x="500" y="330"/>
+    </Size>
+    <Anchors>
+        <Anchor point="CENTER"/>
+        <Offset><AbsDimension x="0" y="0"/></Offset>
+    </Anchors>
+
+    <Layers>
+        <Layer level="BACKGROUND">
+            <Texture name="$parent_Background" setAllPoints="true">
+                <Color r="0" g="0" b="0" a="0.65" />
+                <Backdrop bgFile="Interface\TutorialFrame\TutorialFrameBackground"
+                    edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+                    <EdgeSize val="16"/>
+                    <TileSize val="32"/>
+                    <BackgroundInsets left="5" right="5" top="5" bottom="5"/>
+                </Backdrop>
+            </Texture> 	   
+        </Layer>
+        <Layer level="BORDER" textureSubLevel="-5">
+            <Texture inherits="UI-Frame-InnerBotLeftCorner" parentKey="InsetBorderBottomLeft">
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT"  x="0" y="0"/>
+                </Anchors>
+            </Texture>
+            <Texture inherits="UI-Frame-InnerBotRight" parentKey="InsetBorderBottomRight">
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT"  x="0" y="0"/>
+                </Anchors>
+            </Texture>
+            <Texture inherits="_UI-Frame-InnerBotTile" parentKey="InsetBorderTop">
+                <Anchors>
+                    <Anchor x="0" y="2" point="TOPLEFT" relativeKey="$parent.InsetBorderTopLeft" relativePoint="TOPRIGHT"/>
+                    <Anchor x="0" y="2" point="TOPRIGHT" relativeKey="$parent.InsetBorderTopRight" relativePoint="TOPLEFT"/>
+                </Anchors>
+            </Texture>
+            <Texture inherits="_UI-Frame-InnerBotTile" parentKey="InsetBorderBottom">
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" relativeKey="$parent.InsetBorderBottomLeft" relativePoint="BOTTOMRIGHT"/>
+                    <Anchor point="BOTTOMRIGHT" relativeKey="$parent.InsetBorderBottomRight" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+            </Texture>
+            <Texture inherits="!UI-Frame-InnerLeftTile" parentKey="InsetBorderLeft">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="0" y="0"/>
+                    <Anchor point="BOTTOMLEFT" relativeKey="$parent.InsetBorderBottomRight" relativePoint="TOPLEFT"/>
+                </Anchors>
+            </Texture>
+            <Texture inherits="!UI-Frame-InnerRightTile" parentKey="InsetBorderRight">
+                <Anchors>
+                    <Anchor point="TOPRIGHT"  x="0" y="0"/>
+                    <Anchor point="BOTTOMRIGHT" relativeKey="$parent.InsetBorderBottomRight" relativePoint="TOPRIGHT"/>
+                </Anchors>
+            </Texture>
+        </Layer>
+        <Layer level="ARTWORK">
+            <Texture name="NurseNancy_ConfigScreen_Header" file="Interface\DialogFrame\UI-DialogBox-Header">
+                <Size>
+                    <AbsDimension x="356" y="64"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOP">
+                        <Offset>
+                            <AbsDimension x="0" y="18"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+            </Texture>
+            <FontString inherits="GameFontNormal" text="Nurse Nancy">
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="NurseNancy_ConfigScreen_Header">
+                        <Offset>
+                            <AbsDimension x="0" y="-14"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+            </FontString>
+            <FontString name="nurseNancyText" inherits="GameFontNormalSmall" text="Auto ressurrection announcement (ress, soulstone, ahnk, combat ress, mass ress)">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="NurseNancy_ConfigScreen_NurseNancy" x="50" y="-26"/>
+                </Anchors>
+            </FontString>
+
+                <FontString name="nurseNancyText_self" inherits="GameFontNormalSmall" text="Self-ress">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativePoint="NurseNancy_ConfigScreen_NurseNancy" x="120" y="-46"/>
+                    </Anchors>
+                </FontString>
+                <FontString name="nurseNancyText_mass" inherits="GameFontNormalSmall" text="Mass-ress">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativePoint="NurseNancy_ConfigScreen_NurseNancy" x="120" y="-66"/>
+                    </Anchors>
+                </FontString>
+                <FontString name="nurseNancyText_combat" inherits="GameFontNormalSmall" text="Combat-ress / soulstone)">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativePoint="NurseNancy_ConfigScreen_NurseNancy" x="120" y="-86"/>
+                    </Anchors>
+                </FontString>
+                <FontString name="nurseNancyText_single" inherits="GameFontNormalSmall" text="Single-ress">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativePoint="NurseNancy_ConfigScreen_NurseNancy" x="120" y="-106"/>
+                    </Anchors>
+                </FontString>
+        </Layer>
+    </Layers>
+    <Frames>
+
+        <Frame name="ChannelDropdown" inherits="UIDropDownMenuTemplate" text="test">
+            <Size x="160" y="32" />
+           <Anchors>
+           <Anchor point="BOTTOMRIGHT">
+           <Offset><AbsDimension x="-60" y="125"/></Offset>
+           </Anchor>
+           </Anchors>
+           <Layers>
+               <Layer level="BACKGROUND">
+                   <FontString name="$parentLabel" inherits="GameFontNormalSmall" text="Nurse Nancy announcement channel">
+                       <Anchors>
+                           <Anchor point="RIGHT" relativePoint="LEFT" x="0" y="3" />
+                       </Anchors>
+                   </FontString>
+               </Layer>
+           </Layers>
+           <Scripts>
+               <OnShow>
+                   UIDropDownMenu_SetWidth(self, 140)
+                   <!-- UIDropDownMenu_SetText(BombsGoBurrDropdown, NurseNancyVars.bombsGoBurr_channel_name)             -->
+               </OnShow>
+               <OnLoad>
+                   <!-- UIDropDownMenu_Initialize(self, BombsGoBurrDropdown_OnLoad); -->
+               </OnLoad>
+               <OnClick>
+                   <!-- BombsGoBurrDropdown_OnClick(); -->
+               </OnClick>
+           </Scripts>
+       </Frame>
+
+
+        <Button name="$parentButtonClose" inherits="UIPanelCloseButton" >
+            <Anchors>
+                <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT">
+                    <Offset>
+                        <AbsDimension x="8" y="8"/>
+                    </Offset>
+                </Anchor>
+            </Anchors>
+            <Scripts>
+                <OnClick>NurseNancy_ConfigScreen:Hide()</OnClick>
+            </Scripts>
+        </Button>
+
+        <!-- nurse nancy -->
+        <CheckButton name="NurseNancy_ConfigScreen_NurseNancy" inherits="OptionsCheckButtonTemplate" motionScriptsWhileDisabled="true" virtual="false">
+            <Size> 
+                <AbsDimension x="25" y="25"/> 
+            </Size>
+            <Anchors>
+                <Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+                    <Offset>
+                        <AbsDimension x="20" y="-20"/>
+                    </Offset>
+                </Anchor>
+            </Anchors>
+            <Scripts>
+                <OnClick>
+                    if (NurseNancy_ConfigScreen_NurseNancy:GetChecked() == true) then 
+                        NurseNancy_NurseNancyOn()
+                    else 
+                        NurseNancy_NurseNancyOff()
+                    end
+                </OnClick>
+            </Scripts>
+            <NormalTexture file="Interface\Buttons\UI-CheckBox-Up"/>
+            <PushedTexture file="Interface\Buttons\UI-CheckBox-Down"/>
+            <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD"/>
+            <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check"/>
+            <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled"/>
+        </CheckButton>
+            <!-- self-ress-->
+                 <!-- <CheckButton name="NurseNancy_ConfigScreen_NurseNancy_self" inherits="OptionsCheckButtonTemplate" motionScriptsWhileDisabled="true" virtual="false">
+                    <Size> 
+                        <AbsDimension x="25" y="25"/> 
+                    </Size>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+                            <Offset>
+                                <AbsDimension x="20" y="-20"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                    <Scripts>
+                        <OnClick>
+                            if (NurseNancy_ConfigScreen_NurseNancy:GetChecked() == true) then 
+                                NurseNancy_NurseNancyOn()
+                            else 
+                                NurseNancy_NurseNancyOff()
+                            end
+                        </OnClick>
+                    </Scripts>
+                    <NormalTexture file="Interface\Buttons\UI-CheckBox-Up"/>
+                    <PushedTexture file="Interface\Buttons\UI-CheckBox-Down"/>
+                    <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD"/>
+                    <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check"/>
+                    <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled"/>
+                </CheckButton> -->
+        <!-- /nurse nancy -->
+
+    </Frames> 
+</Frame>
+</Ui>
