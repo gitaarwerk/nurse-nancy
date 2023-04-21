@@ -17,10 +17,28 @@ function NurseNancy.Ressurection.speakSelfRess(spellId)
         "${playerName} back allright!",
         "I'm back by popular demand.",
         "Hiiiiii, missed me?",
+        "I'm back, and I brought snacks!",	
+        "Ha! Death can't keep me down for long!",
+        "I knew I shouldn't have trusted that boss to kill me for good.",
+        "I'm like a cat, I always land on my feet. Even when I'm dead.",
+        "Well, that was a close one. I almost had to walk all the way back to my corpse.",
+        "I wasn't dead, I was just taking a really long nap.",
+        "I think I might have just broken a record for 'most times resurrected in one raid'."
+
     }
 
     if (playerClass == "Shaman") then
         table.insert(selfRessLines, "Nobody believed in Reincarnation. Well, here's the proof!'")
+        table.insert(selfRessLines, "Reincarnation is great, but I'm not sure I want to come back as myself again. I mean, once was enough, am I right?")
+        table.insert(selfRessLines, "Reincarnation is great, but I'm not sure I want to come back as myself again. I mean, once was enough, am I right?")
+        table.insert(selfRessLines, "Reincarnating in WoW is like playing a game of Russian roulette, except instead of a bullet, you might come back as a gnome. Scary stuff.")
+        table.insert(selfRessLines, "I hoped that when I reincarnated, I got to keep all the loot and XP I earned in my previous life. It's like a rewards program for dying.")
+        table.insert(selfRessLines, "I heard that if you reincarnate enough times in WoW, you eventually unlock a secret achievement called 'The Immortal'. I'm still working on it.")
+        table.insert(selfRessLines, "Well, that was a refreshing trip to the spirit world. I almost didn't want to come back!")
+        table.insert(selfRessLines, "I'm like a phoenix, rising from the ashes of my own death. Except less fiery and more wet.")
+        table.insert(selfRessLines, "Death thought it had me, but the elements said 'hold my beer'.")
+        table.insert(selfRessLines, "That was a real 'hold my totem' moment, but I made it work.")
+        table.insert(selfRessLines, "I'm not just a Shaman, I'm a one-person resurrection army. Who needs healers anyway?")
     end
         
     pickedLine = selfRessLines[fastrandom(1, #selfRessLines)]
@@ -91,15 +109,30 @@ function NurseNancy.Ressurection.speakSingleRess(targetGUID, spellId)
         "Reports of ${targetName}'s death have been greatly exaggerated.",
         "${targetName}'s death *probably* wasn't my fault.",
         "I'm done with ${targetName} pretending to be dead. Come back and start cleaning the mess you've made!",
+        "You're alive! And here I thought all ${playerRace} were supposed to be tough. Guess I was wrong.",
+        "I swear, it's like ${playerRace} are allergic to staying alive. But I'm happy to prove that theory wrong.",
+        "I'm pretty sure I just brought you back to life with the power of sheer determination. You owe me one.",
+        "Looks like ${targetName} couldn't handle the heat. Good thing I'm here to cool things down.",
+        "I heard the ${targetName} don't give up that easily, but I wasn't sure if that was just a rumor. Thanks for proving me right.",
+        "I'm not sure if I should be proud or disappointed that I was able to bring you back to life. I guess I'll go with proud.",	
+        "You know, I'm starting to think that the ${targetName} is secretly trying to compete for 'most times resurrected in one raid'. You're doing a great job!",
+        "Phew, that was a close one. I don't think I could have handled losing another one of my favorite ${playerRace}. Good thing I'm an expert at this whole resurrection thing.",
+        "I hope you're not mad I interrupted your peaceful death. You're welcome, I guess?",
+        "You're back! It's like you never left...except for the fact that you were dead a few moments ago.",
+        "I know I said I'd always have your back, but did you have to test me on this so soon?",
+        "Hey, I brought you back to life, but don't expect any thank-you gifts. I'm still trying to get over the smell.",
+        "I brought ${targetName} back to life because I needed someone to carry my bags. Thanks in advance."
     }
 
     if (playerClass == "Shaman") then
         table.insert(singleRessLines, "Ressing ${targetName} goes like: 'oo ee oo aa aa, ting, tang, walla walla bing bang'")
+        table.insert(singleRessLines, "Congratulations, you've been resurrected by a shaman with all the grace and finesse of a startled deer. You're welcome.")
     end
 
     if (targetClass == "Warlock" or targetClass == "Priest") then
         table.insert(singleRessLines, "No kittens are being sacrificed by resurrecting ${targetName}, well, at least, no more than five.")
         table.insert(singleRessLines, "I told you, MORE DOTS, ${targetName}! This is what happens. Now I will need to resurrect you again!")
+        table.insert(singleRessLines, "I'm not gonna lie, that resurrection was a bit like playing a game of Jenga with your soul. But hey, you're alive, right?")
     end
 
     if (targetClass == "Druid") then
@@ -179,6 +212,7 @@ function NurseNancy.Ressurection.speakCombatRess(targetGUID, spellId)
             "In Soviet ${zoneName}, life chooses ${targetName}",
             "${targetName}, please report to the land of the living. Your urgent assistance is required.",
             "Up up and ....awayyyyyyy!",
+            "Congratulations, ${targetName} is alive again! Just don't ask me to do it again anytime soon. It's a lot of paperwork."
         }
 
         if (playerGender == "female") then 
@@ -195,6 +229,8 @@ function NurseNancy.Ressurection.speakCombatRess(targetGUID, spellId)
         table.insert(combatRessLines, "Don't worry, ${targetName}, you'll be all dead again soon.")
         table.insert(combatRessLines, "Look, ${targetName} I'm a soulless abomination, not a miracle worker!")
         table.insert(combatRessLines, "${targetName}, if any of your limbs fall off after this, it's completely your fault and has nothing to do with the influence of the Lich King.")
+        table.insert(combatRessLines, "The power of the Necromancer flows through me! Rise, my brittle little ${targetName}, and let's show these fools what real power looks like!")
+
     end
 
     if (playerClass == "Druid") then
@@ -206,7 +242,7 @@ function NurseNancy.Ressurection.speakCombatRess(targetGUID, spellId)
         prefix = NurseNancyVars.usePrefix == true and "[Soulstone on ${targetName}]: " or ""
         table.insert(combatRessLines, "Do not worry, ${targetName}, this soulstone - shouldn't - hurt a bit...")
         table.insert(combatRessLines, "According to my Failometer, ${targetName} has a high chance of dying in the next fifteen minutes.")
-        table.insert(combatRessLines, "I'm just gonna borrow your sould for a bit, ${targetName}, I promise I'll give it back... when you're dead.")
+        table.insert(combatRessLines, "I'm just gonna borrow your soul for a bit, ${targetName}, I promise I'll give it back... when you're dead.")
         table.insert(combatRessLines, "One spare soul coming straight up for you, ${targetName}.")
         table.insert(combatRessLines, "Soulstone on ${targetName}. It's not that i think you're going to die, honstely ${targetName}.")
         table.insert(combatRessLines, "Soulstoning is a routine procedure. I totally don't think ${targetName} will die in the next 15 minutes.")
@@ -218,6 +254,10 @@ function NurseNancy.Ressurection.speakCombatRess(targetGUID, spellId)
         table.insert(combatRessLines, "Soulstoning ${targetName}. ARCHSURGEON'S WARNING: Soulstones contain puppy hearts, and are linked to ghoul fever in laboratory tests.")
         table.insert(combatRessLines, "Package for you, ${targetName}. Contents: One(1) soul.")
         table.insert(combatRessLines, "FYI, ${targetName}, using a soulstone removes any chance of getting into heaven.")
+        table.insert(combatRessLines, "I have the power to bring ${targetName} back from the dead, but I'm not going to do it unless you promise to be my loyal servant for all eternity. Deal?")
+        table.insert(combatRessLines, "Oh great, now ${targetName} owes me a soul. Don't worry, I'll send you an invoice later.")
+        table.insert(combatRessLines, "You're back! Now let's go cause some chaos and destruction. That's what friends are for, right?")
+        table.insert(combatRessLines, "I'm not saying you owe me your soul, but a little gratitude would be nice. And maybe a foot massage.")
     end
 
         
@@ -268,7 +308,31 @@ function NurseNancy.Ressurection.speakMassRess()
         "Ressing was never the big motivation for me, except as a way to keep score. The real excitement is playing the game. ",
         "We will bring back our DPS. We will bring back our Healers. And we will bring back our Tanks.",
         "You get a repair bill! And YOU get a repair bill! And YOU get a repair bill!",
+        "If you hear a disembodied voice saying 'Go into the light,' don't worry, it's just me. Unless it's not... in which case, run.",
+        "I'm not saying you owe me your life... oh wait, that's exactly what I'm saying. You're welcome!",
+        "Do you know how hard it is to resurrect a whole group of people? I swear, it's like herding undead cats.",
+        "Wake up, sleepyheads! The elements have granted you a second chance... or maybe they just wanted me to stop bothering them about it.",
+        "I have the power of a thousand Lich Kings flowing through my veins! Rise and join my army of the undead!",
+        "By the power of the elements and the strength of my muscles, I command you to rise from the dead and do my bidding!",
+        "Let the power of the light consume your soul and lift you from the eternal slumber! Rise, my precious little minions!",
+        "Arise, my fallen comrades! We have work to do, and I need your undead hands to do it!",
+        "The spirits of the dead are at my beck and call! Rise up and serve me, my dear departed friends!",
+        "Let the dark energy of the Shadowlands flow through you and give you new life! Now, let's go kill some demons!"
     }
+
+
+    if (playerClass == "Priest") then
+        table.insert(massRessLines, "All right, people, listen up! The afterlife is overrated, so I'm giving you all a second chance. Don't waste it!")
+        table.insert(massRessLines, "You're welcome for bringing you back from the dead. Just make sure to send a thank-you card or something... or, you know, donate to my holy order.")
+        table.insert(massRessLines, "I'm pretty sure my parents didn't think 'mass resurrection' would be part of my job description when they sent me to seminary.")
+    end
+
+    if (playerClass == "Paladin") then
+        table.insert(massRessLines, "Arise, champions of the Light! And by 'champions' I mean 'people who stood in the fire and died... again.'")
+        table.insert(massRessLines, "I'm starting to think that 'resurrection' is just a fancy word for 'you owe me one.'")
+    end
+
+
 
     local prefix = NurseNancyVars.usePrefix == true and "[Mass ressing]: " or ""
     pickedLine = massRessLines[fastrandom(1, #massRessLines)]

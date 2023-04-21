@@ -1,15 +1,14 @@
-## Interface: 90100
+## Interface: 100007
 ## Title: Nurse Nancy
 ## Version: @project-version@
-## Author: Darkrider - Talnivarr (EU),
+## Author: Darkrider - Dunemaul (EU),
 ## Notes: Tells in party, instance or raid who you are ressing
 
-## X-Min-Interface: 90100
-## X-Curse-Project-ID: 495342
+## X-Min-Interface: 100007
+## X-Curse-Project-ID: 846566
 ## X-Category: Boss encounters, Raid, Chat, Healer
 ## X-License: All Rights Reserved
 ## X-Website: https://www.curseforge.com/wow/addons/nurse-nancy
-## X-Credits:  Sueyen - Talnivarr and Ryplinn - And lines based on his Redeemer addOn https://www.curseforge.com/wow/addons/redeemer
 ## X-Date: @project-date-iso@
 ## X-License: All Rights Reserved
 

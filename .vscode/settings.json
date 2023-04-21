@@ -1,0 +1,10 @@
+{
+    "Lua.diagnostics.globals": [
+        "UnitName",
+        "UnitSex",
+        "UnitRace",
+        "UnitLevel",
+        "UnitClass",
+        "GetPlayerInfoByGUID"
+    ]
+}
