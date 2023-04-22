@@ -58,7 +58,6 @@ end
 
 function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
     local prefix = NurseNancyVars.usePrefix == true and "[Ressing ${targetName}]: " or ""
-
     local playerName, playerGender, playerClass, playerRace, playerLevel = NurseNancy.Helpers.GetPlayerInformation()
     local targetName, targetGender, targetClass, targetRace = NurseNancy.Helpers.GetTargetInformationByUID(targetGUID)
     
@@ -120,6 +119,7 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
         "I brought ${targetName} back to life because I needed someone to carry my bags. Thanks in advance."
     }
 
+
     if (playerClass == "Shaman") then
         table.insert(singleRessLines, "Ressing ${targetName} goes like: 'oo ee oo aa aa, ting, tang, walla walla bing bang'")
         table.insert(singleRessLines, "Congratulations, you've been resurrected by a shaman with all the grace and finesse of a startled deer. You're welcome.")
@@ -130,11 +130,11 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
         table.insert(singleRessLines, "hey ${targetName} stop growing roots there! I need you to RAWR!")
     end
 
-    if (targetClass == "Warlock" or targetClass == "Priest") then
+    if (playerClass == "Warlock" or targetClass == "Priest") then
         table.insert(singleRessLines, "No kittens are being sacrificed by resurrecting ${targetName}, well, at least, no more than five.")
     end
 
-    if (targetClass == "Warlock" or targetClass == "Priest") then
+    if (playerClass == "Warlock" or playerClass == "Priest") then
         table.insert(singleRessLines, "I told you, MORE DOTS, ${targetName}! This is what happens. Now I will need to resurrect you again!")
         table.insert(singleRessLines, "I'm not gonna lie, that resurrection was a bit like playing a game of Jenga with your soul. But hey, you're alive, right?")
     end
@@ -183,6 +183,8 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
 end
 
 function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
+    local prefix = NurseNancyVars.usePrefix == true and "[Combat ressing ${targetName}]: " or ""
+
     local playerName, playerGender, playerClass, playerRace, playerLevel = NurseNancy.Helpers.GetPlayerInformation()
     local targetName, targetGender, targetClass, targetRace = NurseNancy.Helpers.GetTargetInformationByUID(targetGUID)
     
@@ -190,8 +192,6 @@ function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
     local playerManWoman = NurseNancy.Helpers.GetManWoman(playerGender)
 
     local zoneName = GetRealZoneText()
-
-    local prefix
     local combatRessLines
 
     local oppositeSex = "guys"
@@ -200,8 +200,6 @@ function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
         oppositeSex = "girls"
     end
     
-    prefix = NurseNancyVars.usePrefix == true and "[Combat ressing ${targetName}]: " or ""
-
     combatRessLines = {
         "Being cremated is ${targetName}'s last hope for a smokin’ hot body.",
         "${targetName}, always deciding to enjoy the floor while fighting. Come on, ${playerManWoman}, accept the ress!",
@@ -258,7 +256,7 @@ function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
     end
 
 
-    pickedLine = combatRessLines[fastrandom(1, #combatRessLines)]
+    local pickedLine = combatRessLines[fastrandom(1, #combatRessLines)]
 
     return NurseNancy.Helpers.parseText(
         prefix .. pickedLine, {
@@ -358,14 +356,100 @@ function NurseNancy.NurseNancy.speakMassRess()
             oppositeSex = oppositeSex,
         }
     )
+end
 
+local function str_to_bool(str)
+    if str == nil then
+        return false
+    end
+    return string.lower(str) == 'true'
+end
+
+local function canBroadcastParty(value)
+    if (value == 1 or value == 3) then
+        return true
+    end
+
+    return false
+end
+
+local function canBroadcastRaid(value)
+    if (value == 2 or value == 3) then
+        return true
+    end
+
+    return false
+end
+
+local function getBroadcastChannel(broadCastChannels, canBroadcastToInstance)
+    local canBroadcastToParty = canBroadcastParty(broadCastChannels)
+    local canBroadcastToRaid = canBroadcastRaid(broadCastChannels)
+    local name, instanceType, difficultyID, difficultyName, maxPlayers, dynamicDifficulty, isDynamic, instanceID, instanceGroupSize, LfgDungeonID = GetInstanceInfo();
+    local isInInstance = str_to_bool(LfgDungeonID)
+
+    local groupSetup = IsInRaid() and "raid" or "party";
+
+    if (not(instanceType == "party" or instanceType == "raid")) then
+        return nil;
+    end
+
+    if (instanceType == "party" and groupSetup == "party" and canBroadcastToParty == true and isInInstance == false) then
+        return "PARTY"
+    end
+
+    if ((instanceType == "raid" and groupSetup == "party") and canBroadcastToParty == true and isInInstance == false) then
+        return "PARTY"
+    end
+
+    if ((instanceType == "raid" and groupSetup == "raid") and canBroadcastToRaid == true and isInInstance == false) then
+        return "RAID"
+    end
+
+    if (instanceType == "party" and canBroadcastToParty == true and canBroadcastToInstance == true and isInInstance == true) then
+        return "INSTANCE_CHAT"
+    end
+
+    if (instanceType == "raid" and canBroadcastToRaid == true and canBroadcastToInstance == true and isInInstance == true) then
+        return "INSTANCE_CHAT"
+    end
+end
+
+
+local function determineChannel(feature)
+    if (feature == "selfRess") then
+        return getBroadcastChannel(
+            NurseNancyVars.selfRess_channel,
+            NurseNancyVars.selfRess_instance
+        )
+    end
+
+    if (feature == "massRess") then
+        return getBroadcastChannel(
+            NurseNancyVars.massRess_channel,
+            NurseNancyVars.massRess_instance
+        )
+    end
+
+    if (feature == "singleRess") then
+        return getBroadcastChannel(
+            NurseNancyVars.singleRess_channel,
+            NurseNancyVars.singleRess_instance
+        )
+    end
+
+    if (feature == "combatRess") then
+        return getBroadcastChannel(
+            NurseNancyVars.combatRess_channel,
+            NurseNancyVars.combatRess_instance
+        )
+    end
+
+    return false;
 end
 
 
 function NurseNancy.NurseNancy.Run()
     local line
-    local groupChannel
-    local outputChannel
 
     NurseNancy.NurseNancy.Frame = CreateFrame("Frame")
     NurseNancy.NurseNancy.Frame:RegisterEvent("UNIT_SPELLCAST_SENT")
@@ -374,10 +458,7 @@ function NurseNancy.NurseNancy.Run()
     NurseNancy.NurseNancy.Frame:RegisterEvent("UNIT_SPELLCAST_CHANNEL_STOP")    
 
     NurseNancy.NurseNancy.Frame:SetScript("OnEvent", function (self, event, ...)
-        groupChannel = IsInRaid() and "RAID" or IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and "INSTANCE_CHAT" or "PARTY"
-        isInParty = UnitInParty("player")
-
-        if (not(NurseNancyVars.nurseNancyIsOn == true and isInParty == true) and NurseNancyVars.debugMode == false) then 
+        if (not(NurseNancyVars.nurseNancyIsOn == true) and NurseNancyVars.debugMode == false) then
             return
         end
 
@@ -388,29 +469,28 @@ function NurseNancy.NurseNancy.Run()
             if (not(castOrigin == "player")) then
                 return 
             end
-            
-            local unitIdentificator = target or UnitGUID(target)
+
+            local unitIdentificator = UnitGUID(target)
             
             local isCombatRess = NurseNancy.SpellIds.isCombatRess(spellId)
             local isSingleRess = NurseNancy.SpellIds.isSingleRess(spellId)
             local isSelfRess = NurseNancy.SpellIds.isSelfRess(spellId)
 
-            local isInRaid = UnitInRaid(target)
-            local isInParty = UnitInParty(target)
 
-            if (isInRaid or isInParty) then 
-                if (isSingleRess) then
-                    line = NurseNancy.NurseNancy.speakSingleRess(unitIdentificator, spellId)
-                    SendChatMessage(line, groupChannel, nil, index)
-                elseif (isCombatRess) then
-                    line = NurseNancy.NurseNancy.speakCombatRess(unitIdentificator, spellId)
-                    SendChatMessage(line, groupChannel, nil, index)
-                elseif (isSelfRess) then
-                    line = NurseNancy.NurseNancy.speakSelfRess(unitIdentificator, spellId)
-                    SendChatMessage(line, groupChannel, nil, index)
-                end                
-            end
+            local groupChannelSingleRess = determineChannel("singleRess");
+            local groupChannelSelfRess = determineChannel("selfRess");
+            local groupChannelCombatRess = determineChannel("combatRess");
 
+            if (isSingleRess and groupChannelSingleRess) then
+                line = NurseNancy.NurseNancy.speakSingleRess(unitIdentificator, spellId)
+                SendChatMessage(line, groupChannelSingleRess, nil, index)
+            elseif (isCombatRess and groupChannelCombatRess) then
+                line = NurseNancy.NurseNancy.speakCombatRess(unitIdentificator, spellId)
+                SendChatMessage(line, groupChannelCombatRess, nil, index)
+            elseif (isSelfRess and groupChannelSelfRess) then
+                line = NurseNancy.NurseNancy.speakSelfRess(unitIdentificator, spellId)
+                SendChatMessage(line, groupChannelSelfRess, nil, index)
+            end                
 
             if (NurseNancyVars.debugMode == true) then 
                 debugPrint(feature, NurseNancy.NurseNancy.speakSingleRess(unitIdentificator, spellId));
@@ -427,9 +507,11 @@ function NurseNancy.NurseNancy.Run()
             end
             
             local isMassRess = NurseNancy.SpellIds.isMassRess(spellID)
-            if (isMassRess == true and (isInRaid or isInParty)) then
+            local groupChannelMassRess = determineChannel("massRess");
+
+            if (isMassRess and groupChannelMassRess) then
                 line = NurseNancy.NurseNancy.speakMassRess()
-                SendChatMessage(line, groupChannel, nil, index)
+                SendChatMessage(line, groupChannelMassRess, nil, index)
             else
                 if (NurseNancyVars.debugMode == true) then 
                     debugPrint(feature, NurseNancy.NurseNancy.speakMassRess());

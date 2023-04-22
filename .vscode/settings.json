@@ -1,23 +1,15 @@
 {
     "Lua.diagnostics.globals": [
-        "UnitName",
-        "UnitSex",
-        "UnitRace",
-        "UnitLevel",
-        "UnitClass",
-        "GetPlayerInfoByGUID",
-        "fastrandom",
-        "debugPrint",
         "SendChatMessage",
-        "UnitInParty",
         "IsInRaid",
+        "UnitInParty",
+        "UnitInRaid",
+        "CreateFrame",
         "IsInGroup",
         "LE_PARTY_CATEGORY_INSTANCE",
-        "CreateFrame",
-        "NurseNancy_ConfigScreen",
-        "UIDropDownMenu_AddButton",
-        "UIDropDownMenu_SetText",
-        "UIDropDownMenu_SetSelectedValue",
-        "NurseNancy_Frame"
+        "UnitGUID",
+        "GetRealZoneText",
+        "GetPlayerInfoByGUID",
+        "UnitSex"
     ]
 }

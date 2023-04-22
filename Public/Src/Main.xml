@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd"
 >
     <Script file="Src/Interface.lua"/>
-    <Script file="Src/SpellIds.lua"/>
     <Script file="Src/Helpers.lua"/>
+    <Script file="Src/SpellIds.lua"/>
     <Script file="Src/NurseNancy/NurseNancy.lua"/>
 </Ui>

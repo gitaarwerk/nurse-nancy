@@ -28,7 +28,6 @@ function NurseNancy.Helpers.GetHimHer(gender)
   return "Her"
 end
 
-
 function NurseNancy.Helpers.GetHeShe(gender)
   if (gender == "male") then
     return "he"

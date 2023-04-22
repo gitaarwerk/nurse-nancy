@@ -11,6 +11,7 @@
 ## X-Website: https://www.curseforge.com/wow/addons/nurse-nancy
 ## X-Date: @project-date-iso@
 ## X-License: All Rights Reserved
+## X-ResetVarsDate: 2023-04-21T00:00:00Z
 
 ## SavedVariablesPerCharacter: NurseNancyVars
 ## LoadOnDemand: 0
