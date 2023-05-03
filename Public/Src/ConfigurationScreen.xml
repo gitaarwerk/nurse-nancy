@@ -48,6 +48,35 @@
 
                     NurseNancy_ConfigScreen_NurseNancy:SetChecked(NurseNancyVars.nurseNancyIsOn);
 
+                    -- single channel
+                    _G[NurseNancy_ConfigScreen_SingleRess_Channel:GetName().."Low"]:SetText("none")
+                    _G[NurseNancy_ConfigScreen_SingleRess_Channel:GetName().."High"]:SetText("raid")
+                        NurseNancy_ConfigScreen_SingleRess_Channel:SetValueStep(1)
+                        NurseNancy_ConfigScreen_SingleRess_Channel:SetStepsPerPage(1)
+                        NurseNancy_ConfigScreen_SingleRess_Channel:SetMinMaxValues(0,3)
+
+                    -- mass channel
+                    _G[NurseNancy_ConfigScreen_MassRess_Channel:GetName().."Low"]:SetText("none")
+                    _G[NurseNancy_ConfigScreen_MassRess_Channel:GetName().."High"]:SetText("raid")
+                        NurseNancy_ConfigScreen_MassRess_Channel:SetValueStep(1)
+                        NurseNancy_ConfigScreen_MassRess_Channel:SetStepsPerPage(1)
+                        NurseNancy_ConfigScreen_MassRess_Channel:SetMinMaxValues(0,3)
+
+                    -- combat ress channel
+                    _G[NurseNancy_ConfigScreen_CombatRess_Channel:GetName().."Low"]:SetText("none")
+                    _G[NurseNancy_ConfigScreen_CombatRess_Channel:GetName().."High"]:SetText("raid")
+                        NurseNancy_ConfigScreen_CombatRess_Channel:SetValueStep(1)
+                        NurseNancy_ConfigScreen_CombatRess_Channel:SetStepsPerPage(1)
+                        NurseNancy_ConfigScreen_CombatRess_Channel:SetMinMaxValues(0,3)
+
+                    -- self ress channel
+                    _G[NurseNancy_ConfigScreen_SelfRess_Channel:GetName().."Low"]:SetText("none")
+                    _G[NurseNancy_ConfigScreen_SelfRess_Channel:GetName().."High"]:SetText("raid")
+                        NurseNancy_ConfigScreen_SelfRess_Channel:SetValueStep(1)
+                        NurseNancy_ConfigScreen_SelfRess_Channel:SetStepsPerPage(1)
+                        NurseNancy_ConfigScreen_SelfRess_Channel:SetMinMaxValues(0,3)
+
+
 	                _G[NurseNancy_ConfigScreen_SingleRess_Channel:GetName().."Text"]:SetText(NurseNancyVars.singleRess_text)
 	                NurseNancy_ConfigScreen_SingleRess_Channel:SetValue(NurseNancyVars.singleRess_channel)
 	                NurseNancy_ConfigScreen_SingleRess_Instance:SetChecked(NurseNancyVars.singleRess_instance)
@@ -80,19 +109,11 @@
     </Size>
     <Anchors>
         <Anchor point="CENTER"/>
-        <Offset><AbsDimension x="0" y="0"/></Offset>
     </Anchors>
-
     <Layers>
         <Layer level="BACKGROUND">
             <Texture name="$parent_Background" setAllPoints="true">
                 <Color r="0" g="0" b="0" a="0.65" />
-                <Backdrop bgFile="Interface\TutorialFrame\TutorialFrameBackground"
-                    edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
-                    <EdgeSize val="16"/>
-                    <TileSize val="32"/>
-                    <BackgroundInsets left="5" right="5" top="5" bottom="5"/>
-                </Backdrop>
             </Texture>  
         </Layer>
         <Layer level="BORDER" textureSubLevel="-5">
@@ -230,14 +251,6 @@
             </Layer>
         </Layers>
         <Scripts>
-        <OnLoad>
-            _G[NurseNancy_ConfigScreen_SingleRess_Channel:GetName().."Low"]:SetText("none")
-            _G[NurseNancy_ConfigScreen_SingleRess_Channel:GetName().."High"]:SetText("raid")
-                NurseNancy_ConfigScreen_SingleRess_Channel:SetValueStep(1)
-                NurseNancy_ConfigScreen_SingleRess_Channel:SetStepsPerPage(1)
-                NurseNancy_ConfigScreen_SingleRess_Channel:SetMinMaxValues(0,3)
-                NurseNancy_ConfigScreen_SingleRess_Channel:SetValue(NurseNancyVars.selfRess_channel)
-        </OnLoad>
             <OnValueChanged>
                 NurseNancy_ConfigScreen_SetChannel('singleRess', value)
             </OnValueChanged>
@@ -259,14 +272,6 @@
             </Layer>
         </Layers>
         <Scripts>
-        <OnLoad>
-            _G[NurseNancy_ConfigScreen_MassRess_Channel:GetName().."Low"]:SetText("none")
-            _G[NurseNancy_ConfigScreen_MassRess_Channel:GetName().."High"]:SetText("raid")
-                NurseNancy_ConfigScreen_MassRess_Channel:SetValueStep(1)
-                NurseNancy_ConfigScreen_MassRess_Channel:SetStepsPerPage(1)
-                NurseNancy_ConfigScreen_MassRess_Channel:SetMinMaxValues(0,3)
-                NurseNancy_ConfigScreen_MassRess_Channel:SetValue(NurseNancyVars.selfRess_channel)
-        </OnLoad>
             <OnValueChanged>
                 NurseNancy_ConfigScreen_SetChannel('massRess', value)
             </OnValueChanged>
@@ -288,14 +293,6 @@
             </Layer>
         </Layers>
         <Scripts>
-            <OnLoad>
-                _G[NurseNancy_ConfigScreen_CombatRess_Channel:GetName().."Low"]:SetText("none")
-                _G[NurseNancy_ConfigScreen_CombatRess_Channel:GetName().."High"]:SetText("raid")
-                NurseNancy_ConfigScreen_CombatRess_Channel:SetValueStep(1)
-                NurseNancy_ConfigScreen_CombatRess_Channel:SetStepsPerPage(1)
-                NurseNancy_ConfigScreen_CombatRess_Channel:SetMinMaxValues(0,3)
-                NurseNancy_ConfigScreen_CombatRess_Channel:SetValue(NurseNancyVars.selfRess_channel)
-            </OnLoad>
             <OnValueChanged>
                 NurseNancy_ConfigScreen_SetChannel('combatRess', value)
             </OnValueChanged>
@@ -318,12 +315,7 @@
         </Layers>
         <Scripts>
             <OnLoad>
-                _G[NurseNancy_ConfigScreen_SelfRess_Channel:GetName().."Low"]:SetText("none")
-                _G[NurseNancy_ConfigScreen_SelfRess_Channel:GetName().."High"]:SetText("raid")
-                NurseNancy_ConfigScreen_SelfRess_Channel:SetValueStep(1)
-                NurseNancy_ConfigScreen_SelfRess_Channel:SetStepsPerPage(1)
-                NurseNancy_ConfigScreen_SelfRess_Channel:SetMinMaxValues(0,3)
-                NurseNancy_ConfigScreen_SelfRess_Channel:SetValue(NurseNancyVars.selfRess_channel)
+
             </OnLoad>
             <OnValueChanged>
                 NurseNancy_ConfigScreen_SetChannel('selfRess', value)
@@ -332,7 +324,7 @@
     </Slider>
 
         <!-- nurse nancy -->
-        <CheckButton name="NurseNancy_ConfigScreen_NurseNancy" inherits="OptionsCheckButtonTemplate" motionScriptsWhileDisabled="true" virtual="false">
+        <CheckButton name="NurseNancy_ConfigScreen_NurseNancy" inherits="UIPanelButtonTemplate " motionScriptsWhileDisabled="true" virtual="false">
             <Size> 
                 <AbsDimension x="25" y="25"/> 
             </Size>
@@ -360,7 +352,7 @@
         </CheckButton>
 
         <!-- single ress  -->
-        <CheckButton name="NurseNancy_ConfigScreen_SingleRess_Instance" inherits="OptionsCheckButtonTemplate" motionScriptsWhileDisabled="true" virtual="false">
+        <CheckButton name="NurseNancy_ConfigScreen_SingleRess_Instance" inherits="UIPanelButtonTemplate " motionScriptsWhileDisabled="true" virtual="false">
             <Size> 
                 <AbsDimension x="25" y="25"/> 
             </Size>
@@ -372,9 +364,6 @@
                 </Anchor>
             </Anchors>
             <Scripts>
-                <OnLoad>
-                    NurseNancy_ConfigScreen_SingleRess_Instance:SetChecked(NurseNancyVars.singleRess_instance)
-                </OnLoad>
                 <OnClick>
                     if (NurseNancy_ConfigScreen_SingleRess_Instance:GetChecked() == true) then 
                         NurseNancy_ConfigScreen_SingleRess_Instance:SetValue(false)
@@ -392,7 +381,7 @@
             <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled"/>
         </CheckButton>
 
-        <CheckButton name="NurseNancy_ConfigScreen_MassRess_Instance" inherits="OptionsCheckButtonTemplate" motionScriptsWhileDisabled="true" virtual="false">
+        <CheckButton name="NurseNancy_ConfigScreen_MassRess_Instance" inherits="UIPanelButtonTemplate " motionScriptsWhileDisabled="true" virtual="false">
             <Size> 
                 <AbsDimension x="25" y="25"/> 
             </Size>
@@ -404,9 +393,6 @@
                 </Anchor>
             </Anchors>
             <Scripts>
-                <OnLoad>
-                    NurseNancy_ConfigScreen_MassRess_Instance:SetChecked(NurseNancyVars.massRess_instance)
-                </OnLoad>
                 <OnClick>
                     if (NurseNancy_ConfigScreen_MassRess_Instance:GetChecked() == true) then 
                         NurseNancy_ConfigScreen_MassRess_Instance:SetValue(false)
@@ -424,7 +410,7 @@
             <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled"/>
         </CheckButton>
 
-        <CheckButton name="NurseNancy_ConfigScreen_CombatRess_Instance" inherits="OptionsCheckButtonTemplate" motionScriptsWhileDisabled="true" virtual="false">
+        <CheckButton name="NurseNancy_ConfigScreen_CombatRess_Instance" inherits="UIPanelButtonTemplate " motionScriptsWhileDisabled="true" virtual="false">
             <Size> 
                 <AbsDimension x="25" y="25"/> 
             </Size>
@@ -436,9 +422,6 @@
                 </Anchor>
             </Anchors>
             <Scripts>
-                <OnLoad>
-                    NurseNancy_ConfigScreen_CombatRess_Instance:SetChecked(NurseNancyVars.combatRess_instance)
-                </OnLoad>
                 <OnClick>
                     if (NurseNancy_ConfigScreen_CombatRess_Instance:GetChecked() == true) then 
                         NurseNancy_ConfigScreen_CombatRess_Instance:SetValue(false)
@@ -456,7 +439,7 @@
             <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled"/>
         </CheckButton>
 
-        <CheckButton name="NurseNancy_ConfigScreen_SelfRess_Instance" inherits="OptionsCheckButtonTemplate" motionScriptsWhileDisabled="true" virtual="false">
+        <CheckButton name="NurseNancy_ConfigScreen_SelfRess_Instance" inherits="UIPanelButtonTemplate " motionScriptsWhileDisabled="true" virtual="false">
             <Size> 
                 <AbsDimension x="25" y="25"/> 
             </Size>
@@ -468,9 +451,6 @@
                 </Anchor>
             </Anchors>
             <Scripts>
-                <OnLoad>
-                    NurseNancy_ConfigScreen_SelfRess_Instance:SetChecked(NurseNancyVars.selfRess_instance)
-                </OnLoad>
                 <OnClick>
                     if (NurseNancy_ConfigScreen_SelfRess_Instance:GetChecked() == true) then 
                         NurseNancy_ConfigScreen_SelfRess_Instance:SetValue(false)

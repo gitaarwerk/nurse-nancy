@@ -385,12 +385,24 @@ local function getBroadcastChannel(broadCastChannels, canBroadcastToInstance)
     local canBroadcastToParty = canBroadcastParty(broadCastChannels)
     local canBroadcastToRaid = canBroadcastRaid(broadCastChannels)
     local name, instanceType, difficultyID, difficultyName, maxPlayers, dynamicDifficulty, isDynamic, instanceID, instanceGroupSize, LfgDungeonID = GetInstanceInfo();
-    local isInInstance = str_to_bool(LfgDungeonID)
+    local isInInstance = false;
+
+    if (LfgDungeonID) then
+        isInInstance = true;
+    end
 
     local groupSetup = IsInRaid() and "raid" or "party";
 
     if (not(instanceType == "party" or instanceType == "raid")) then
         return nil;
+    end
+
+    if (instanceType == "party" and canBroadcastToParty == true and canBroadcastToInstance == true and isInInstance == true) then
+        return "INSTANCE_CHAT"
+    end
+
+    if (instanceType == "raid" and canBroadcastToRaid == true and canBroadcastToInstance == true and isInInstance == true) then
+        return "INSTANCE_CHAT"
     end
 
     if (instanceType == "party" and groupSetup == "party" and canBroadcastToParty == true and isInInstance == false) then
@@ -403,14 +415,6 @@ local function getBroadcastChannel(broadCastChannels, canBroadcastToInstance)
 
     if ((instanceType == "raid" and groupSetup == "raid") and canBroadcastToRaid == true and isInInstance == false) then
         return "RAID"
-    end
-
-    if (instanceType == "party" and canBroadcastToParty == true and canBroadcastToInstance == true and isInInstance == true) then
-        return "INSTANCE_CHAT"
-    end
-
-    if (instanceType == "raid" and canBroadcastToRaid == true and canBroadcastToInstance == true and isInInstance == true) then
-        return "INSTANCE_CHAT"
     end
 end
 
@@ -470,7 +474,7 @@ function NurseNancy.NurseNancy.Run()
                 return 
             end
 
-            local unitIdentificator = UnitGUID(target)
+            local unitIdentificator = UnitGUID(target or "player")
             
             local isCombatRess = NurseNancy.SpellIds.isCombatRess(spellId)
             local isSingleRess = NurseNancy.SpellIds.isSingleRess(spellId)
