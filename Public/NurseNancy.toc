@@ -1,10 +1,11 @@
-## Interface: 110002,100207
 ## Title: Nurse Nancy
+## Interface: 100207
+## X-Min-Interface: 100207
+## Future-Interface: 110002
 ## Version: @project-version@
 ## Author: Darkrider - Dunemaul (EU),
 ## Notes: Tells in party, instance or raid who you are ressing
 ## IconTexture: Interface\AddOns\NurseNancy\addonIcon.jpg
-## X-Min-Interface: 110002, 100207
 ## X-Curse-Project-ID: 846566
 ## X-Category: Boss encounters, Raid, Chat, Healer
 ## X-License: All Rights Reserved
