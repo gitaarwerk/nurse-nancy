@@ -31,6 +31,11 @@ function NurseNancy.SpellIds.isCombatRess(spellId)
         345130, -- Engineer's Disposable Spectrophasic Reanimator.
         265116, -- Engineer's Unstable Temporal Time Shifter.
         184308, -- Engineer's Disposable Spectrophasic Reanimator.
+        385403, -- Engineer's Arclight Vital Correctors.
+        384902, -- Engineer's Convincingly Realistic Jumper Cables #1
+        384903, -- Engineer's Convincingly Realistic Jumper Cables #2
+        384893, -- Engineer's Convincingly Realistic Jumper Cables #3
+        384895, -- Engineer's Convincingly Realistic Jumper Cables #4
     }
 
     if NurseNancy.Helpers.tableContainsValue(spellIds, spellId) then
