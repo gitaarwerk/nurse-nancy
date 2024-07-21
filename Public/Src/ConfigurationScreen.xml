@@ -5,15 +5,15 @@
 <Frame name="NurseNancy_ConfigScreen" toplevel="true" frameStrata="DIALOG" movable="true" enableMouse="true" hidden="true" parent="UIParent" clampedToScreen="true">
     <Scripts>
         <OnLoad>
-            self:RegisterForDrag("LeftButton")
             self:RegisterEvent("ADDON_LOADED")
+            self:RegisterForDrag("LeftButton")
             self:RegisterEvent("UNIT_SPELLCAST_SENT")
             self:RegisterEvent("UNIT_SPELLCAST_START")
 
             local function eventHandler(NurseNancy_ConfigScreen, event, arg1, ...)
                 if (event == "ADDON_LOADED" and arg1 == "NurseNancy") then
                     print("\124cffffcee2Nurse Nancy is loaded. To check options; type: " .. NurseNancyMessageColor ..  "/nn \124ror" .. NurseNancyMessageColor .. " /nursenancy\124r.")
-                    local date = GetAddOnMetadata("NurseNancy", "X-ResetVarsDate") 
+                    local date = C_AddOns.GetAddOnMetadata("NurseNancy", "X-ResetVarsDate") 
 
                     -- reset out of date addons
                     if (NurseNancyVars and NurseNancyVars.lastResetDate ~= date) then 
@@ -228,12 +228,7 @@
                 <OnClick>NurseNancy_ConfigScreen:Hide()</OnClick>
             </Scripts>
         </Button>
-        <Frame name="AutoLootDropDownControlTemplate" inherits="SettingsDropDownControlTemplate" mixin="AutoLootDropDownControlMixin" virtual="true">
-		<KeyValues>
-			<KeyValue key="dropDownType" value="Frame" type="string"/>
-			<KeyValue key="dropDownTemplate" value="SettingsSelectionPopoutWithButtonsTemplate" type="string"/>
-		</KeyValues>
-	</Frame>
+
 
     <!-- sliders -->
     <Slider name="NurseNancy_ConfigScreen_SingleRess_Channel" inherits="OptionsSliderTemplate">
@@ -365,12 +360,10 @@
             </Anchors>
             <Scripts>
                 <OnClick>
-                    if (NurseNancy_ConfigScreen_SingleRess_Instance:GetChecked() == true) then 
-                        NurseNancy_ConfigScreen_SingleRess_Instance:SetValue(false)
-                        NurseNancyVars.singleRess_instance = false
+                    if (NurseNancy_ConfigScreen_SingleRess_Instance:GetChecked() == true) then
+                        NurseNancy_SetSingleRessInstance(true);
                     else 
-                        NurseNancy_ConfigScreen_SingleRess_Instance:SetValue(true)
-                        NurseNancyVars.singleRess_instance = true
+                        NurseNancy_SetSingleRessInstance(false);
                     end
                 </OnClick>
             </Scripts>
@@ -395,11 +388,9 @@
             <Scripts>
                 <OnClick>
                     if (NurseNancy_ConfigScreen_MassRess_Instance:GetChecked() == true) then 
-                        NurseNancy_ConfigScreen_MassRess_Instance:SetValue(false)
-                        NurseNancyVars.massRess_instance = false
+                        NurseNancy_SetMassRessInstance(true);
                     else 
-                        NurseNancy_ConfigScreen_MassRess_Instance:SetValue(true)
-                        NurseNancyVars.massRess_instance = true
+                        NurseNancy_SetMassRessInstance(false);
                     end
                 </OnClick>
             </Scripts>
@@ -424,11 +415,9 @@
             <Scripts>
                 <OnClick>
                     if (NurseNancy_ConfigScreen_CombatRess_Instance:GetChecked() == true) then 
-                        NurseNancy_ConfigScreen_CombatRess_Instance:SetValue(false)
-                        NurseNancyVars.combatRess_instance = false
+                        NurseNancy_SetCombatRessInstance(true);
                     else 
-                        NurseNancy_ConfigScreen_CombatRess_Instance:SetValue(true)
-                        NurseNancyVars.combatRess_instance = true
+                        NurseNancy_SetCombatRessInstance(false);
                     end
                 </OnClick>
             </Scripts>
@@ -453,11 +442,9 @@
             <Scripts>
                 <OnClick>
                     if (NurseNancy_ConfigScreen_SelfRess_Instance:GetChecked() == true) then 
-                        NurseNancy_ConfigScreen_SelfRess_Instance:SetValue(false)
-                        NurseNancyVars.selfRess_instance = false
+                        NurseNancy_SetSelfRessInstance(true);
                     else 
-                        NurseNancy_ConfigScreen_SelfRess_Instance:SetValue(true)
-                        NurseNancyVars.selfRess_instance = true
+                        NurseNancy_SetSelfRessInstance(false);
                     end
                 </OnClick>
             </Scripts>

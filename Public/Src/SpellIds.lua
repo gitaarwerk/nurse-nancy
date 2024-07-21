@@ -2,15 +2,15 @@ NurseNancy.SpellIds = {}
 
 function NurseNancy.SpellIds.isSingleRess(spellId)
     local spellIds = {
-            2006, -- Priest's Resurrection
-            2008, -- Shaman's Ancesttral spirit
-            7328, -- Paladin's Redemption
-            50769, --Druid's revive
-            115178, --Monk's Resuscitate
-            8342, --Goblin Jumper cables
-            22999, --Goblin Jumper cables XL
-            54732, --Gnomish army knife
-            361227, -- Evoker's return
+        2006,   -- Priest's Resurrection
+        2008,   -- Shaman's Ancesttral spirit
+        7328,   -- Paladin's Redemption
+        50769,  --Druid's revive
+        115178, --Monk's Resuscitate
+        8342,   --Goblin Jumper cables
+        22999,  --Goblin Jumper cables XL
+        54732,  --Gnomish army knife
+        361227, -- Evoker's return
     }
 
     if NurseNancy.Helpers.tableContainsValue(spellIds, spellId) then
@@ -20,27 +20,25 @@ function NurseNancy.SpellIds.isSingleRess(spellId)
     return false
 end
 
-
 function NurseNancy.SpellIds.isCombatRess(spellId)
     local spellIds = {
-        20484, -- Druid's Rebirth.
-        61999, -- Death knight's Raise ally.
+        20484,  -- Druid's Rebirth.
+        61999,  -- Death knight's Raise ally.
         159931, -- Hunter's Gift of Chi-ji.
-        20707, -- Warlock's soul stone.
+        20707,  -- Warlock's soul stone.
         391054, -- Paladin's Intercession.
         348477, -- Engineer's Disposable Spectrophasic Reanimator (older version).
         345130, -- Engineer's Disposable Spectrophasic Reanimator.
         265116, -- Engineer's Unstable Temporal Time Shifter.
         184308, -- Engineer's Disposable Spectrophasic Reanimator.
     }
-    
+
     if NurseNancy.Helpers.tableContainsValue(spellIds, spellId) then
         return true
     end
 
     return false
 end
-
 
 function NurseNancy.SpellIds.isSelfRess(spellId)
     local spellIds = {
@@ -54,7 +52,6 @@ function NurseNancy.SpellIds.isSelfRess(spellId)
 
     return false
 end
-
 
 function NurseNancy.SpellIds.isMassRess(spellId)
     local spellIds = {
@@ -82,7 +79,7 @@ function NurseNancy.SpellIds.isHeroism(spellId)
         290582,
         204362,
         32182,
-        390386, -- evoker 
+        390386, -- evoker
     }
 
     if NurseNancy.Helpers.tableContainsValue(spellIds, spellId) then
@@ -96,7 +93,7 @@ end
 function NurseNancy.SpellIds.isBloodlust(spellId)
     local spellIds = {
         2825,
-        71975, 
+        71975,
         204361,
         37067,
         16170,
@@ -149,9 +146,9 @@ end
 function NurseNancy.SpellIds.isDrums(spellId)
     local spellIds = {
         309658, -- ferocity
-        178207,-- fury
+        178207, -- fury
         146555, -- rage
-        35475, -- war
+        35475,  -- war
         230935, -- mountain,
         381301, -- feral hide
     }
@@ -167,7 +164,7 @@ end
 function NurseNancy.SpellIds.isBigHasteCast(spellId)
     if (NurseNancy.SpellIds.isDrums(spellId)) then
         return 'Drums'
-    end 
+    end
 
     if (NurseNancy.SpellIds.isTimeWarp(spellId)) then
         return 'Time Warp'
