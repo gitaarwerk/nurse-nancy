@@ -14,17 +14,22 @@ function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
     end
 
     local selfRessLines = {
-        "${playerName} back allright!",
+        "${playerName}'s back, allright!",
         "I'm back by popular demand.",
         "Hiiiiii, missed me?",
         "I'm back, and I brought snacks!",
         "Ha! Death can't keep me down for long!",
+        "Ha! Death can't keep me down for long!, probably not up either.",
         "I knew I shouldn't have trusted that boss to kill me for good.",
         "I'm like a cat, I always land on my feet. Even when I'm dead.",
         "Well, that was a close one. I almost had to walk all the way back to my corpse.",
         "I wasn't dead, I was just taking a really long nap.",
         "I think I might have just broken a record for 'most times resurrected in one raid'."
     }
+
+    if (playerRace == "Night Elf" or playerRace == "Blood Elf") then
+        table.insert(selfRessLines, "Like the night, I return. And I promise, no more moonlight serenades... for now.");
+    end
 
     if (playerClass == "Shaman") then
         table.insert(selfRessLines, "Nobody believed in Reincarnation. Well, here's the proof!'")
@@ -318,9 +323,13 @@ function NurseNancy.NurseNancy.speakMassRess()
         oppositeSex = "girls"
     end
 
+    local zoneName = GetZoneText();
+
+
     local pickedLine
 
     local massRessLines = {
+        "Come to {zoneName} with us they said, it will be fun, they said",
         "Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo... that's the best ambulance impression I can do.", -- Sueyen-Talnivarr, EU
         "Oh hello juicy corpses.... Your bodies are still warm... hmmmm... hmm.",
         "Death is the wish of some, the relief of many, and just a chore for me... *sigh*.",
@@ -388,6 +397,7 @@ function NurseNancy.NurseNancy.speakMassRess()
             playerManWoman = playerManWoman,
             playerGuyGirl = playerGuyGirl,
             oppositeSex = oppositeSex,
+            zoneName = zoneName,
         }
     )
 end

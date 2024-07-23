@@ -1,7 +1,7 @@
 ## Title: Nurse Nancy
-## Interface: 100207
-## X-Min-Interface: 100207
-## X-Future-Interface: 110002
+## Interface: 110002
+## X-Min-Interface: 110002
+## X-Future-Interface: TBA
 ## Version: @project-version@
 ## Author: Darkrider - Dunemaul (EU)
 ## Notes: Tells in party, instance or raid who you are ressing
