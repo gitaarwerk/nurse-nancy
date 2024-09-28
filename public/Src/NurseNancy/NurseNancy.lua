@@ -25,7 +25,8 @@ function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
         "I'm like a cat, I always land on my feet. Even when I'm dead.",
         "Well, that was a close one. I almost had to walk all the way back to my corpse.",
         "I wasn't dead, I was just taking a really long nap.",
-        "I think I might have just broken a record for 'most times resurrected in one raid'."
+        "I think I might have just broken a record for 'most times resurrected in one raid'.",
+        "Reporting for booty! I mean, duty.",
     }
 
     if (playerRace == "Night Elf" or playerRace == "Blood Elf") then
@@ -131,10 +132,12 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
         "I hope you're not mad I interrupted your peaceful death. You're welcome, I guess?",
         "You're back! It's like you never left...except for the fact that you were dead a few moments ago.",
         "I know I said I'd always have your back, but did you have to test me on this so soon?",
+        "If laughter is the best medicine, I prescribe to take a look at ${targetName} for a daily dose of hilarous stunts.",
+        "Hey ${targetName}, I hope you recover faster your Wi-Fi connection. Sending healing vibes your way!",
         "Hey, I brought you back to life, but don't expect any thank-you gifts. I'm still trying to get over the smell.",
-        "I brought ${targetName} back to life because I needed someone to carry my bags. Thanks in advance."
+        "I brought ${targetName} back to life because I needed someone to carry my bags. Thanks in advance.",
+        "I didn't find ${targetName}'s 'Do not resuscitate' order, so I figured I'd just go ahead and bring you back to life. You're welcome.",
     }
-
 
     if (playerClass == "Shaman") then
         table.insert(singleRessLines,
@@ -332,7 +335,7 @@ function NurseNancy.NurseNancy.speakMassRess()
     local pickedLine
 
     local massRessLines = {
-        "Come to {zoneName} with us they said, it will be fun, they said",
+        "Come to ${zoneName} with us they said, it will be fun, they said",
         "Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo... that's the best ambulance impression I can do.", -- Sueyen-Talnivarr, EU
         "Oh hello juicy corpses.... Your bodies are still warm... hmmmm... hmm.",
         "Death is the wish of some, the relief of many, and just a chore for me... *sigh*.",
@@ -370,6 +373,9 @@ function NurseNancy.NurseNancy.speakMassRess()
         "Luckily, my profession is not dying.",
     }
 
+    if (playerRace == "Dracthyr") then
+        table.insert(massRessLines, "My fellow teamies drop faster than I shed my scales.")
+    end
 
     if (playerClass == "Priest") then
         table.insert(massRessLines,
