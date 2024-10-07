@@ -27,6 +27,7 @@ function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
         "I wasn't dead, I was just taking a really long nap.",
         "I think I might have just broken a record for 'most times resurrected in one raid'.",
         "Reporting for booty! I mean, duty.",
+        "I am certain that I have been here as I am now a thousand times before, and I hope to return a thousand times.",
     }
 
     if (playerRace == "Night Elf" or playerRace == "Blood Elf") then
@@ -86,6 +87,7 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
     end
 
     local singleRessLines = {
+        "As long as you are not aware of the continual law of Die and Be Again, you are merely a vague guest on a dark Azeroth.",
         "Stop eating the floor, ${targetName}!",
         "You look so unflattering, my ${targetName}, here, have a ress.",
         "You are not my child, ${targetName}, but I will raise you.",
@@ -371,6 +373,7 @@ function NurseNancy.NurseNancy.speakMassRess()
         "You get a repair bill! And YOU get a repair bill! And YOU get a repair bill!", -- Oprah really plays some world of warcraft you know.
         "Group assignments make me understand why Arthas worked alone.",
         "Luckily, my profession is not dying.",
+        "I am not paid to be an undertaken. Get up and dig your own grave first please, thank you!",
     }
 
     if (playerRace == "Dracthyr") then
