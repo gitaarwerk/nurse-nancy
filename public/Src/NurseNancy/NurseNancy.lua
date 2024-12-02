@@ -88,6 +88,11 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
     end
 
     local singleRessLines = {
+        "${targetName} will be back in action in 10,...9,...8,...7,...6,...5,...4,...3,...2,...1,...",
+        "${targetName} is back in the game, and ${playerName} is the one to blame!",
+        "I'm not saying ${targetName} owes me their life, but I'm not NOT saying it either.",
+        "${targetName}'s soul has been returned to their body. I hope they didn't lose the receipt.",
+        "${targetName} time is now to get back on your feet and learn a real job.",
         "Even though ${targetName} is killing it on the floor, I'm going to bring ${targetHimHer} back.",
         "As long as you are not aware of the continual law of Die and Be Again, you are merely a vague guest on a dark Azeroth.",
         "Stop eating the floor, ${targetName}!",
@@ -100,6 +105,7 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
         "Wake up! Wake up!, ${targetName}.",
         "I will not accept that ${targetName} actually died. ${targetHeShe} just needs some of my love.",
         "Rezzing: ${targetName}, get back to work!",
+        "${targetName}, you're not done here. You missed a spot. Get back up!",
         "${targetName} has an incredible talent for bad timing. ${targetName} will live another few seconds.",
         "Sorry to break your dream, ${targetName}, but the princess ain't in another castle!",
         "You know, ${targetName}, the floor doesn't contain any floor heating, so get up and work it, baby!",
@@ -108,7 +114,7 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
         "Rezzing ${targetName}. Please no one else do this, or we could end up with a split body each and that would be unfortunate.",
         "Currently interrupting %T's love affair with the floor in 3....2....1.",
         "Here lies ${targetName}, my autumn flower. A lot less attractive now that you're all corpsified and gross.",
-        "By the feeling, ${targetName} is still warm, but as I am being watched right now, i’ll just ress you instead,… of other things i wanted to do",
+        "By the feeling, ${targetName} is still warm, but as I am being watched right now, i'll just ress you instead,… of other things i wanted to do",
         "${targetName} brought to life by Spirit Travels, Inc. Have you considered our Frequent Death program?",
         "It was just an ordinary gas cloud, ${targetName} said.",
         "${targetName}, by clicking 'Accept', you, the resurrectee, hereby consign your soul to the resurrecter, i.e., me.",
@@ -243,6 +249,9 @@ function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
         "In Soviet ${zoneName}, life chooses ${targetName}",
         "${targetName}, please report to the land of the living. Your urgent assistance is required.",
         "Up up and ....awayyyyyyy!",
+        "Get up, ${targetName}, I need you to fetch me snacks,...NOW PLEASE!",
+        "Sorry, ${targetName}'s strings were a little tangled. Let me just untie them...There we go!",
+        "I'm not saying I am to blame for ${targetName}'s death, but I did told ${targetHimHer} I had garlic. Luckily, ressing has plenty of distance.",
         "Resurrecting is not changing who you are, but discarding who you are not.",
         "Congratulations, ${targetName} is alive again! Just don't ask me to do it again anytime soon. It's a lot of paperwork.",
     }
@@ -377,9 +386,11 @@ function NurseNancy.NurseNancy.speakMassRess()
         "Unfortunatly, you are all not revered with ${playerRace} ${playerGender} ${playerClass}s to be rezzed. Lucky for you, I just stole 5g from all. Ressing now...",
         "They say the Cataclysm changed everything, but apparently not,...I'm still scraping your corpse off the pavement.",
         "Up-up-up-up-up! Everyone UP!",
+        "Everybody was kung-fu fighting. They weren't fast as lightning. In fact, it was a little bit frightening. But they're all back now, so it's all good.",
         "You get a repair bill! And YOU get a repair bill! And YOU get a repair bill!", -- Oprah really plays some world of warcraft you know.
         "Group assignments make me understand why Arthas worked alone.",
         "Luckily, my profession is not dying.",
+        "By accepting your ressurrection, you agree to the terms and conditions of the 'I owe ${playerName} at least 3 fudge cubes' contract.",
         "I am not paid to be an undertaken. Get up and dig your own grave first please, thank you!",
     }
 
