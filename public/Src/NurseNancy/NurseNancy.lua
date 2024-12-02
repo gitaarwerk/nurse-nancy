@@ -18,6 +18,7 @@ function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
         "I'm back by popular demand.",
         "Hiiiiii, missed me?",
         "I'm....back!!!!",
+        "Here's {playerName}!!!",
         "I'm back, and I brought snacks!",
         "Ha! Death can't keep me down for long!",
         "Ha! Death can't keep me down for long!, probably not up either.",
@@ -87,6 +88,7 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
     end
 
     local singleRessLines = {
+        "Even though ${targetName} is killing it on the floor, I'm going to bring ${targetHimHer} back.",
         "As long as you are not aware of the continual law of Die and Be Again, you are merely a vague guest on a dark Azeroth.",
         "Stop eating the floor, ${targetName}!",
         "You look so unflattering, my ${targetName}, here, have a ress.",
@@ -151,7 +153,10 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
     if (playerClass == "Druid") then
         table.insert(singleRessLines,
             "Congratulations, you've been resurrected by a shaman with all the grace and finesse of a startled deer. You're welcome.")
-        table.insert(singleRessLines, "hey ${targetName} stop growing roots there! I need you to RAWR!")
+    end
+
+    if (targetClass == "Druid") then
+        table.insert(singleRessLines, "Hey ${targetName} stop growing roots there! I need you to RAWR!");
     end
 
     if (playerClass == "Warlock" or targetClass == "Priest") then
@@ -169,7 +174,7 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
     -- engineering's kit
     if (NurseNancyVars.debugMode == true or spellId == 8342 or spellId == 22999 or spellId == 54732) then
         table.insert(singleRessLines, "CLEAR!");
-        table.insert(singleRessLines, "Don’t struggle… I hate it when they struggle.")
+        table.insert(singleRessLines, "Don’t struggle... I hate it when they struggle.")
         table.insert(singleRessLines, "${targetName}, you might feel a slight jolt...")
         table.insert(singleRessLines, "I'd pray for a miracle, but then ${targetName} wouldn't need these things.")
         table.insert(singleRessLines, "${targetName}'s dead...what's the worst that could happen?")
@@ -231,6 +236,7 @@ function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
     end
 
     combatRessLines = {
+        "Ressing ${targetName} in the middle of a fight? I must be crazy!",
         "Being cremated is ${targetName}'s last hope for a smokin’ hot body.",
         "${targetName}, always deciding to enjoy the floor while fighting. Come on, ${playerManWoman}, accept the ress!",
         "${targetName}, stand up and walk!",
@@ -337,6 +343,7 @@ function NurseNancy.NurseNancy.speakMassRess()
     local pickedLine
 
     local massRessLines = {
+        "Go go gadget, RESSURECTION!",
         "Come to ${zoneName} with us they said, it will be fun, they said",
         "Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo... that's the best ambulance impression I can do.", -- Sueyen-Talnivarr, EU
         "Oh hello juicy corpses.... Your bodies are still warm... hmmmm... hmm.",
