@@ -7,6 +7,7 @@ function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
     local playerName, playerGender, playerClass, playerRace, playerLevel = NurseNancy.Helpers.GetPlayerInformation()
     local playerGuyGirl = NurseNancy.Helpers.GetGuyGirl(playerGender)
     local playerManWoman = NurseNancy.Helpers.GetManWoman(playerGender)
+    local zoneName = GetZoneText();
     local oppositeSex = "guys"
 
     if (playerGender == "male") then
@@ -14,10 +15,20 @@ function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
     end
 
     local selfRessLines = {
+        "Here I am, this is me. There's nowhere else on ${zoneName} I'd rather be.",
         "${playerName}'s back, allright!",
         "I'm back by popular demand.",
         "Hiiiiii, missed me?",
         "I'm....back!!!!",
+        "Sorry, I was just taking a quick nap. What did I miss?",
+        "Sorry, I just got killed by accident. I'm back now.",
+        "The other side didn't provide free Wi-Fi, so I came back here.",
+        "The floor heating was off, so I decided to come back.",
+        "I just finished writing a novel, I'm back to sell it to y'all!",
+        "I forgot to show my slideshow!",
+        "I forgot to play my own smallest violin!, so I'll do it just now.",
+        "I'm my own worst enemy, so I think it's time I'll LIT something else.",
+        "Self-service brought me back here.",
         "Here's {playerName}!!!",
         "I'm back, and I brought snacks!",
         "Ha! Death can't keep me down for long!",
@@ -28,11 +39,20 @@ function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
         "I wasn't dead, I was just taking a really long nap.",
         "I think I might have just broken a record for 'most times resurrected in one raid'.",
         "Reporting for booty! I mean, duty.",
+        "Apparently, my bones were not considered loot, so I decided to sell them elsewhere.",
         "I am certain that I have been here as I am now a thousand times before, and I hope to return a thousand times.",
     }
 
     if (playerRace == "Night Elf" or playerRace == "Blood Elf") then
         table.insert(selfRessLines, "Like the night, I return. And I promise, no more moonlight serenades... for now.");
+    end
+
+    if (playerRace == "Worgen") then
+        table.insert(selfRessLines, "I'm back, and hairier than ever!");
+    end
+
+    if (playerRace == "Undead") then
+        table.insert(selfRessLines, "The dead can't die twice, right? Right?");
     end
 
     if (playerClass == "Shaman") then
@@ -80,6 +100,7 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
 
     local playerGuyGirl = NurseNancy.Helpers.GetGuyGirl(playerGender)
     local playerManWoman = NurseNancy.Helpers.GetManWoman(playerGender)
+    local zoneName = GetZoneText();
 
     local oppositeSex = "guys"
 
@@ -96,6 +117,7 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
         "Even though ${targetName} is killing it on the floor, I'm going to bring ${targetHimHer} back.",
         "As long as you are not aware of the continual law of Die and Be Again, you are merely a vague guest on a dark Azeroth.",
         "Stop eating the floor, ${targetName}!",
+        "Nobody informed ${targetName} that ${zoneName}'s gravity works different. Here's something to make you feel lighter.",
         "You look so unflattering, my ${targetName}, here, have a ress.",
         "You are not my child, ${targetName}, but I will raise you.",
         "And ${targetName} said: 'it was just a flesh wound'.",
@@ -103,6 +125,7 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
         "It just happens that ${targetName} here is only MOSTLY dead.",
         "Now rezzing ${targetName}. Your reputation with [Floor] has been increased by 100.",
         "Wake up! Wake up!, ${targetName}.",
+        "${targetName}, come back! You forgot to pass me your contact details for the afterlife.",
         "I will not accept that ${targetName} actually died. ${targetHeShe} just needs some of my love.",
         "Rezzing: ${targetName}, get back to work!",
         "${targetName}, you're not done here. You missed a spot. Get back up!",
@@ -335,11 +358,11 @@ function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
 end
 
 function NurseNancy.NurseNancy.speakMassRess()
+    local pickedLine
     local playerName, playerGender, playerClass, playerRace, playerLevel = NurseNancy.Helpers.GetPlayerInformation()
 
     local playerGuyGirl                                                  = NurseNancy.Helpers.GetGuyGirl(playerGender)
     local playerManWoman                                                 = NurseNancy.Helpers.GetManWoman(playerGender)
-
     local oppositeSex                                                    = "guys"
 
     if (playerGender == "male") then
@@ -348,11 +371,9 @@ function NurseNancy.NurseNancy.speakMassRess()
 
     local zoneName = GetZoneText();
 
-
-    local pickedLine
-
     local massRessLines = {
         "Go go gadget, RESSURECTION!",
+        "A little less conversation, a little more action, please. All this resurrection ain't satisfactioning me",
         "Come to ${zoneName} with us they said, it will be fun, they said",
         "Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo... that's the best ambulance impression I can do.", -- Sueyen-Talnivarr, EU
         "Oh hello juicy corpses.... Your bodies are still warm... hmmmm... hmm.",
