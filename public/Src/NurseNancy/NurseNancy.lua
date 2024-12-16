@@ -269,6 +269,7 @@ function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
         "Being cremated is ${targetName}'s last hope for a smokin’ hot body.",
         "${targetName}, always deciding to enjoy the floor while fighting. Come on, ${playerManWoman}, accept the ress!",
         "${targetName}, stand up and walk!",
+        "A ${targetName} flatty patty is coming right up!",
         "In Soviet ${zoneName}, life chooses ${targetName}",
         "${targetName}, please report to the land of the living. Your urgent assistance is required.",
         "Up up and ....awayyyyyyy!",
