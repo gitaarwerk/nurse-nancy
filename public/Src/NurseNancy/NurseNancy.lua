@@ -9,6 +9,7 @@ function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
     local playerManWoman = NurseNancy.Helpers.GetManWoman(playerGender)
     local zoneName = GetZoneText();
     local oppositeSex = "guys"
+    local d = C_DateAndTime.GetCalendarTimeFromEpoch(1e6 * 60 * 60 * 24)
 
     if (playerGender == "male") then
         oppositeSex = "girls"
@@ -224,6 +225,28 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
         table.insert(singleRessLines, "Don't worry, ${targetName}, this is for SCIENCE!")
         table.insert(singleRessLines, "Five gold says ${targetName} enjoys these clamps.")
         table.insert(singleRessLines, "${targetName} has encountered a fatal error. Rebooting...")
+    end
+
+    -- Holidays!
+    -- -- Christmas
+    if (d.month == 12 and (d.day == 25 or d.day == 26)) then
+        table.insert(singleRessLines, "Merry Christmas, ${targetName}! Here's your gift: life!")
+        table.insert(singleRessLines, "${targetName}'s being called for Christmas dinner! Get up!")
+        table.insert(singleRessLines, "Santa's not the only one who can bring people back from the dead. Merry Christmas, ${targetName}!")
+        table.insert(singleRessLines, "I heard ${targetName} was on the naughty list, but I decided to give ${targetHimHer} a second chance anyway.")
+        table.insert(singleRessLines, "I hope you like your gift, ${targetName}. It's the gift of life!")
+        table.insert(singleRessLines, "I'm not saying I'm Santa, but I did just bring ${targetName} back from the dead. Coincidence? I think not.")
+        table.insert(singleRessLines, "I hope you're not allergic to second chances, ${targetName}. Merry Christmas!")
+    end
+
+    -- -- New year's eve
+    if (d.month == 12 and d.day == 31 or d.month == 1 and d.day == 1) then
+        table.insert(singleRessLines, "Happy New Year, ${targetName}! Here's to another year of not dying!")
+        table.insert(singleRessLines, "I hope you're not planning on dying in the new year, ${targetName}. I'm not sure I can handle another resurrection.")
+        table.insert(singleRessLines, "I heard ${targetName} was planning on starting the new year off with a bang. I didn't realize they meant literally.")
+        table.insert(singleRessLines, "I hope you're not planning on making a habit of dying in the new year, ${targetName}. I'm not sure I can handle it.")
+        table.insert(singleRessLines, "I'm not saying I'm a fortune teller, but I did predict that I'd be resurrecting ${targetName} on New Year's Eve.")
+        table.insert(singleRessLines, "Too much champagne or not, I'm still here to bring you back from the dead, ${targetName}. Happy New Year!")
     end
 
     local pickedLine = singleRessLines[fastrandom(1, #singleRessLines)]
