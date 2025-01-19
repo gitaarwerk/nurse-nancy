@@ -3,6 +3,7 @@ NurseNancy.NurseNancy = {}
 local feature = "NurseNancy";
 
 function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
+    local pickedLine
     local prefix = NurseNancyVars.usePrefix == true and "[Self ress]: " or ""
     local playerName, playerGender, playerClass, playerRace, playerLevel = NurseNancy.Helpers.GetPlayerInformation()
     local playerGuyGirl = NurseNancy.Helpers.GetGuyGirl(playerGender)
@@ -40,6 +41,9 @@ function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
         "I wasn't dead, I was just taking a really long nap.",
         "I think I might have just broken a record for 'most times resurrected in one raid'.",
         "Reporting for booty! I mean, duty.",
+        "I'm back, and I brought cookies!",
+        "Here I am, so young and strong. Right here in the place where I belong",
+        "Here I am, this is me. I come into this world so wild and free",
         "Apparently, my bones were not considered loot, so I decided to sell them elsewhere.",
         "I am certain that I have been here as I am now a thousand times before, and I hope to return a thousand times.",
     }
@@ -59,7 +63,7 @@ function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
     if (playerClass == "Shaman") then
         table.insert(selfRessLines, "Nobody believed in Reincarnation. Well, here's the proof!'")
         table.insert(selfRessLines,
-            "Reincarnation is great, but I'm not sure I want to come back as myself again. I mean, once was enough, am I right?")
+            "I'm like a phoenix, rising from the ashes of my own death. Except less fiery and more wet.")
         table.insert(selfRessLines,
             "Reincarnation is great, but I'm not sure I want to come back as myself again. I mean, once was enough, am I right?")
         table.insert(selfRessLines,
@@ -78,7 +82,13 @@ function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
             "I'm not just a Shaman, I'm a one-person resurrection army. Who needs healers anyway?")
     end
 
-    local pickedLine = selfRessLines[fastrandom(1, #selfRessLines)]
+    -- eastern
+    if (d.month == 4 and d.day == 4) then
+        table.insert(selfRessLines, "Got afraid and hid in this egg, but now i'm back!")
+        table.insert(selfRessLines, "Risen like a chocolate bunny in spring—no meltdown can hold me down!")
+    end
+
+    pickedLine = selfRessLines[fastrandom(1, #selfRessLines)]
 
     return NurseNancy.Helpers.parseText(
         prefix .. pickedLine, {
@@ -98,6 +108,7 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
     local prefix = NurseNancyVars.usePrefix == true and "[Ressing ${targetName}]: " or ""
     local playerName, playerGender, playerClass, playerRace, playerLevel = NurseNancy.Helpers.GetPlayerInformation()
     local targetName, targetGender, targetClass, targetRace = NurseNancy.Helpers.GetTargetInformationByUID(targetGUID)
+    local d = C_DateAndTime.GetCalendarTimeFromEpoch(1e6 * 60 * 60 * 24)
 
     local playerGuyGirl = NurseNancy.Helpers.GetGuyGirl(playerGender)
     local playerManWoman = NurseNancy.Helpers.GetManWoman(playerGender)
@@ -154,6 +165,7 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
         "Renewing ${targetName}'s lease on life, just a moment.",
         "Reports of ${targetName}'s death have been greatly exaggerated.",
         "${targetName}'s death *probably* wasn't my fault.",
+        "Resurrecting ${targetName}. Please wait...",
         "I'm done with ${targetName} pretending to be dead. Come back and start cleaning the mess you've made!",
         "You're alive! And here I thought all ${playerRace} were supposed to be tough. Guess I was wrong.",
         "I swear, it's like ${playerRace} are allergic to staying alive. But I'm happy to prove that theory wrong.",
@@ -232,21 +244,43 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
     if (d.month == 12 and (d.day == 25 or d.day == 26)) then
         table.insert(singleRessLines, "Merry Christmas, ${targetName}! Here's your gift: life!")
         table.insert(singleRessLines, "${targetName}'s being called for Christmas dinner! Get up!")
-        table.insert(singleRessLines, "Santa's not the only one who can bring people back from the dead. Merry Christmas, ${targetName}!")
-        table.insert(singleRessLines, "I heard ${targetName} was on the naughty list, but I decided to give ${targetHimHer} a second chance anyway.")
+        table.insert(singleRessLines,
+            "Santa's not the only one who can bring people back from the dead. Merry Christmas, ${targetName}!")
+        table.insert(singleRessLines,
+            "I heard ${targetName} was on the naughty list, but I decided to give ${targetHimHer} a second chance anyway.")
         table.insert(singleRessLines, "I hope you like your gift, ${targetName}. It's the gift of life!")
-        table.insert(singleRessLines, "I'm not saying I'm Santa, but I did just bring ${targetName} back from the dead. Coincidence? I think not.")
+        table.insert(singleRessLines,
+            "I'm not saying I'm Santa, but I did just bring ${targetName} back from the dead. Coincidence? I think not.")
         table.insert(singleRessLines, "I hope you're not allergic to second chances, ${targetName}. Merry Christmas!")
     end
 
     -- -- New year's eve
     if (d.month == 12 and d.day == 31 or d.month == 1 and d.day == 1) then
         table.insert(singleRessLines, "Happy New Year, ${targetName}! Here's to another year of not dying!")
-        table.insert(singleRessLines, "I hope you're not planning on dying in the new year, ${targetName}. I'm not sure I can handle another resurrection.")
-        table.insert(singleRessLines, "I heard ${targetName} was planning on starting the new year off with a bang. I didn't realize they meant literally.")
-        table.insert(singleRessLines, "I hope you're not planning on making a habit of dying in the new year, ${targetName}. I'm not sure I can handle it.")
-        table.insert(singleRessLines, "I'm not saying I'm a fortune teller, but I did predict that I'd be resurrecting ${targetName} on New Year's Eve.")
-        table.insert(singleRessLines, "Too much champagne or not, I'm still here to bring you back from the dead, ${targetName}. Happy New Year!")
+        table.insert(singleRessLines,
+            "I hope you're not planning on dying in the new year, ${targetName}. I'm not sure I can handle another resurrection.")
+        table.insert(singleRessLines,
+            "I heard ${targetName} was planning on starting the new year off with a bang. I didn't realize they meant literally.")
+        table.insert(singleRessLines,
+            "I hope you're not planning on making a habit of dying in the new year, ${targetName}. I'm not sure I can handle it.")
+        table.insert(singleRessLines,
+            "I'm not saying I'm a fortune teller, but I did predict that I'd be resurrecting ${targetName} on New Year's Eve.")
+        table.insert(singleRessLines,
+            "Too much champagne or not, I'm still here to bring you back from the dead, ${targetName}. Happy New Year!")
+    end
+
+    -- eastern
+    if (d.month == 4 and d.day == 4) then
+        table.insert(singleRessLines, "Happy Easter, ${targetName}! Here's your gift: life!")
+        table.insert(singleRessLines, "${targetName}'s being called for Easter dinner! Get up!")
+        table.insert(singleRessLines,
+            "The Easter Bunny's not the only one who can bring people back from the dead. Happy Easter, ${targetName}!")
+        table.insert(singleRessLines,
+            "I'm not saying I'm the Easter Bunny, but I did just bring ${targetName} back from the dead. Coincidence? I think not.")
+        table.insert(singleRessLines, "I hope you're not allergic to second chances, ${targetName}. Happy Easter!")
+        table.insert(singleRessLines, "I might've cracked under pressure, but I'm hopping right back—happy Easter!")
+        table.insert(singleRessLines,
+            "Egg-stra! Egg-stra! Read all about it—my resurrection is as colorful as those hidden eggs!")
     end
 
     local pickedLine = singleRessLines[fastrandom(1, #singleRessLines)]
@@ -270,7 +304,9 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
 end
 
 function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
+    local pickedLine
     local prefix = NurseNancyVars.usePrefix == true and "[Combat ressing ${targetName}]: " or ""
+    local d = C_DateAndTime.GetCalendarTimeFromEpoch(1e6 * 60 * 60 * 24)
 
     local playerName, playerGender, playerClass, playerRace, playerLevel = NurseNancy.Helpers.GetPlayerInformation()
     local targetName, targetGender, targetClass, targetRace = NurseNancy.Helpers.GetTargetInformationByUID(targetGUID)
@@ -359,8 +395,20 @@ function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
         table.insert(combatRessLines, "FYI, ${targetName}, using a soulstone removes any chance of getting into heaven.")
     end
 
+    -- eastern
+    if (d.month == 4 and d.day == 4) then
+        table.insert(combatRessLines, "Got afraid and hid in this egg, but now i'm back!")
+        table.insert(combatRessLines, "Time to spring back into action, ${targetName}!")
+        table.insert(combatRessLines, "No time for an egg nap, ${targetName}! Hop right up!")
+        table.insert(combatRessLines, "Crack open a new life, ${targetName}, the battle's not over yet!")
+        table.insert(combatRessLines, "Rise and shine, ${targetName}, don't keep the Easter bunny waiting!")
 
-    local pickedLine = combatRessLines[fastrandom(1, #combatRessLines)]
+        if (playerClass == "Warlock") then
+            table.insert(combatRessLines, "Here's some cool 'chocolate egg', ${targetName}.")
+        end
+    end
+
+    pickedLine = combatRessLines[fastrandom(1, #combatRessLines)]
 
     return NurseNancy.Helpers.parseText(
         prefix .. pickedLine, {
@@ -383,6 +431,11 @@ end
 
 function NurseNancy.NurseNancy.speakMassRess()
     local pickedLine
+    local prefix                                                         = NurseNancyVars.usePrefix == true and
+        "[Mass ressing]: " or ""
+
+    local d                                                              = C_DateAndTime.GetCalendarTimeFromEpoch(1e6 *
+        60 * 60 * 24)
     local playerName, playerGender, playerClass, playerRace, playerLevel = NurseNancy.Helpers.GetPlayerInformation()
 
     local playerGuyGirl                                                  = NurseNancy.Helpers.GetGuyGirl(playerGender)
@@ -437,6 +490,9 @@ function NurseNancy.NurseNancy.speakMassRess()
         "Luckily, my profession is not dying.",
         "By accepting your ressurrection, you agree to the terms and conditions of the 'I owe ${playerName} at least 3 fudge cubes' contract.",
         "I am not paid to be an undertaken. Get up and dig your own grave first please, thank you!",
+        "Apparently, the afterlife was too crowded, so you're stuck with me again.",
+        "Get up, everyone! I'm running out of witty remarks for repeated mass deaths.",
+        "Look at all these sleeping beauties! Time for a group wake-up call."
     }
 
     if (playerRace == "Dracthyr") then
@@ -459,7 +515,25 @@ function NurseNancy.NurseNancy.speakMassRess()
             "I'm starting to think that 'resurrection' is just a fancy word for 'you owe me one.'")
     end
 
-    local prefix = NurseNancyVars.usePrefix == true and "[Mass ressing]: " or ""
+    -- eastern
+    if (d.month == 4 and d.day == 4) then
+        table.insert(massRessLines, "Easter's not over yet, ${playerName}! Time to bring everyone back from the dead!")
+        table.insert(massRessLines, "Rise and shine, everyone! The Easter bunny has nothing on me!")
+        table.insert(massRessLines, "Easter may be over, but the resurrection party is just getting started!")
+        table.insert(massRessLines,
+            "The Easter bunny may have hidden the eggs, but I'm the one bringing everyone back from the dead!")
+        table.insert(massRessLines,
+            "Easter may be a time for new beginnings, but I'm pretty sure this is the first time anyone's been resurrected on Easter!")
+    end
+
+    -- christmas
+    if (d.month == 12 and (d.day == 25 or d.day == 26)) then
+        table.insert(massRessLines, "Merry Christmas, everyone! Here's your gift: life!")
+        table.insert(massRessLines, "Everyone's being called for Christmas dinner! Get up!")
+        table.insert(massRessLines,
+            "Santa's not the only one who can bring people back from the dead. Merry Christmas, everyone!")
+    end
+
     pickedLine = massRessLines[fastrandom(1, #massRessLines)]
 
     return NurseNancy.Helpers.parseText(
@@ -475,13 +549,6 @@ function NurseNancy.NurseNancy.speakMassRess()
             zoneName = zoneName,
         }
     )
-end
-
-local function str_to_bool(str)
-    if str == nil then
-        return false
-    end
-    return string.lower(str) == 'true'
 end
 
 local function canBroadcastParty(value)
