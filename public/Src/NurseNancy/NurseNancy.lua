@@ -8,6 +8,7 @@ function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
     local playerName, playerGender, playerClass, playerRace, playerLevel = NurseNancy.Helpers.GetPlayerInformation()
     local playerGuyGirl = NurseNancy.Helpers.GetGuyGirl(playerGender)
     local playerManWoman = NurseNancy.Helpers.GetManWoman(playerGender)
+    local playerHimHer = NurseNancy.Helpers.GetHimHer(playerGender);
     local zoneName = GetZoneText();
     local oppositeSex = "guys"
     local d = C_DateAndTime.GetCalendarTimeFromEpoch(1e6 * 60 * 60 * 24)
@@ -99,6 +100,7 @@ function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
             playerLevel = playerLevel,
             playerManWoman = playerManWoman,
             playerGuyGirl = playerGuyGirl,
+            playerHimHer = playerHimHer,
             oppositeSex = oppositeSex,
         }
     )
@@ -108,6 +110,7 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
     local prefix = NurseNancyVars.usePrefix == true and "[Ressing ${targetName}]: " or ""
     local playerName, playerGender, playerClass, playerRace, playerLevel = NurseNancy.Helpers.GetPlayerInformation()
     local targetName, targetGender, targetClass, targetRace = NurseNancy.Helpers.GetTargetInformationByUID(targetGUID)
+    local targetHimHer = NurseNancy.Helpers.GetHimHer(targetGender);
     local d = C_DateAndTime.GetCalendarTimeFromEpoch(1e6 * 60 * 60 * 24)
 
     local playerGuyGirl = NurseNancy.Helpers.GetGuyGirl(playerGender)
@@ -298,6 +301,7 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
             targetGender = targetGender,
             targetClass = targetClass,
             targetRace = targetRace,
+            targetHimHer = targetHimHer,
             oppositeSex = oppositeSex,
         }
     )
@@ -313,6 +317,8 @@ function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
 
     local playerGuyGirl = NurseNancy.Helpers.GetGuyGirl(playerGender)
     local playerManWoman = NurseNancy.Helpers.GetManWoman(playerGender)
+
+    local targetHimHer = NurseNancy.Helpers.GetHimHer(targetGender);
 
     local zoneName = GetRealZoneText()
     local combatRessLines
@@ -423,6 +429,7 @@ function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
             targetGender = targetGender,
             targetClass = targetClass,
             targetRace = targetRace,
+            targetHimHer = targetHimHer,
             oppositeSex = oppositeSex,
             zoneName = zoneName
         }
