@@ -1,0 +1,21 @@
+## Title: Nurse Nancy
+## Interface: 20504
+## X-Min-Interface: 20504
+## X-Future-Interface: TBA
+## Version: @project-version@
+## IconTexture: Interface\AddOns\NurseNancy\addonIcon.jpg
+## Author: Darkrider - Dunemaul (EU)
+## Notes: Tells in party, instance or raid who you are ressing
+## SavedVariablesPerCharacter: NurseNancyVars
+## LoadOnDemand: 0
+## DefaultState: enabled
+## X-Category: Boss encounters, Raid, Chat, Healer
+## X-Date: @project-date-iso@
+## X-ResetVarsDate: 2024-07-20T00:00:00Z
+## X-License: All Rights Reserved
+## X-Website: https://www.curseforge.com/wow/addons/nurse-nancy
+## X-Curse-Project-ID: 846566
+
+Src/AltGameTooltip.xml
+Src/ConfigurationScreen.xml
+Src/Main.xml
