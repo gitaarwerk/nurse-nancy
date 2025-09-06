@@ -377,6 +377,7 @@ function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
 
     if (playerClass == "Warlock") then
         prefix = NurseNancyVars.usePrefix == true and "[Soulstone on ${targetName}]: " or ""
+        table.insert(combatRessLines, "Sacraficing this rare Labubu in order to ressurrect ${targetName}.")
         table.insert(combatRessLines, "Do not worry, ${targetName}, this soulstone - shouldn't - hurt a bit...")
         table.insert(combatRessLines,
             "According to my Failometer, ${targetName} has a high chance of dying in the next fifteen minutes.")
