@@ -1,6 +1,6 @@
 ## Title: Nurse Nancy
-## Interface: 110200
-## X-Min-Interface: 110200
+## Interface: 120000
+## X-Min-Interface: 120000
 ## X-Future-Interface: TBA
 ## Version: @project-version@
 ## IconTexture: Interface\AddOns\NurseNancy\addonIcon.jpg

@@ -682,13 +682,13 @@ function NurseNancy.NurseNancy.Run()
 
             if (isSingleRess and groupChannelSingleRess) then
                 line = NurseNancy.NurseNancy.speakSingleRess(unitIdentificator, spellId)
-                SendChatMessage(line, groupChannelSingleRess, nil, index)
+                C_ChatInfo.SendChatMessage(line, groupChannelSingleRess, nil, nil)
             elseif (isCombatRess and groupChannelCombatRess) then
                 line = NurseNancy.NurseNancy.speakCombatRess(unitIdentificator, spellId)
-                SendChatMessage(line, groupChannelCombatRess, nil, index)
+                C_ChatInfo.SendChatMessage(line, groupChannelCombatRess, nil, nil)
             elseif (isSelfRess and groupChannelSelfRess) then
                 line = NurseNancy.NurseNancy.speakSelfRess(unitIdentificator, spellId)
-                SendChatMessage(line, groupChannelSelfRess, nil, index)
+                C_ChatInfo.SendChatMessage(line, groupChannelSelfRess, nil, nil)
             end
 
             if (NurseNancyVars.debugMode == true) then
