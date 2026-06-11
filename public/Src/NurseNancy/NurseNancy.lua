@@ -499,9 +499,11 @@ function NurseNancy.NurseNancy.Run()
     -- catches the instant ones (Raise Ally, Reincarnation, soulstone self-ress).
     -- UNIT_SPELLCAST_SENT still exists but its target parameter may be a secret value now,
     -- so it is registered defensively and only used when the name is actually readable.
+    -- "pet" is included for pet-cast resurrections (hunter Stone Hound's Eternal Guardian);
+    -- units controlled by the player are non-secret in Midnight too.
     pcall(frame.RegisterUnitEvent, frame, "UNIT_SPELLCAST_SENT", "player")
-    frame:RegisterUnitEvent("UNIT_SPELLCAST_START", "player")
-    frame:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
+    frame:RegisterUnitEvent("UNIT_SPELLCAST_START", "player", "pet")
+    frame:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player", "pet")
 
     local lastSentTargetName, lastSentCastGUID
     local lastAnnouncedKey, lastAnnouncedTime = nil, 0
@@ -618,7 +620,7 @@ function NurseNancy.NurseNancy.Run()
         if (event == "UNIT_SPELLCAST_START" or event == "UNIT_SPELLCAST_SUCCEEDED") then
             local unitTarget, castGUID, spellID = ...
 
-            if (not (unitTarget == "player") or not spellID) then
+            if (not (unitTarget == "player" or unitTarget == "pet") or not spellID) then
                 return
             end
 
