@@ -99,10 +99,16 @@ end
 
 function NurseNancy.Helpers.GetTargetInformationByUID(uid)
   local genderTable = { "neutral or unknown", "male", "female" };
-  local targetClass, engClass, targetRace, engRace, gender, targetName, server = GetPlayerInfoByGUID(uid)
-  local targetGender = genderTable[UnitSex(uid)]
+  local targetClass, engClass, targetRace, engRace, sex, targetName, server
 
-  return targetName, targetGender, targetClass, targetRace
+  if (uid) then
+    targetClass, engClass, targetRace, engRace, sex, targetName, server = GetPlayerInfoByGUID(uid)
+  end
+
+  -- UnitSex() does not accept GUIDs; GetPlayerInfoByGUID already returns the sex.
+  local targetGender = genderTable[sex or 1]
+
+  return targetName or "someone", targetGender, targetClass or "hero", targetRace or "mortal"
 end
 
 function NurseNancy.Helpers.GetPlayerInformation()

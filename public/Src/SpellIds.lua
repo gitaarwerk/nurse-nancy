@@ -3,7 +3,7 @@ NurseNancy.SpellIds = {}
 function NurseNancy.SpellIds.isSingleRess(spellId)
     local spellIds = {
         2006,   -- Priest's Resurrection
-        2008,   -- Shaman's Ancestral spirit
+        2008,   -- Shaman's Ancesttral spirit
         7328,   -- Paladin's Redemption
         50769,  --Druid's revive
         115178, --Monk's Resuscitate
@@ -47,7 +47,9 @@ end
 
 function NurseNancy.SpellIds.isSelfRess(spellId)
     local spellIds = {
-        20608, -- Shaman's Reincarnation
+        20608, -- Shaman's Reincarnation (passive)
+        21169, -- Reincarnation (the actual self-ress cast)
+        3026,  -- Use Soulstone (Warlock soulstone self-ress)
         23701, -- Darkmoon card: Twisting Nether
     }
 

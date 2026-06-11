@@ -3,36 +3,21 @@ NurseNancy.NurseNancy = {}
 local feature = "NurseNancy";
 
 function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
-    local pickedLine
     local prefix = NurseNancyVars.usePrefix == true and "[Self ress]: " or ""
     local playerName, playerGender, playerClass, playerRace, playerLevel = NurseNancy.Helpers.GetPlayerInformation()
     local playerGuyGirl = NurseNancy.Helpers.GetGuyGirl(playerGender)
     local playerManWoman = NurseNancy.Helpers.GetManWoman(playerGender)
-    local playerHimHer = NurseNancy.Helpers.GetHimHer(playerGender);
-    local zoneName = GetZoneText();
     local oppositeSex = "guys"
-    local d = C_DateAndTime.GetCalendarTimeFromEpoch(1e6 * 60 * 60 * 24)
 
     if (playerGender == "male") then
         oppositeSex = "girls"
     end
 
     local selfRessLines = {
-        "Here I am, this is me. There's nowhere else on ${zoneName} I'd rather be.",
         "${playerName}'s back, allright!",
         "I'm back by popular demand.",
         "Hiiiiii, missed me?",
         "I'm....back!!!!",
-        "Sorry, I was just taking a quick nap. What did I miss?",
-        "Sorry, I just got killed by accident. I'm back now.",
-        "The other side didn't provide free Wi-Fi, so I came back here.",
-        "The floor heating was off, so I decided to come back.",
-        "I just finished writing a novel, I'm back to sell it to y'all!",
-        "I forgot to show my slideshow!",
-        "I forgot to play my own smallest violin!, so I'll do it just now.",
-        "I'm my own worst enemy, so I think it's time I'll LIT something else.",
-        "Self-service brought me back here.",
-        "Here's {playerName}!!!",
         "I'm back, and I brought snacks!",
         "Ha! Death can't keep me down for long!",
         "Ha! Death can't keep me down for long!, probably not up either.",
@@ -40,31 +25,17 @@ function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
         "I'm like a cat, I always land on my feet. Even when I'm dead.",
         "Well, that was a close one. I almost had to walk all the way back to my corpse.",
         "I wasn't dead, I was just taking a really long nap.",
-        "I think I might have just broken a record for 'most times resurrected in one raid'.",
-        "Reporting for booty! I mean, duty.",
-        "I'm back, and I brought cookies!",
-        "Here I am, so young and strong. Right here in the place where I belong",
-        "Here I am, this is me. I come into this world so wild and free",
-        "Apparently, my bones were not considered loot, so I decided to sell them elsewhere.",
-        "I am certain that I have been here as I am now a thousand times before, and I hope to return a thousand times.",
+        "I think I might have just broken a record for 'most times resurrected in one raid'."
     }
 
     if (playerRace == "Night Elf" or playerRace == "Blood Elf") then
         table.insert(selfRessLines, "Like the night, I return. And I promise, no more moonlight serenades... for now.");
     end
 
-    if (playerRace == "Worgen") then
-        table.insert(selfRessLines, "I'm back, and hairier than ever!");
-    end
-
-    if (playerRace == "Undead") then
-        table.insert(selfRessLines, "The dead can't die twice, right? Right?");
-    end
-
     if (playerClass == "Shaman") then
         table.insert(selfRessLines, "Nobody believed in Reincarnation. Well, here's the proof!'")
         table.insert(selfRessLines,
-            "I'm like a phoenix, rising from the ashes of my own death. Except less fiery and more wet.")
+            "Reincarnation is great, but I'm not sure I want to come back as myself again. I mean, once was enough, am I right?")
         table.insert(selfRessLines,
             "Reincarnation is great, but I'm not sure I want to come back as myself again. I mean, once was enough, am I right?")
         table.insert(selfRessLines,
@@ -83,13 +54,7 @@ function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
             "I'm not just a Shaman, I'm a one-person resurrection army. Who needs healers anyway?")
     end
 
-    -- eastern
-    if (d.month == 4 and d.day == 4) then
-        table.insert(selfRessLines, "Got afraid and hid in this egg, but now i'm back!")
-        table.insert(selfRessLines, "Risen like a chocolate bunny in spring—no meltdown can hold me down!")
-    end
-
-    pickedLine = selfRessLines[fastrandom(1, #selfRessLines)]
+    local pickedLine = selfRessLines[math.random(1, #selfRessLines)]
 
     return NurseNancy.Helpers.parseText(
         prefix .. pickedLine, {
@@ -100,7 +65,6 @@ function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
             playerLevel = playerLevel,
             playerManWoman = playerManWoman,
             playerGuyGirl = playerGuyGirl,
-            playerHimHer = playerHimHer,
             oppositeSex = oppositeSex,
         }
     )
@@ -110,12 +74,9 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
     local prefix = NurseNancyVars.usePrefix == true and "[Ressing ${targetName}]: " or ""
     local playerName, playerGender, playerClass, playerRace, playerLevel = NurseNancy.Helpers.GetPlayerInformation()
     local targetName, targetGender, targetClass, targetRace = NurseNancy.Helpers.GetTargetInformationByUID(targetGUID)
-    local targetHimHer = NurseNancy.Helpers.GetHimHer(targetGender);
-    local d = C_DateAndTime.GetCalendarTimeFromEpoch(1e6 * 60 * 60 * 24)
 
     local playerGuyGirl = NurseNancy.Helpers.GetGuyGirl(playerGender)
     local playerManWoman = NurseNancy.Helpers.GetManWoman(playerGender)
-    local zoneName = GetZoneText();
 
     local oppositeSex = "guys"
 
@@ -124,15 +85,7 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
     end
 
     local singleRessLines = {
-        "${targetName} will be back in action in 10,...9,...8,...7,...6,...5,...4,...3,...2,...1,...",
-        "${targetName} is back in the game, and ${playerName} is the one to blame!",
-        "I'm not saying ${targetName} owes me their life, but I'm not NOT saying it either.",
-        "${targetName}'s soul has been returned to their body. I hope they didn't lose the receipt.",
-        "${targetName} time is now to get back on your feet and learn a real job.",
-        "Even though ${targetName} is killing it on the floor, I'm going to bring ${targetHimHer} back.",
-        "As long as you are not aware of the continual law of Die and Be Again, you are merely a vague guest on a dark Azeroth.",
         "Stop eating the floor, ${targetName}!",
-        "Nobody informed ${targetName} that ${zoneName}'s gravity works different. Here's something to make you feel lighter.",
         "You look so unflattering, my ${targetName}, here, have a ress.",
         "You are not my child, ${targetName}, but I will raise you.",
         "And ${targetName} said: 'it was just a flesh wound'.",
@@ -140,10 +93,8 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
         "It just happens that ${targetName} here is only MOSTLY dead.",
         "Now rezzing ${targetName}. Your reputation with [Floor] has been increased by 100.",
         "Wake up! Wake up!, ${targetName}.",
-        "${targetName}, come back! You forgot to pass me your contact details for the afterlife.",
         "I will not accept that ${targetName} actually died. ${targetHeShe} just needs some of my love.",
         "Rezzing: ${targetName}, get back to work!",
-        "${targetName}, you're not done here. You missed a spot. Get back up!",
         "${targetName} has an incredible talent for bad timing. ${targetName} will live another few seconds.",
         "Sorry to break your dream, ${targetName}, but the princess ain't in another castle!",
         "You know, ${targetName}, the floor doesn't contain any floor heating, so get up and work it, baby!",
@@ -152,7 +103,7 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
         "Rezzing ${targetName}. Please no one else do this, or we could end up with a split body each and that would be unfortunate.",
         "Currently interrupting %T's love affair with the floor in 3....2....1.",
         "Here lies ${targetName}, my autumn flower. A lot less attractive now that you're all corpsified and gross.",
-        "By the feeling, ${targetName} is still warm, but as I am being watched right now, i'll just ress you instead,… of other things i wanted to do",
+        "By the feeling, ${targetName} is still warm, but as I am being watched right now, i’ll just ress you instead,… of other things i wanted to do",
         "${targetName} brought to life by Spirit Travels, Inc. Have you considered our Frequent Death program?",
         "It was just an ordinary gas cloud, ${targetName} said.",
         "${targetName}, by clicking 'Accept', you, the resurrectee, hereby consign your soul to the resurrecter, i.e., me.",
@@ -168,7 +119,6 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
         "Renewing ${targetName}'s lease on life, just a moment.",
         "Reports of ${targetName}'s death have been greatly exaggerated.",
         "${targetName}'s death *probably* wasn't my fault.",
-        "Resurrecting ${targetName}. Please wait...",
         "I'm done with ${targetName} pretending to be dead. Come back and start cleaning the mess you've made!",
         "You're alive! And here I thought all ${playerRace} were supposed to be tough. Guess I was wrong.",
         "I swear, it's like ${playerRace} are allergic to staying alive. But I'm happy to prove that theory wrong.",
@@ -181,12 +131,10 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
         "I hope you're not mad I interrupted your peaceful death. You're welcome, I guess?",
         "You're back! It's like you never left...except for the fact that you were dead a few moments ago.",
         "I know I said I'd always have your back, but did you have to test me on this so soon?",
-        "If laughter is the best medicine, I prescribe to take a look at ${targetName} for a daily dose of hilarous stunts.",
-        "Hey ${targetName}, I hope you recover faster your Wi-Fi connection. Sending healing vibes your way!",
         "Hey, I brought you back to life, but don't expect any thank-you gifts. I'm still trying to get over the smell.",
-        "I brought ${targetName} back to life because I needed someone to carry my bags. Thanks in advance.",
-        "I didn't find ${targetName}'s 'Do not resuscitate' order, so I figured I'd just go ahead and bring you back to life. You're welcome.",
+        "I brought ${targetName} back to life because I needed someone to carry my bags. Thanks in advance."
     }
+
 
     if (playerClass == "Shaman") then
         table.insert(singleRessLines,
@@ -198,10 +146,7 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
     if (playerClass == "Druid") then
         table.insert(singleRessLines,
             "Congratulations, you've been resurrected by a shaman with all the grace and finesse of a startled deer. You're welcome.")
-    end
-
-    if (targetClass == "Druid") then
-        table.insert(singleRessLines, "Hey ${targetName} stop growing roots there! I need you to RAWR!");
+        table.insert(singleRessLines, "hey ${targetName} stop growing roots there! I need you to RAWR!")
     end
 
     if (playerClass == "Warlock" or targetClass == "Priest") then
@@ -219,7 +164,7 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
     -- engineering's kit
     if (NurseNancyVars.debugMode == true or spellId == 8342 or spellId == 22999 or spellId == 54732) then
         table.insert(singleRessLines, "CLEAR!");
-        table.insert(singleRessLines, "Don’t struggle... I hate it when they struggle.")
+        table.insert(singleRessLines, "Don’t struggle… I hate it when they struggle.")
         table.insert(singleRessLines, "${targetName}, you might feel a slight jolt...")
         table.insert(singleRessLines, "I'd pray for a miracle, but then ${targetName} wouldn't need these things.")
         table.insert(singleRessLines, "${targetName}'s dead...what's the worst that could happen?")
@@ -242,51 +187,7 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
         table.insert(singleRessLines, "${targetName} has encountered a fatal error. Rebooting...")
     end
 
-    -- Holidays!
-    -- -- Christmas
-    if (d.month == 12 and (d.day == 25 or d.day == 26)) then
-        table.insert(singleRessLines, "Merry Christmas, ${targetName}! Here's your gift: life!")
-        table.insert(singleRessLines, "${targetName}'s being called for Christmas dinner! Get up!")
-        table.insert(singleRessLines,
-            "Santa's not the only one who can bring people back from the dead. Merry Christmas, ${targetName}!")
-        table.insert(singleRessLines,
-            "I heard ${targetName} was on the naughty list, but I decided to give ${targetHimHer} a second chance anyway.")
-        table.insert(singleRessLines, "I hope you like your gift, ${targetName}. It's the gift of life!")
-        table.insert(singleRessLines,
-            "I'm not saying I'm Santa, but I did just bring ${targetName} back from the dead. Coincidence? I think not.")
-        table.insert(singleRessLines, "I hope you're not allergic to second chances, ${targetName}. Merry Christmas!")
-    end
-
-    -- -- New year's eve
-    if (d.month == 12 and d.day == 31 or d.month == 1 and d.day == 1) then
-        table.insert(singleRessLines, "Happy New Year, ${targetName}! Here's to another year of not dying!")
-        table.insert(singleRessLines,
-            "I hope you're not planning on dying in the new year, ${targetName}. I'm not sure I can handle another resurrection.")
-        table.insert(singleRessLines,
-            "I heard ${targetName} was planning on starting the new year off with a bang. I didn't realize they meant literally.")
-        table.insert(singleRessLines,
-            "I hope you're not planning on making a habit of dying in the new year, ${targetName}. I'm not sure I can handle it.")
-        table.insert(singleRessLines,
-            "I'm not saying I'm a fortune teller, but I did predict that I'd be resurrecting ${targetName} on New Year's Eve.")
-        table.insert(singleRessLines,
-            "Too much champagne or not, I'm still here to bring you back from the dead, ${targetName}. Happy New Year!")
-    end
-
-    -- eastern
-    if (d.month == 4 and d.day == 4) then
-        table.insert(singleRessLines, "Happy Easter, ${targetName}! Here's your gift: life!")
-        table.insert(singleRessLines, "${targetName}'s being called for Easter dinner! Get up!")
-        table.insert(singleRessLines,
-            "The Easter Bunny's not the only one who can bring people back from the dead. Happy Easter, ${targetName}!")
-        table.insert(singleRessLines,
-            "I'm not saying I'm the Easter Bunny, but I did just bring ${targetName} back from the dead. Coincidence? I think not.")
-        table.insert(singleRessLines, "I hope you're not allergic to second chances, ${targetName}. Happy Easter!")
-        table.insert(singleRessLines, "I might've cracked under pressure, but I'm hopping right back—happy Easter!")
-        table.insert(singleRessLines,
-            "Egg-stra! Egg-stra! Read all about it—my resurrection is as colorful as those hidden eggs!")
-    end
-
-    local pickedLine = singleRessLines[fastrandom(1, #singleRessLines)]
+    local pickedLine = singleRessLines[math.random(1, #singleRessLines)]
 
     return NurseNancy.Helpers.parseText(
         prefix .. pickedLine, {
@@ -301,24 +202,19 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
             targetGender = targetGender,
             targetClass = targetClass,
             targetRace = targetRace,
-            targetHimHer = targetHimHer,
             oppositeSex = oppositeSex,
         }
     )
 end
 
 function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
-    local pickedLine
     local prefix = NurseNancyVars.usePrefix == true and "[Combat ressing ${targetName}]: " or ""
-    local d = C_DateAndTime.GetCalendarTimeFromEpoch(1e6 * 60 * 60 * 24)
 
     local playerName, playerGender, playerClass, playerRace, playerLevel = NurseNancy.Helpers.GetPlayerInformation()
     local targetName, targetGender, targetClass, targetRace = NurseNancy.Helpers.GetTargetInformationByUID(targetGUID)
 
     local playerGuyGirl = NurseNancy.Helpers.GetGuyGirl(playerGender)
     local playerManWoman = NurseNancy.Helpers.GetManWoman(playerGender)
-
-    local targetHimHer = NurseNancy.Helpers.GetHimHer(targetGender);
 
     local zoneName = GetRealZoneText()
     local combatRessLines
@@ -330,17 +226,12 @@ function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
     end
 
     combatRessLines = {
-        "Ressing ${targetName} in the middle of a fight? I must be crazy!",
         "Being cremated is ${targetName}'s last hope for a smokin’ hot body.",
         "${targetName}, always deciding to enjoy the floor while fighting. Come on, ${playerManWoman}, accept the ress!",
         "${targetName}, stand up and walk!",
-        "A ${targetName} flatty patty is coming right up!",
         "In Soviet ${zoneName}, life chooses ${targetName}",
         "${targetName}, please report to the land of the living. Your urgent assistance is required.",
         "Up up and ....awayyyyyyy!",
-        "Get up, ${targetName}, I need you to fetch me snacks,...NOW PLEASE!",
-        "Sorry, ${targetName}'s strings were a little tangled. Let me just untie them...There we go!",
-        "I'm not saying I am to blame for ${targetName}'s death, but I did told ${targetHimHer} I had garlic. Luckily, ressing has plenty of distance.",
         "Resurrecting is not changing who you are, but discarding who you are not.",
         "Congratulations, ${targetName} is alive again! Just don't ask me to do it again anytime soon. It's a lot of paperwork.",
     }
@@ -377,7 +268,6 @@ function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
 
     if (playerClass == "Warlock") then
         prefix = NurseNancyVars.usePrefix == true and "[Soulstone on ${targetName}]: " or ""
-        table.insert(combatRessLines, "Sacraficing this rare Labubu in order to ressurrect ${targetName}.")
         table.insert(combatRessLines, "Do not worry, ${targetName}, this soulstone - shouldn't - hurt a bit...")
         table.insert(combatRessLines,
             "According to my Failometer, ${targetName} has a high chance of dying in the next fifteen minutes.")
@@ -402,20 +292,8 @@ function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
         table.insert(combatRessLines, "FYI, ${targetName}, using a soulstone removes any chance of getting into heaven.")
     end
 
-    -- eastern
-    if (d.month == 4 and d.day == 4) then
-        table.insert(combatRessLines, "Got afraid and hid in this egg, but now i'm back!")
-        table.insert(combatRessLines, "Time to spring back into action, ${targetName}!")
-        table.insert(combatRessLines, "No time for an egg nap, ${targetName}! Hop right up!")
-        table.insert(combatRessLines, "Crack open a new life, ${targetName}, the battle's not over yet!")
-        table.insert(combatRessLines, "Rise and shine, ${targetName}, don't keep the Easter bunny waiting!")
 
-        if (playerClass == "Warlock") then
-            table.insert(combatRessLines, "Here's some cool 'chocolate egg', ${targetName}.")
-        end
-    end
-
-    pickedLine = combatRessLines[fastrandom(1, #combatRessLines)]
+    local pickedLine = combatRessLines[math.random(1, #combatRessLines)]
 
     return NurseNancy.Helpers.parseText(
         prefix .. pickedLine, {
@@ -430,7 +308,6 @@ function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
             targetGender = targetGender,
             targetClass = targetClass,
             targetRace = targetRace,
-            targetHimHer = targetHimHer,
             oppositeSex = oppositeSex,
             zoneName = zoneName
         }
@@ -438,16 +315,11 @@ function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
 end
 
 function NurseNancy.NurseNancy.speakMassRess()
-    local pickedLine
-    local prefix                                                         = NurseNancyVars.usePrefix == true and
-        "[Mass ressing]: " or ""
-
-    local d                                                              = C_DateAndTime.GetCalendarTimeFromEpoch(1e6 *
-        60 * 60 * 24)
     local playerName, playerGender, playerClass, playerRace, playerLevel = NurseNancy.Helpers.GetPlayerInformation()
 
     local playerGuyGirl                                                  = NurseNancy.Helpers.GetGuyGirl(playerGender)
     local playerManWoman                                                 = NurseNancy.Helpers.GetManWoman(playerGender)
+
     local oppositeSex                                                    = "guys"
 
     if (playerGender == "male") then
@@ -456,9 +328,10 @@ function NurseNancy.NurseNancy.speakMassRess()
 
     local zoneName = GetZoneText();
 
+
+    local pickedLine
+
     local massRessLines = {
-        "Go go gadget, RESSURECTION!",
-        "A little less conversation, a little more action, please. All this resurrection ain't satisfactioning me",
         "Come to ${zoneName} with us they said, it will be fun, they said",
         "Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo! Wee-ooo... that's the best ambulance impression I can do.", -- Sueyen-Talnivarr, EU
         "Oh hello juicy corpses.... Your bodies are still warm... hmmmm... hmm.",
@@ -492,20 +365,11 @@ function NurseNancy.NurseNancy.speakMassRess()
         "Unfortunatly, you are all not revered with ${playerRace} ${playerGender} ${playerClass}s to be rezzed. Lucky for you, I just stole 5g from all. Ressing now...",
         "They say the Cataclysm changed everything, but apparently not,...I'm still scraping your corpse off the pavement.",
         "Up-up-up-up-up! Everyone UP!",
-        "Everybody was kung-fu fighting. They weren't fast as lightning. In fact, it was a little bit frightening. But they're all back now, so it's all good.",
         "You get a repair bill! And YOU get a repair bill! And YOU get a repair bill!", -- Oprah really plays some world of warcraft you know.
         "Group assignments make me understand why Arthas worked alone.",
         "Luckily, my profession is not dying.",
-        "By accepting your ressurrection, you agree to the terms and conditions of the 'I owe ${playerName} at least 3 fudge cubes' contract.",
-        "I am not paid to be an undertaken. Get up and dig your own grave first please, thank you!",
-        "Apparently, the afterlife was too crowded, so you're stuck with me again.",
-        "Get up, everyone! I'm running out of witty remarks for repeated mass deaths.",
-        "Look at all these sleeping beauties! Time for a group wake-up call."
     }
 
-    if (playerRace == "Dracthyr") then
-        table.insert(massRessLines, "My fellow teamies drop faster than I shed my scales.")
-    end
 
     if (playerClass == "Priest") then
         table.insert(massRessLines,
@@ -523,26 +387,8 @@ function NurseNancy.NurseNancy.speakMassRess()
             "I'm starting to think that 'resurrection' is just a fancy word for 'you owe me one.'")
     end
 
-    -- eastern
-    if (d.month == 4 and d.day == 4) then
-        table.insert(massRessLines, "Easter's not over yet, ${playerName}! Time to bring everyone back from the dead!")
-        table.insert(massRessLines, "Rise and shine, everyone! The Easter bunny has nothing on me!")
-        table.insert(massRessLines, "Easter may be over, but the resurrection party is just getting started!")
-        table.insert(massRessLines,
-            "The Easter bunny may have hidden the eggs, but I'm the one bringing everyone back from the dead!")
-        table.insert(massRessLines,
-            "Easter may be a time for new beginnings, but I'm pretty sure this is the first time anyone's been resurrected on Easter!")
-    end
-
-    -- christmas
-    if (d.month == 12 and (d.day == 25 or d.day == 26)) then
-        table.insert(massRessLines, "Merry Christmas, everyone! Here's your gift: life!")
-        table.insert(massRessLines, "Everyone's being called for Christmas dinner! Get up!")
-        table.insert(massRessLines,
-            "Santa's not the only one who can bring people back from the dead. Merry Christmas, everyone!")
-    end
-
-    pickedLine = massRessLines[fastrandom(1, #massRessLines)]
+    local prefix = NurseNancyVars.usePrefix == true and "[Mass ressing]: " or ""
+    pickedLine = massRessLines[math.random(1, #massRessLines)]
 
     return NurseNancy.Helpers.parseText(
         prefix .. pickedLine, {
@@ -557,6 +403,13 @@ function NurseNancy.NurseNancy.speakMassRess()
             zoneName = zoneName,
         }
     )
+end
+
+local function str_to_bool(str)
+    if str == nil then
+        return false
+    end
+    return string.lower(str) == 'true'
 end
 
 local function canBroadcastParty(value)
@@ -578,39 +431,29 @@ end
 local function getBroadcastChannel(broadCastChannels, canBroadcastToInstance)
     local canBroadcastToParty = canBroadcastParty(broadCastChannels)
     local canBroadcastToRaid = canBroadcastRaid(broadCastChannels)
-    local name, instanceType, difficultyID, difficultyName, maxPlayers, dynamicDifficulty, isDynamic, instanceID, instanceGroupSize, LfgDungeonID =
-        GetInstanceInfo();
-    local isInInstance = false;
 
-    if (LfgDungeonID) then
-        isInInstance = true;
+    -- LFD/LFR/battleground groups talk through instance chat.
+    if (IsInGroup(LE_PARTY_CATEGORY_INSTANCE)) then
+        if (not (canBroadcastToInstance == true)) then
+            return nil
+        end
+
+        if (IsInRaid(LE_PARTY_CATEGORY_INSTANCE)) then
+            return canBroadcastToRaid and "INSTANCE_CHAT" or nil
+        end
+
+        return canBroadcastToParty and "INSTANCE_CHAT" or nil
     end
 
-    local groupSetup = IsInRaid() and "raid" or "party";
-
-    if (not (instanceType == "party" or instanceType == "raid")) then
-        return nil;
+    if (IsInRaid()) then
+        return canBroadcastToRaid and "RAID" or nil
     end
 
-    if (instanceType == "party" and canBroadcastToParty == true and canBroadcastToInstance == true and isInInstance == true) then
-        return "INSTANCE_CHAT"
+    if (IsInGroup()) then
+        return canBroadcastToParty and "PARTY" or nil
     end
 
-    if (instanceType == "raid" and canBroadcastToRaid == true and canBroadcastToInstance == true and isInInstance == true) then
-        return "INSTANCE_CHAT"
-    end
-
-    if (instanceType == "party" and groupSetup == "party" and canBroadcastToParty == true and isInInstance == false) then
-        return "PARTY"
-    end
-
-    if ((instanceType == "raid" and groupSetup == "party") and canBroadcastToParty == true and isInInstance == false) then
-        return "PARTY"
-    end
-
-    if ((instanceType == "raid" and groupSetup == "raid") and canBroadcastToRaid == true and isInInstance == false) then
-        return "RAID"
-    end
+    return nil
 end
 
 
@@ -646,76 +489,140 @@ local function determineChannel(feature)
     return false;
 end
 
-
 function NurseNancy.NurseNancy.Run()
-    local line
+    local frame = CreateFrame("Frame")
+    NurseNancy.NurseNancy.Frame = frame
 
-    NurseNancy.NurseNancy.Frame = CreateFrame("Frame")
-    NurseNancy.NurseNancy.Frame:RegisterEvent("UNIT_SPELLCAST_SENT")
-    NurseNancy.NurseNancy.Frame:RegisterEvent("UNIT_SPELLCAST_START")
-    NurseNancy.NurseNancy.Frame:RegisterEvent("UNIT_SPELLCAST_CHANNEL_START")
-    NurseNancy.NurseNancy.Frame:RegisterEvent("UNIT_SPELLCAST_CHANNEL_STOP")
+    -- Midnight (12.0): the player's own spellcasts are explicitly non-secret, even in combat,
+    -- so we can keep reacting to them. RegisterUnitEvent restricts the events to the player.
+    -- UNIT_SPELLCAST_START only fires for spells with a cast time; UNIT_SPELLCAST_SUCCEEDED
+    -- catches the instant ones (Raise Ally, Reincarnation, soulstone self-ress).
+    -- UNIT_SPELLCAST_SENT still exists but its target parameter may be a secret value now,
+    -- so it is registered defensively and only used when the name is actually readable.
+    pcall(frame.RegisterUnitEvent, frame, "UNIT_SPELLCAST_SENT", "player")
+    frame:RegisterUnitEvent("UNIT_SPELLCAST_START", "player")
+    frame:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
 
-    NurseNancy.NurseNancy.Frame:SetScript("OnEvent", function(self, event, ...)
-        if (not (NurseNancyVars.nurseNancyIsOn == true) and NurseNancyVars.debugMode == false) then
+    local lastSentTargetName, lastSentCastGUID
+    local lastAnnouncedKey, lastAnnouncedTime = nil, 0
+
+    local function resolveTargetGUID(castGUID)
+        -- Target name captured from UNIT_SPELLCAST_SENT (covers click-casting on raid frames).
+        if (lastSentTargetName and (castGUID == nil or lastSentCastGUID == nil or castGUID == lastSentCastGUID)) then
+            local ok, guid = pcall(UnitGUID, lastSentTargetName)
+            if (ok and guid) then
+                return guid
+            end
+        end
+
+        if (UnitExists("mouseover") and UnitIsPlayer("mouseover") and UnitIsFriend("player", "mouseover") and UnitIsDeadOrGhost("mouseover")) then
+            return UnitGUID("mouseover")
+        end
+
+        if (UnitExists("target") and UnitIsPlayer("target") and UnitIsFriend("player", "target")) then
+            return UnitGUID("target")
+        end
+
+        return UnitGUID("player")
+    end
+
+    local function announceRess(castGUID, spellID)
+        local ressType
+        if (NurseNancy.SpellIds.isMassRess(spellID)) then
+            ressType = "massRess"
+        elseif (NurseNancy.SpellIds.isCombatRess(spellID)) then
+            ressType = "combatRess"
+        elseif (NurseNancy.SpellIds.isSingleRess(spellID)) then
+            ressType = "singleRess"
+        elseif (NurseNancy.SpellIds.isSelfRess(spellID)) then
+            ressType = "selfRess"
+        end
+
+        if (not ressType) then
             return
         end
 
-        -- do single ress
-        if (event == "UNIT_SPELLCAST_SENT") then
-            local castOrigin, target, spellGUID, spellId = ...
-
-            if (not (castOrigin == "player")) then
-                return
-            end
-
-            local unitIdentificator = UnitGUID(target or "player")
-
-            local isCombatRess = NurseNancy.SpellIds.isCombatRess(spellId)
-            local isSingleRess = NurseNancy.SpellIds.isSingleRess(spellId)
-            local isSelfRess = NurseNancy.SpellIds.isSelfRess(spellId)
-
-
-            local groupChannelSingleRess = determineChannel("singleRess");
-            local groupChannelSelfRess = determineChannel("selfRess");
-            local groupChannelCombatRess = determineChannel("combatRess");
-
-            if (isSingleRess and groupChannelSingleRess) then
-                line = NurseNancy.NurseNancy.speakSingleRess(unitIdentificator, spellId)
-                C_ChatInfo.SendChatMessage(line, groupChannelSingleRess, nil, nil)
-            elseif (isCombatRess and groupChannelCombatRess) then
-                line = NurseNancy.NurseNancy.speakCombatRess(unitIdentificator, spellId)
-                C_ChatInfo.SendChatMessage(line, groupChannelCombatRess, nil, nil)
-            elseif (isSelfRess and groupChannelSelfRess) then
-                line = NurseNancy.NurseNancy.speakSelfRess(unitIdentificator, spellId)
-                C_ChatInfo.SendChatMessage(line, groupChannelSelfRess, nil, nil)
-            end
-
-            if (NurseNancyVars.debugMode == true) then
-                debugPrint(feature, NurseNancy.NurseNancy.speakSingleRess(unitIdentificator, spellId));
-                debugPrint(feature, NurseNancy.NurseNancy.speakCombatRess(unitIdentificator, spellId));
-                debugPrint(feature, NurseNancy.NurseNancy.speakSelfRess(unitIdentificator, spellId));
-            end
+        -- A spell with a cast time fires START and then SUCCEEDED for the same cast;
+        -- announce it only once.
+        local dedupeKey = castGUID or ("spell:" .. tostring(spellID))
+        if (dedupeKey == lastAnnouncedKey and (GetTime() - lastAnnouncedTime) < 10) then
+            return
         end
 
-        -- do mass ress
-        if (event == "UNIT_SPELLCAST_START") then
+        local channel = determineChannel(ressType)
+        if (not channel) then
+            debugPrint(feature, "No broadcast channel for " .. ressType .. " (not in a group, or channel disabled in /nn).")
+            return
+        end
+
+        local targetGUID = resolveTargetGUID(castGUID)
+
+        -- pcall keeps Midnight's secret-value restrictions from throwing Lua errors mid-fight;
+        -- worst case the announcement is skipped.
+        local ok, line = pcall(function()
+            if (ressType == "massRess") then
+                return NurseNancy.NurseNancy.speakMassRess()
+            elseif (ressType == "combatRess") then
+                return NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellID)
+            elseif (ressType == "singleRess") then
+                return NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellID)
+            end
+
+            return NurseNancy.NurseNancy.speakSelfRess(targetGUID, spellID)
+        end)
+
+        if (not ok or type(line) ~= "string") then
+            debugPrint(feature, "Could not build a line for spell " .. tostring(spellID))
+            return
+        end
+
+        lastAnnouncedKey = dedupeKey
+        lastAnnouncedTime = GetTime()
+
+        -- Midnight blocks addon chat during boss encounters, keystone runs and PvP matches.
+        if (C_ChatInfo and C_ChatInfo.InChatMessagingLockdown and C_ChatInfo.InChatMessagingLockdown()) then
+            debugPrint(feature, "Chat messaging lockdown active; skipped: " .. line)
+            return
+        end
+
+        local sent = pcall(SendChatMessage, line, channel)
+        debugPrint(feature, "[" .. channel .. "] " .. line .. (sent and "" or " (send failed)"))
+    end
+
+    frame:SetScript("OnEvent", function(self, event, ...)
+        if (not NurseNancyVars) then
+            return
+        end
+
+        if (not (NurseNancyVars.nurseNancyIsOn == true) and not (NurseNancyVars.debugMode == true)) then
+            return
+        end
+
+        if (event == "UNIT_SPELLCAST_SENT") then
+            local unitTarget, arg2, arg3 = ...
+            lastSentTargetName, lastSentCastGUID = nil, nil
+
+            -- The SENT payload changed in Midnight: the target name parameter may be gone or
+            -- secret. Only keep it when it is a readable name (cast GUIDs start with "Cast-").
+            pcall(function()
+                if (type(arg2) == "string" and arg2 ~= "" and not arg2:find("^Cast%-")) then
+                    lastSentTargetName = arg2
+                    lastSentCastGUID = arg3
+                else
+                    lastSentCastGUID = arg2
+                end
+            end)
+            return
+        end
+
+        if (event == "UNIT_SPELLCAST_START" or event == "UNIT_SPELLCAST_SUCCEEDED") then
             local unitTarget, castGUID, spellID = ...
-            if (not (unitTarget == "player")) then
+
+            if (not (unitTarget == "player") or not spellID) then
                 return
             end
 
-            local isMassRess = NurseNancy.SpellIds.isMassRess(spellID)
-            local groupChannelMassRess = determineChannel("massRess");
-
-            if (isMassRess and groupChannelMassRess) then
-                line = NurseNancy.NurseNancy.speakMassRess()
-                SendChatMessage(line, groupChannelMassRess, nil, index)
-            else
-                if (NurseNancyVars.debugMode == true) then
-                    debugPrint(feature, NurseNancy.NurseNancy.speakMassRess());
-                end
-            end
+            announceRess(castGUID, spellID)
         end
     end)
 end
