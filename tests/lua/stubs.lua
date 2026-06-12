@@ -38,7 +38,11 @@ function IsInRaid() return false end
 
 -- Frame / chat stubs
 function CreateFrame()
-  return { RegisterEvent = function() end, SetScript = function() end }
+  return {
+    RegisterEvent     = function() end,
+    RegisterUnitEvent = function() end,
+    SetScript         = function() end,
+  }
 end
 function SendChatMessage()  end
 function debugPrint()       end

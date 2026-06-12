@@ -1,7 +1,7 @@
 {
-  "name": "express-your-elf",
+  "name": "nurse-nancy",
   "version": "1.0.0",
-  "description": "WoW addon - Express Your Elf",
+  "description": "WoW addon - Nurse Nancy",
   "scripts": {
     "test": "node tests/compile-check.js",
     "format": "prettier --write \"public/**/*.{lua,xml}\"",

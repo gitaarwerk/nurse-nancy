@@ -876,17 +876,24 @@ function NurseNancy.NurseNancy.Run()
 
     -- pcall keeps Midnight's secret-value restrictions from throwing Lua errors mid-fight;
     -- worst case the announcement is skipped.
-    local ok, line = pcall(function()
-      if (ressType == "massRess") then
-        return NurseNancy.NurseNancy.speakMassRess()
-      elseif (ressType == "combatRess") then
-        return NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellID)
-      elseif (ressType == "singleRess") then
-        return NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellID)
-      end
+    -- Retry up to 5 times if the generated line exceeds the 254-char chat limit.
+    local ok, line
+    for _ = 1, 5 do
+      ok, line = pcall(function()
+        if (ressType == "massRess") then
+          return NurseNancy.NurseNancy.speakMassRess()
+        elseif (ressType == "combatRess") then
+          return NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellID)
+        elseif (ressType == "singleRess") then
+          return NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellID)
+        end
 
-      return NurseNancy.NurseNancy.speakSelfRess(targetGUID, spellID)
-    end)
+        return NurseNancy.NurseNancy.speakSelfRess(targetGUID, spellID)
+      end)
+
+      if ok and type(line) == "string" and #line <= 245 then break end
+      line = nil
+    end
 
     if (not ok or type(line) ~= "string") then
       debugPrint(feature, "Could not build a line for spell " .. tostring(spellID))
