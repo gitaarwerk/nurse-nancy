@@ -97,10 +97,10 @@ function NurseNancy.Helpers.GetTargetInformation()
 end
 
 function NurseNancy.Helpers.GetTargetInformationByUID(uid)
-  local genderTable = { "neutral or unknown", "male", "female" };
+  local genderTable = { "neutral or unknown", "male", "female" }
   local targetClass, engClass, targetRace, engRace, sex, targetName, server
 
-  if (uid) then
+  if uid then
     targetClass, engClass, targetRace, engRace, sex, targetName, server = GetPlayerInfoByGUID(uid)
   end
 
