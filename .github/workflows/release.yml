@@ -1,0 +1,184 @@
+name: Release
+
+on:
+  schedule:
+    - cron: '7 8 * * 1-4'
+    - cron: '49 9 * * 1-4'
+    - cron: '18 11 * * 1-4'
+    - cron: '42 13 * * 1-4'
+    - cron: '27 15 * * 1-4'
+    - cron: '53 17 * * 1-4'
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      # ----------------------------
+      # 1. DAILY RANDOM SKIP GATE
+      # ----------------------------
+      - name: Decide if today is a "quiet day"
+        id: skip
+        run: |
+          SKIP_CHANCE=35  # % of days fully skipped
+
+          ROLL=$(( RANDOM % 100 ))
+
+          echo "Skip roll: $ROLL (threshold $SKIP_CHANCE)"
+
+          if [ "$ROLL" -lt "$SKIP_CHANCE" ]; then
+            echo "quiet_day=true" >> $GITHUB_OUTPUT
+          else
+            echo "quiet_day=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Exit on quiet day
+        if: steps.skip.outputs.quiet_day == 'true'
+        run: |
+          echo "Today is a quiet day. No tagging."
+          exit 0
+
+      # ----------------------------
+      # 2. 1 TAG PER DAY LOCK
+      # ----------------------------
+      - name: Load last-run state
+        id: state
+        run: |
+          FILE=".github/last-tag-run.txt"
+          TODAY=$(date -u +%F)
+
+          LAST_RUN=""
+          if [ -f "$FILE" ]; then
+            LAST_RUN=$(cat "$FILE")
+          fi
+
+          echo "today=$TODAY"
+          echo "last_run=$LAST_RUN"
+
+          if [ "$LAST_RUN" = "$TODAY" ]; then
+            echo "already_ran_today=true" >> $GITHUB_OUTPUT
+          else
+            echo "already_ran_today=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Exit if already tagged today
+        if: steps.state.outputs.already_ran_today == 'true'
+        run: |
+          echo "Already tagged today. Exiting."
+          exit 0
+
+      # ----------------------------
+      # 3. SET UP NODE & GENERATE STATS
+      # ----------------------------
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install --omit=dev
+
+      - name: Generate content statistics
+        run: npm run stats
+
+      - name: Random jitter
+        run: |
+          sleep $(( RANDOM % 10 ))
+
+      # ----------------------------
+      # 4. TAG NEXT COMMIT & CREATE RELEASE
+      # ----------------------------
+      - name: Find and tag next commit
+        id: tagging
+        run: |
+          set -e
+
+          DAY=$(date -u +%u)
+          HOUR=$(date -u +%H)
+
+          # safety guard (Mon–Thu only)
+          if [ "$DAY" -gt 4 ]; then
+            echo "Weekend"
+            echo "tag_created=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # safety guard (08–18)
+          if [ "$HOUR" -lt 8 ] || [ "$HOUR" -ge 18 ]; then
+            echo "Outside hours"
+            echo "tag_created=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || true)
+
+          if [ -z "$LATEST_TAG" ]; then
+            echo "No tags found"
+            echo "tag_created=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          NEXT_COMMIT=$(git rev-list --reverse "${LATEST_TAG}..HEAD" | head -n 1)
+
+          if [ -z "$NEXT_COMMIT" ]; then
+            echo "No commits to tag"
+            echo "tag_created=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          VERSION=${LATEST_TAG#v}
+
+          MAJOR=$(echo "$VERSION" | cut -d. -f1)
+          MINOR=$(echo "$VERSION" | cut -d. -f2)
+          PATCH=$(echo "$VERSION" | cut -d. -f3)
+
+          if [ -z "$PATCH" ]; then PATCH=0; fi
+
+          NEW_TAG="v${MAJOR}.${MINOR}.$((PATCH + 1))"
+
+          echo "Tagging commit $NEXT_COMMIT as $NEW_TAG"
+
+          git tag "$NEW_TAG" "$NEXT_COMMIT"
+          git push origin "$NEW_TAG"
+
+          echo "tag_created=true" >> $GITHUB_OUTPUT
+          echo "new_tag=$NEW_TAG" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release with stats
+        if: steps.tagging.outputs.tag_created == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.tagging.outputs.new_tag }}
+          files: .release-stats.md
+          body_path: .release-stats.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ----------------------------
+      # 5. UPDATE DAILY LOCK FILE
+      # ----------------------------
+      - name: Update last-run marker
+        run: |
+          TODAY=$(date -u +%F)
+
+          mkdir -p .github
+          echo "$TODAY" > .github/last-tag-run.txt
+
+          git add .github/last-tag-run.txt
+          git commit -m "chore: mark tagging run [skip ci]" || true
+          git push || true

@@ -66,11 +66,11 @@ function NurseNancy.SpellIds.isSelfRess(spellId)
         23701, -- Darkmoon card: Twisting Nether
     }
 
-    if NurseNancy.Helpers.tableContainsValue(spellIds, spellId) then
-        return true
-    end
+  if NurseNancy.Helpers.tableContainsValue(spellIds, spellId) then
+    return true
+  end
 
-    return false
+  return false
 end
 
 function NurseNancy.SpellIds.isMassRess(spellId)
@@ -94,115 +94,80 @@ end
 
 -- Shaman, Alliance heroism
 function NurseNancy.SpellIds.isHeroism(spellId)
-    local spellIds = {
-        32182,
-        65983,
-        78151,
-        290582,
-        204362,
-        32182,
-        390386, -- evoker
-    }
+  local spellIds = { 32182, 65983, 78151, 290582, 204362, 32182, 390386 } -- evoker
 
-    if NurseNancy.Helpers.tableContainsValue(spellIds, spellId) then
-        return true
-    end
+  if NurseNancy.Helpers.tableContainsValue(spellIds, spellId) then
+    return true
+  end
 
-    return false
+  return false
 end
 
 -- Shaman, Horde bloodlust
 function NurseNancy.SpellIds.isBloodlust(spellId)
-    local spellIds = {
-        2825,
-        71975,
-        204361,
-        37067,
-        16170,
-        164298,
-        6742,
-        390386, -- evoker
-    }
+  local spellIds = { 2825, 71975, 204361, 37067, 16170, 164298, 6742, 390386 } -- evoker
 
-    if NurseNancy.Helpers.tableContainsValue(spellIds, spellId) then
-        return true
-    end
+  if NurseNancy.Helpers.tableContainsValue(spellIds, spellId) then
+    return true
+  end
 
-    return false
+  return false
 end
 
 -- Hunter, Ancient Hysteria
 function NurseNancy.SpellIds.isAncientHysteria(spellId)
-    local spellIds = {
-        90355,
-    }
+  local spellIds = { 90355 }
 
-    if NurseNancy.Helpers.tableContainsValue(spellIds, spellId) then
-        return true
-    end
+  if NurseNancy.Helpers.tableContainsValue(spellIds, spellId) then
+    return true
+  end
 
-    return false
+  return false
 end
 
 -- Mage, Time Warp
 function NurseNancy.SpellIds.isTimeWarp(spellId)
-    local spellIds = {
-        80353,
-        145534,
-        287925,
-        189359,
-        227665,
-        350249,
-        244645,
-        173106,
-    }
+  local spellIds = { 80353, 145534, 287925, 189359, 227665, 350249, 244645, 173106 }
 
-    if NurseNancy.Helpers.tableContainsValue(spellIds, spellId) then
-        return true
-    end
+  if NurseNancy.Helpers.tableContainsValue(spellIds, spellId) then
+    return true
+  end
 
-    return false
+  return false
 end
 
 -- Drums of ...
 function NurseNancy.SpellIds.isDrums(spellId)
-    local spellIds = {
-        309658, -- ferocity
-        178207, -- fury
-        146555, -- rage
-        35475,  -- war
-        230935, -- mountain,
-        381301, -- feral hide
-    }
+  local spellIds = { 309658, 178207, 146555, 35475, 230935, 381301 } -- ferocity -- fury -- rage -- war -- mountain, -- feral hide
 
-    if NurseNancy.Helpers.tableContainsValue(spellIds, spellId) then
-        return true
-    end
+  if NurseNancy.Helpers.tableContainsValue(spellIds, spellId) then
+    return true
+  end
 
-    return false
+  return false
 end
 
 -- Is drums, heroism, bloodlust, timework or ancient hysteria...
 function NurseNancy.SpellIds.isBigHasteCast(spellId)
-    if (NurseNancy.SpellIds.isDrums(spellId)) then
-        return 'Drums'
-    end
+  if NurseNancy.SpellIds.isDrums(spellId) then
+    return "Drums"
+  end
 
-    if (NurseNancy.SpellIds.isTimeWarp(spellId)) then
-        return 'Time Warp'
-    end
+  if NurseNancy.SpellIds.isTimeWarp(spellId) then
+    return "Time Warp"
+  end
 
-    if (NurseNancy.SpellIds.isAncientHysteria(spellId)) then
-        return 'Ancient Hysteria'
-    end
+  if NurseNancy.SpellIds.isAncientHysteria(spellId) then
+    return "Ancient Hysteria"
+  end
 
-    if (NurseNancy.SpellIds.isBloodlust(spellId)) then
-        return 'Bloodlust'
-    end
+  if NurseNancy.SpellIds.isBloodlust(spellId) then
+    return "Bloodlust"
+  end
 
-    if (NurseNancy.SpellIds.isHeroism(spellId)) then
-        return 'Heroism'
-    end
+  if NurseNancy.SpellIds.isHeroism(spellId) then
+    return "Heroism"
+  end
 
-    return false
+  return false
 end

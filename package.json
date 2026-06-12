@@ -1,0 +1,17 @@
+{
+  "name": "express-your-elf",
+  "version": "1.0.0",
+  "description": "WoW addon - Express Your Elf",
+  "scripts": {
+    "test": "node tests/compile-check.js",
+    "format": "prettier --write \"public/**/*.{lua,xml}\"",
+    "format:check": "prettier --check \"public/**/*.{lua,xml}\"",
+    "stats": "node scripts/count-lines.js"
+  },
+  "devDependencies": {
+    "luaparse": "^0.3.1",
+    "prettier": "^3.8.4",
+    "@prettier/plugin-lua": "^0.0.3",
+    "@prettier/plugin-xml": "^3.4.2"
+  }
+}

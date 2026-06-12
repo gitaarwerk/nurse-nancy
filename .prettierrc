@@ -1,0 +1,30 @@
+{
+  "useTabs": false,
+  "tabWidth": 2,
+  "printWidth": 100,
+  "semi": true,
+  "singleQuote": false,
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "arrowParens": "always",
+  "plugins": ["@prettier/plugin-lua", "@prettier/plugin-xml"],
+  "overrides": [
+    {
+      "files": "*.lua",
+      "options": {
+        "parser": "lua",
+        "useTabs": false,
+        "tabWidth": 2
+      }
+    },
+    {
+      "files": "*.xml",
+      "options": {
+        "parser": "xml",
+        "useTabs": false,
+        "tabWidth": 2,
+        "printWidth": 100
+      }
+    }
+  ]
+}

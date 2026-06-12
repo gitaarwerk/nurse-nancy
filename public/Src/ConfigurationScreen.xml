@@ -1,5 +1,5 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd"
 >
 <Frame name="NurseNancy_ConfigScreen" toplevel="true" frameStrata="DIALOG" movable="true" enableMouse="true" hidden="true" parent="UIParent" clampedToScreen="true">
@@ -11,21 +11,21 @@
             local function eventHandler(NurseNancy_ConfigScreen, event, arg1, ...)
                 if (event == "ADDON_LOADED" and arg1 == "NurseNancy") then
                     print("\124cffffcee2Nurse Nancy is loaded. To check options; type: " .. NurseNancyMessageColor ..  "/nn \124ror" .. NurseNancyMessageColor .. " /nursenancy\124r.")
-                    local date = C_AddOns.GetAddOnMetadata("NurseNancy", "X-ResetVarsDate") 
+                    local date = C_AddOns.GetAddOnMetadata("NurseNancy", "X-ResetVarsDate")
 
                     -- reset out of date addons
-                    if (NurseNancyVars and NurseNancyVars.lastResetDate ~= date) then 
+                    if (NurseNancyVars and NurseNancyVars.lastResetDate ~= date) then
                         print(NurseNancyMessageColor .. 'Config had to be reset because of new functionality.')
                         NurseNancyVars = nil
                     end
 
-                    if (NurseNancyVars == nil) then 
+                    if (NurseNancyVars == nil) then
                         NurseNancyVars = {};
                         NurseNancyVars.debugMode = false;
                         NurseNancyVars.lastResetDate = date;
                         NurseNancyVars.nurseNancyIsOn = true;
                         NurseNancyVars.usePrefix = true;
-                        
+
                         NurseNancyVars.selfRess_channel = 3;
                         NurseNancyVars.combatRess_channel = 3;
                         NurseNancyVars.massRess_channel = 3;
@@ -35,7 +35,7 @@
                         NurseNancyVars.combatRess_instance = true;
                         NurseNancyVars.massRess_instance = true;
                         NurseNancyVars.singleRess_instance = true;
-     
+
                         NurseNancyVars.selfRess_text = 'party and raid';
                         NurseNancyVars.combatRess_text = 'party and raid';
                         NurseNancyVars.massRess_text = 'party and raid';
@@ -75,20 +75,20 @@
                         NurseNancy_ConfigScreen_SelfRess_Channel:SetMinMaxValues(0,3)
 
 
-	                _G[NurseNancy_ConfigScreen_SingleRess_Channel:GetName().."Text"]:SetText(NurseNancyVars.singleRess_text)
-	                NurseNancy_ConfigScreen_SingleRess_Channel:SetValue(NurseNancyVars.singleRess_channel)
-	                NurseNancy_ConfigScreen_SingleRess_Instance:SetChecked(NurseNancyVars.singleRess_instance)
-	                
+                    _G[NurseNancy_ConfigScreen_SingleRess_Channel:GetName().."Text"]:SetText(NurseNancyVars.singleRess_text)
+                    NurseNancy_ConfigScreen_SingleRess_Channel:SetValue(NurseNancyVars.singleRess_channel)
+                    NurseNancy_ConfigScreen_SingleRess_Instance:SetChecked(NurseNancyVars.singleRess_instance)
+
                     _G[NurseNancy_ConfigScreen_MassRess_Channel:GetName().."Text"]:SetText(NurseNancyVars.massRess_text)
-	                NurseNancy_ConfigScreen_MassRess_Channel:SetValue(NurseNancyVars.massRess_channel)
-	                NurseNancy_ConfigScreen_MassRess_Instance:SetChecked(NurseNancyVars.massRess_instance)
+                    NurseNancy_ConfigScreen_MassRess_Channel:SetValue(NurseNancyVars.massRess_channel)
+                    NurseNancy_ConfigScreen_MassRess_Instance:SetChecked(NurseNancyVars.massRess_instance)
 
                     _G[NurseNancy_ConfigScreen_SelfRess_Channel:GetName().."Text"]:SetText(NurseNancyVars.selfRess_text)
-	                NurseNancy_ConfigScreen_SelfRess_Channel:SetValue(NurseNancyVars.selfRess_channel)
+                    NurseNancy_ConfigScreen_SelfRess_Channel:SetValue(NurseNancyVars.selfRess_channel)
                     NurseNancy_ConfigScreen_SelfRess_Instance:SetChecked(NurseNancyVars.selfRess_instance)
-                    
+
                     _G[NurseNancy_ConfigScreen_CombatRess_Channel:GetName().."Text"]:SetText(NurseNancyVars.combatRess_text)
-	                NurseNancy_ConfigScreen_CombatRess_Channel:SetValue(NurseNancyVars.combatRess_channel)
+                    NurseNancy_ConfigScreen_CombatRess_Channel:SetValue(NurseNancyVars.combatRess_channel)
                     NurseNancy_ConfigScreen_CombatRess_Instance:SetChecked(NurseNancyVars.combatRess_instance)
                 end
             end
@@ -112,7 +112,7 @@
         <Layer level="BACKGROUND">
             <Texture name="$parent_Background" setAllPoints="true">
                 <Color r="0" g="0" b="0" a="0.65" />
-            </Texture>  
+            </Texture>
         </Layer>
         <Layer level="BORDER" textureSubLevel="-5">
             <Texture inherits="UI-Frame-InnerBotLeftCorner" parentKey="InsetBorderBottomLeft">
@@ -308,7 +308,6 @@
         </Layers>
         <Scripts>
             <OnLoad>
-
             </OnLoad>
             <OnValueChanged>
                 NurseNancy_ConfigScreen_SetChannel('selfRess', value)
@@ -318,8 +317,8 @@
 
         <!-- nurse nancy -->
         <CheckButton name="NurseNancy_ConfigScreen_NurseNancy" inherits="UIPanelButtonTemplate " motionScriptsWhileDisabled="true" virtual="false">
-            <Size> 
-                <AbsDimension x="25" y="25"/> 
+            <Size>
+                <AbsDimension x="25" y="25"/>
             </Size>
             <Anchors>
                 <Anchor point="TOPLEFT" relativePoint="TOPLEFT">
@@ -330,9 +329,9 @@
             </Anchors>
             <Scripts>
                 <OnClick>
-                    if (NurseNancy_ConfigScreen_NurseNancy:GetChecked() == true) then 
+                    if (NurseNancy_ConfigScreen_NurseNancy:GetChecked() == true) then
                         NurseNancy_NurseNancyOn()
-                    else 
+                    else
                         NurseNancy_NurseNancyOff()
                     end
                 </OnClick>
@@ -346,8 +345,8 @@
 
         <!-- single ress  -->
         <CheckButton name="NurseNancy_ConfigScreen_SingleRess_Instance" inherits="UIPanelButtonTemplate " motionScriptsWhileDisabled="true" virtual="false">
-            <Size> 
-                <AbsDimension x="25" y="25"/> 
+            <Size>
+                <AbsDimension x="25" y="25"/>
             </Size>
             <Anchors>
                 <Anchor point="TOPLEFT" relativePoint="TOPLEFT">
@@ -360,7 +359,7 @@
                 <OnClick>
                     if (NurseNancy_ConfigScreen_SingleRess_Instance:GetChecked() == true) then
                         NurseNancy_SetSingleRessInstance(true);
-                    else 
+                    else
                         NurseNancy_SetSingleRessInstance(false);
                     end
                 </OnClick>
@@ -373,8 +372,8 @@
         </CheckButton>
 
         <CheckButton name="NurseNancy_ConfigScreen_MassRess_Instance" inherits="UIPanelButtonTemplate " motionScriptsWhileDisabled="true" virtual="false">
-            <Size> 
-                <AbsDimension x="25" y="25"/> 
+            <Size>
+                <AbsDimension x="25" y="25"/>
             </Size>
             <Anchors>
                 <Anchor point="TOPLEFT" relativePoint="TOPLEFT">
@@ -385,9 +384,9 @@
             </Anchors>
             <Scripts>
                 <OnClick>
-                    if (NurseNancy_ConfigScreen_MassRess_Instance:GetChecked() == true) then 
+                    if (NurseNancy_ConfigScreen_MassRess_Instance:GetChecked() == true) then
                         NurseNancy_SetMassRessInstance(true);
-                    else 
+                    else
                         NurseNancy_SetMassRessInstance(false);
                     end
                 </OnClick>
@@ -400,8 +399,8 @@
         </CheckButton>
 
         <CheckButton name="NurseNancy_ConfigScreen_CombatRess_Instance" inherits="UIPanelButtonTemplate " motionScriptsWhileDisabled="true" virtual="false">
-            <Size> 
-                <AbsDimension x="25" y="25"/> 
+            <Size>
+                <AbsDimension x="25" y="25"/>
             </Size>
             <Anchors>
                 <Anchor point="TOPLEFT" relativePoint="TOPLEFT">
@@ -412,9 +411,9 @@
             </Anchors>
             <Scripts>
                 <OnClick>
-                    if (NurseNancy_ConfigScreen_CombatRess_Instance:GetChecked() == true) then 
+                    if (NurseNancy_ConfigScreen_CombatRess_Instance:GetChecked() == true) then
                         NurseNancy_SetCombatRessInstance(true);
-                    else 
+                    else
                         NurseNancy_SetCombatRessInstance(false);
                     end
                 </OnClick>
@@ -427,8 +426,8 @@
         </CheckButton>
 
         <CheckButton name="NurseNancy_ConfigScreen_SelfRess_Instance" inherits="UIPanelButtonTemplate " motionScriptsWhileDisabled="true" virtual="false">
-            <Size> 
-                <AbsDimension x="25" y="25"/> 
+            <Size>
+                <AbsDimension x="25" y="25"/>
             </Size>
             <Anchors>
                 <Anchor point="TOPLEFT" relativePoint="TOPLEFT">
@@ -439,9 +438,9 @@
             </Anchors>
             <Scripts>
                 <OnClick>
-                    if (NurseNancy_ConfigScreen_SelfRess_Instance:GetChecked() == true) then 
+                    if (NurseNancy_ConfigScreen_SelfRess_Instance:GetChecked() == true) then
                         NurseNancy_SetSelfRessInstance(true);
-                    else 
+                    else
                         NurseNancy_SetSelfRessInstance(false);
                     end
                 </OnClick>
@@ -452,6 +451,6 @@
             <CheckedTexture file="Interface\Buttons\UI-CheckBox-Check"/>
             <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled"/>
         </CheckButton>
-    </Frames> 
+    </Frames>
 </Frame>
 </Ui>
