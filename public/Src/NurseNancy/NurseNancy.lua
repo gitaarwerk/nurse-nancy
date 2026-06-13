@@ -416,7 +416,14 @@ end
 function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
   local pickedLine
   local prefix = NurseNancyVars.usePrefix == true and "[Combat ressing ${targetName}]: " or ""
-  local d = C_DateAndTime.GetCalendarTimeFromEpoch(1e6 * 60 * 60 * 24)
+   
+  -- dateFormat
+  local rawTime = date("*t")
+  local d = {
+    day = rawTime.day,
+    month = rawTime.month,
+    year = rawTime.year,
+  }
 
   local playerName, playerGender, playerClass, playerRace, playerLevel =
     NurseNancy.Helpers.GetPlayerInformation()
@@ -602,7 +609,15 @@ function NurseNancy.NurseNancy.speakMassRess()
   local pickedLine
   local prefix = NurseNancyVars.usePrefix == true and "[Mass ressing]: " or ""
 
-  local d = C_DateAndTime.GetCalendarTimeFromEpoch(1e6 * 60 * 60 * 24)
+   
+  -- dateFormat
+  local rawTime = date("*t")
+  local d = {
+    day = rawTime.day,
+    month = rawTime.month,
+    year = rawTime.year,
+  }
+  
   local playerName, playerGender, playerClass, playerRace, playerLevel =
     NurseNancy.Helpers.GetPlayerInformation()
 
