@@ -12,7 +12,14 @@ function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
   local playerHimHer = NurseNancy.Helpers.GetHimHer(playerGender)
   local zoneName = GetZoneText()
   local oppositeSex = "guys"
-  local d = C_DateAndTime.GetCalendarTimeFromEpoch(1e6 * 60 * 60 * 24)
+   
+  -- dateFormat
+  local rawTime = date("*t")
+  local d = {
+    day = rawTime.day,
+    month = rawTime.month,
+    year = rawTime.year,
+  }
 
   if (playerGender == "male") then
     oppositeSex = "girls"
@@ -136,7 +143,14 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
   local targetName, targetGender, targetClass, targetRace =
     NurseNancy.Helpers.GetTargetInformationByUID(targetGUID)
   local targetHimHer = NurseNancy.Helpers.GetHimHer(targetGender)
-  local d = C_DateAndTime.GetCalendarTimeFromEpoch(1e6 * 60 * 60 * 24)
+  
+  -- dateFormat
+  local rawTime = date("*t")
+  local d = {
+    day = rawTime.day,
+    month = rawTime.month,
+    year = rawTime.year,
+  }
 
   local playerGuyGirl = NurseNancy.Helpers.GetGuyGirl(playerGender)
   local playerManWoman = NurseNancy.Helpers.GetManWoman(playerGender)
