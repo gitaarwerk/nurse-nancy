@@ -133,10 +133,19 @@ jobs:
             exit 0
           fi
 
-          NEXT_COMMIT=$(git rev-list --reverse "${LATEST_TAG}..HEAD" | head -n 1)
+          # Walk untagged commits oldest-first, skipping any that don't
+          # touch public/, and tag the first one that does.
+          TARGET_COMMIT=""
+          for c in $(git rev-list --reverse "${LATEST_TAG}..HEAD"); do
+            CHANGED=$(git diff-tree --no-commit-id --name-only -r "$c" -- public/)
+            if [ -n "$CHANGED" ]; then
+              TARGET_COMMIT="$c"
+              break
+            fi
+          done
 
-          if [ -z "$NEXT_COMMIT" ]; then
-            echo "No commits to tag"
+          if [ -z "$TARGET_COMMIT" ]; then
+            echo "No untagged commits touching public/ found"
             echo "tag_created=false" >> $GITHUB_OUTPUT
             exit 0
           fi
@@ -145,15 +154,12 @@ jobs:
 
           MAJOR=$(echo "$VERSION" | cut -d. -f1)
           MINOR=$(echo "$VERSION" | cut -d. -f2)
-          PATCH=$(echo "$VERSION" | cut -d. -f3)
 
-          if [ -z "$PATCH" ]; then PATCH=0; fi
+          NEW_TAG="v${MAJOR}.$((MINOR + 1)).0"
 
-          NEW_TAG="v${MAJOR}.${MINOR}.$((PATCH + 1))"
+          echo "Tagging commit $TARGET_COMMIT as $NEW_TAG"
 
-          echo "Tagging commit $NEXT_COMMIT as $NEW_TAG"
-
-          git tag "$NEW_TAG" "$NEXT_COMMIT"
+          git tag "$NEW_TAG" "$TARGET_COMMIT"
           git push origin "$NEW_TAG"
 
           echo "tag_created=true" >> $GITHUB_OUTPUT
