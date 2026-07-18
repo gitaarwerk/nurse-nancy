@@ -2,12 +2,7 @@ name: Release
 
 on:
   schedule:
-    - cron: '7 8 * * 1-4'
-    - cron: '49 9 * * 1-4'
-    - cron: '18 11 * * 1-4'
-    - cron: '42 13 * * 1-4'
-    - cron: '27 15 * * 1-4'
-    - cron: '53 17 * * 1-4'
+    - cron: "7 8 * * 1,4"
 
   workflow_dispatch:
 
@@ -88,7 +83,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: "22"
 
       - name: Install dependencies
         run: npm install --omit=dev
@@ -111,9 +106,9 @@ jobs:
           DAY=$(date -u +%u)
           HOUR=$(date -u +%H)
 
-          # safety guard (Mon–Thu only)
-          if [ "$DAY" -gt 4 ]; then
-            echo "Weekend"
+          # safety guard (Mon & Thu only)
+          if [ "$DAY" != 1 ] && [ "$DAY" != 4 ]; then
+            echo "Not a scheduled day"
             echo "tag_created=false" >> $GITHUB_OUTPUT
             exit 0
           fi
@@ -155,7 +150,7 @@ jobs:
           MAJOR=$(echo "$VERSION" | cut -d. -f1)
           MINOR=$(echo "$VERSION" | cut -d. -f2)
 
-          NEW_TAG="v${MAJOR}.$((MINOR + 1)).0"
+          NEW_TAG="${MAJOR}.$((MINOR + 1)).0"
 
           echo "Tagging commit $TARGET_COMMIT as $NEW_TAG"
 
