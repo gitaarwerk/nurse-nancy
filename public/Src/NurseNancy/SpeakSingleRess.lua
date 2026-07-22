@@ -168,6 +168,18 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
     table.insert(singleRessLines, "Faith isn't your only worry right now...")
     table.insert(singleRessLines, "Pray harder, die less!")
   end
+
+  if (targetClass == Class.Shaman) then
+    table.insert(singleRessLines, "Next time, greet all the cardinal directions, yes?")
+  end
+
+  if (playerRace == Class.Shaman) then
+    table.insert(singleRessLines, "I greet the north to ressurrect ${targetName}.")
+    table.insert(singleRessLines, "I greet the south to ressurrect ${targetName}.")
+    table.insert(singleRessLines, "I greet the east to ressurrect ${targetName}.")
+    table.insert(singleRessLines, "I greet the west to ressurrect ${targetName}.")
+  end
+
   -- engineering's kit
   if (NurseNancyVars.debugMode == true or spellId == 8342 or spellId == 22999 or spellId == 54732) then
     table.insert(singleRessLines, "CLEAR!")
