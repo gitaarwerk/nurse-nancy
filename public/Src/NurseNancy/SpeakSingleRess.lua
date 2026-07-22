@@ -136,6 +136,13 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
     )
   end
 
+  if (targetRace == Race.Earthen) then
+    table.insert(
+      singleRessLines,
+      "The earth doesn't call you yet. But I need you to answer the police for me. Thank you."
+    )
+    table.insert(singleRessLines, "Please pick the right mushrooms next time, ${targetName}.")
+  end
   -- engineering's kit
   if (NurseNancyVars.debugMode == true or spellId == 8342 or spellId == 22999 or spellId == 54732) then
     table.insert(singleRessLines, "CLEAR!")
