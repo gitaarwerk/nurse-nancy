@@ -163,6 +163,11 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
       "Time is relative, ${targetnName}. And you've wasted enough of it. Rise."
     )
   end
+
+  if (targetClass == Class.Priest) then
+    table.insert(singleRessLines, "Faith isn't your only worry right now...")
+    table.insert(singleRessLines, "Pray harder, die less!")
+  end
   -- engineering's kit
   if (NurseNancyVars.debugMode == true or spellId == 8342 or spellId == 22999 or spellId == 54732) then
     table.insert(singleRessLines, "CLEAR!")
