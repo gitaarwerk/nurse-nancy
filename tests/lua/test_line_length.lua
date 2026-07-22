@@ -2,6 +2,10 @@ local dir = debug.getinfo(1, "S").source:match("@(.*/)") or "./"
 dofile(dir .. "stubs.lua")
 dofile(dir .. "../../public/Src/Helpers.lua")
 dofile(dir .. "../../public/Src/SpellIds.lua")
+dofile(dir .. "../../public/Src/NurseNancy/SpeakSelfRess.lua")
+dofile(dir .. "../../public/Src/NurseNancy/SpeakSingleRess.lua")
+dofile(dir .. "../../public/Src/NurseNancy/SpeakCombatRess.lua")
+dofile(dir .. "../../public/Src/NurseNancy/SpeakMassRess.lua")
 dofile(dir .. "../../public/Src/NurseNancy/NurseNancy.lua")
 
 -- Helpers (same as test_nursenary.lua)
