@@ -51,6 +51,7 @@ function NurseNancy.NurseNancy.speakSelfRess(_, spellId)
       "I am back! Let the awkward silence commence.",
       "I’m back. And I brought a vague sense of dread.",
       "Mission accomplished.",
+      "By your powers combined, I AM CAPTAIN ${playerName}!",
       "I am back and fully operational. Please update your records.",
       "My presence is requested, and unfortunately, I have delivered.",
       "I've came back to say I'm dissapointed, that absolutely NONE of you, ate cake. Here, have some [${playerName}'s Cake]",

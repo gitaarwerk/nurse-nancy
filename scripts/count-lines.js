@@ -4,7 +4,13 @@ const fs = require("fs");
 const path = require("path");
 
 const projectRoot = path.join(__dirname, "..");
-const filePath = path.join(projectRoot, "public", "Src", "NurseNancy", "NurseNancy.lua");
+
+const filePaths = [
+  path.join(projectRoot, "public", "Src", "NurseNancy", "SpeakSelfRess.lua"),
+  path.join(projectRoot, "public", "Src", "NurseNancy", "SpeakSingleRess.lua"),
+  path.join(projectRoot, "public", "Src", "NurseNancy", "SpeakCombatRess.lua"),
+  path.join(projectRoot, "public", "Src", "NurseNancy", "SpeakMassRess.lua"),
+];
 
 const functions = [
   { name: "speakSelfRess", tableName: "selfRessLines" },
@@ -62,12 +68,15 @@ function countFunction(content, funcName, tableName) {
 }
 
 function run() {
-  if (!fs.existsSync(filePath)) {
-    console.error(`File not found: ${filePath}`);
-    process.exit(1);
-  }
+  const allContents = {};
 
-  const content = fs.readFileSync(filePath, "utf8");
+  for (const filePath of filePaths) {
+    if (!fs.existsSync(filePath)) {
+      console.error(`File not found: ${filePath}`);
+      process.exit(1);
+    }
+    allContents[filePath] = fs.readFileSync(filePath, "utf8");
+  }
 
   console.log("Lines per resurrection type in NurseNancy.lua\n");
 
@@ -75,13 +84,21 @@ function run() {
   let grandTotal = 0;
 
   for (const { name, tableName } of functions) {
-    const { inline, inserts, total } = countFunction(content, name, tableName);
-    stats[name] = { inline, inserts, total };
-    grandTotal += total;
+    let funcStats = { inline: 0, inserts: 0, total: 0 };
 
-    const bar = "█".repeat(Math.ceil(total / 5));
+    for (const content of Object.values(allContents)) {
+      const { inline, inserts, total } = countFunction(content, name, tableName);
+      funcStats.inline += inline;
+      funcStats.inserts += inserts;
+      funcStats.total += total;
+    }
+
+    stats[name] = funcStats;
+    grandTotal += funcStats.total;
+
+    const bar = "█".repeat(Math.ceil(funcStats.total / 5));
     console.log(
-      `${name.padEnd(18)} ${total.toString().padStart(3)} lines  (${inline} inline + ${inserts} inserts)  ${bar}`
+      `${name.padEnd(18)} ${funcStats.total.toString().padStart(3)} lines  (${funcStats.inline} inline + ${funcStats.inserts} inserts)  ${bar}`
     );
   }
 
