@@ -148,6 +148,14 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
     table.insert(singleRessLines, "Your suffering isn't over yet, ${targetName}. Rise and fight.")
     table.insert(singleRessLines, "The Lich King may not own you, but I do. Get up, ${targetName}.")
   end
+
+  if (targetClass == Class.Hunter) then
+    table.insert(singleRessLines, "Quit playing dead, ${targetName}! We have a fight to finish.")
+    table.insert(
+      singleRessLines,
+      "That you can transform into a cat, doesn't mean you can nap like one..."
+    )
+  end
   -- engineering's kit
   if (NurseNancyVars.debugMode == true or spellId == 8342 or spellId == 22999 or spellId == 54732) then
     table.insert(singleRessLines, "CLEAR!")
