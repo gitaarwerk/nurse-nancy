@@ -156,6 +156,13 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
       "That you can transform into a cat, doesn't mean you can nap like one..."
     )
   end
+
+  if (targetClass == Class.Mage) then
+    table.insert(
+      singleRessLines,
+      "Time is relative, ${targetnName}. And you've wasted enough of it. Rise."
+    )
+  end
   -- engineering's kit
   if (NurseNancyVars.debugMode == true or spellId == 8342 or spellId == 22999 or spellId == 54732) then
     table.insert(singleRessLines, "CLEAR!")
