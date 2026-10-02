@@ -6,5 +6,10 @@
     <Script file="Src/Interface.lua" />
     <Script file="Src/Helpers.lua" />
     <Script file="Src/SpellIds.lua" />
+    <Script file="Src/Constants/Constants.lua" />
+    <Script file="Src/NurseNancy/SpeakSelfRess.lua" />
+    <Script file="Src/NurseNancy/SpeakSingleRess.lua" />
+    <Script file="Src/NurseNancy/SpeakCombatRess.lua" />
+    <Script file="Src/NurseNancy/SpeakMassRess.lua" />
     <Script file="Src/NurseNancy/NurseNancy.lua" />
 </Ui>
