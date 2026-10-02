@@ -1,8 +1,10 @@
+NurseNancy.NurseNancy = NurseNancy.NurseNancy or {}
+
 function NurseNancy.NurseNancy.speakCombatRess(targetGUID, spellId)
   local pickedLine
   local prefix = NurseNancyVars.usePrefix == true and "[Combat ressing ${targetName}]: " or ""
-  local Class = AFKAnsweringMachine.Constants.Class
-  local Race = AFKAnsweringMachine.Constants.Race
+  local Class = NurseNancy.Constants.Class
+  local Race = NurseNancy.Constants.Race
 
   -- dateFormat
   local rawTime = date("*t")

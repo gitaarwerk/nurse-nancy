@@ -1,5 +1,5 @@
 -- init
-NurseNancy.NurseNancy = {}
+NurseNancy.NurseNancy = NurseNancy.NurseNancy or {}
 local feature = "NurseNancy"
 
 local function str_to_bool(str)

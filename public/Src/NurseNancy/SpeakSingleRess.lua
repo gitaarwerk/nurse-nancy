@@ -1,3 +1,5 @@
+NurseNancy.NurseNancy = NurseNancy.NurseNancy or {}
+
 function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
   local prefix = NurseNancyVars.usePrefix == true and "[Ressing ${targetName}]: " or ""
   local playerName, playerGender, playerClass, playerRace, playerLevel =
@@ -6,8 +8,8 @@ function NurseNancy.NurseNancy.speakSingleRess(targetGUID, spellId)
     NurseNancy.Helpers.GetTargetInformationByUID(targetGUID)
   local targetHimHer = NurseNancy.Helpers.GetHimHer(targetGender)
 
-  local Class = AFKAnsweringMachine.Constants.Class
-  local Race = AFKAnsweringMachine.Constants.Race
+  local Class = NurseNancy.Constants.Class
+  local Race = NurseNancy.Constants.Race
 
   -- dateFormat
   local rawTime = date("*t")
